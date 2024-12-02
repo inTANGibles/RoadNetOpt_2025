@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>style_module module &mdash; RoadNetOpt 0.5 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=37890895"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="train_module module" href="train_module.html" />
+    <link rel="prev" title="optimize_module module" href="optimize_module.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RoadNetOpt
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="DDPG.html">DDPG package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geo.html">geo package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graphic_module.html">graphic_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimize_module.html">optimize_module module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">style_module module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#style_module.StyleScheme"><code class="docutils literal notranslate"><span class="pre">StyleScheme</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.__init__"><code class="docutils literal notranslate"><span class="pre">StyleScheme.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.save_to_file"><code class="docutils literal notranslate"><span class="pre">StyleScheme.save_to_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.load_from_file"><code class="docutils literal notranslate"><span class="pre">StyleScheme.load_from_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.road_level_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.road_level_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.road_state_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.road_state_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.road_idx_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.road_idx_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.road_highlight_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.road_highlight_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.road_simple_style_factory_by_level"><code class="docutils literal notranslate"><span class="pre">StyleScheme.road_simple_style_factory_by_level()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.road_simple_style_factoryby_state"><code class="docutils literal notranslate"><span class="pre">StyleScheme.road_simple_style_factoryby_state()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.node_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.node_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.node_radius_penalty_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.node_radius_penalty_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.node_idx_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.node_idx_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.node_highlight_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.node_highlight_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.building_movable_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.building_movable_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.building_style_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.building_style_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.building_quality_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.building_quality_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.building_simple_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.building_simple_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.region_accessible_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.region_accessible_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.region_type_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.region_type_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.region_simple_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.region_simple_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_road_style_factory_by_name"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_road_style_factory_by_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_building_style_factory_by_name"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_building_style_factory_by_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_region_style_factory_by_name"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_region_style_factory_by_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_road_style_factory_by_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_road_style_factory_by_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_building_style_factory_by_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_building_style_factory_by_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_region_style_factory_by_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_region_style_factory_by_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_current_road_style_factory_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_road_style_factory_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_current_road_style_factory_name"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_road_style_factory_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_current_building_style_factory_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_building_style_factory_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_current_building_style_factory_name"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_building_style_factory_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_current_region_style_factory_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_region_style_factory_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_current_region_style_factory_name"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_region_style_factory_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_current_road_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_road_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_current_building_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_building_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.get_current_region_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_region_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.set_current_road_style_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.set_current_road_style_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.set_current_building_style_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.set_current_building_style_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.set_current_region_style_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.set_current_region_style_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.show_imgui_road_style_by_level_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_road_style_by_level_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.show_imgui_road_style_by_state_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_road_style_by_state_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.show_imgui_highlighted_road_style_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_highlighted_road_style_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.show_imgui_highlighted_node_style_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_highlighted_node_style_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.show_imgui_building_style_by_movable_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_building_style_by_movable_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.show_imgui_building_style_by_style_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_building_style_by_style_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.show_imgui_building_style_by_quality_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_building_style_by_quality_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.show_imgui_region_style_by_accessible_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_region_style_by_accessible_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.show_imgui_region_style_by_type_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_region_style_by_type_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.show_imgui_node_style_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_node_style_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleScheme.show_imgui_style_editor"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_style_editor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#style_module.StyleManager"><code class="docutils literal notranslate"><span class="pre">StyleManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleManager.instance"><code class="docutils literal notranslate"><span class="pre">StyleManager.instance</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleManager.I"><code class="docutils literal notranslate"><span class="pre">StyleManager.I</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleManager.__init__"><code class="docutils literal notranslate"><span class="pre">StyleManager.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleManager.dis"><code class="docutils literal notranslate"><span class="pre">StyleManager.dis</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#style_module.StyleManager.env"><code class="docutils literal notranslate"><span class="pre">StyleManager.env</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="train_module.html">train_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources_module.html">resources_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RoadNetOpt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">style_module module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/style_module.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-style_module">
+<span id="style-module-module"></span><h1>style_module module<a class="headerlink" href="#module-style_module" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="style_module.StyleScheme">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">style_module.</span></span><span class="sig-name descname"><span class="pre">StyleScheme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>风格方案</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.save_to_file">
+<span class="sig-name descname"><span class="pre">save_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.save_to_file" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.load_from_file">
+<span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.load_from_file" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.road_level_style_factory">
+<span class="sig-name descname"><span class="pre">road_level_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roads</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.road_level_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.road_state_style_factory">
+<span class="sig-name descname"><span class="pre">road_state_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roads</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.road_state_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.road_idx_style_factory">
+<span class="sig-name descname"><span class="pre">road_idx_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roads</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.road_idx_style_factory" title="Link to this definition"></a></dt>
+<dd><p>将road idx 编码为uint32， 并转换为4个uint8，
+其中最后一个透明通道需要始终保持为不透明状态，因此实际只有三个uint8的空间可以使用
+为了增加颜色编码的识别度，使用以3为步长的序号编码，
+因此最大支持的道路数量为uint24的最大表示数字 16_777_216 / 3</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.road_highlight_style_factory">
+<span class="sig-name descname"><span class="pre">road_highlight_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roads</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.road_highlight_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.road_simple_style_factory_by_level">
+<span class="sig-name descname"><span class="pre">road_simple_style_factory_by_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roads</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.road_simple_style_factory_by_level" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.road_simple_style_factoryby_state">
+<span class="sig-name descname"><span class="pre">road_simple_style_factoryby_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roads</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.road_simple_style_factoryby_state" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.node_style_factory">
+<span class="sig-name descname"><span class="pre">node_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.node_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.node_radius_penalty_factory">
+<span class="sig-name descname"><span class="pre">node_radius_penalty_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.node_radius_penalty_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.node_idx_style_factory">
+<span class="sig-name descname"><span class="pre">node_idx_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.node_idx_style_factory" title="Link to this definition"></a></dt>
+<dd><p>将node idx 编码为uint32， 并转换为4个uint8，
+其中最后一个透明通道需要始终保持为不透明状态，因此实际只有三个uint8的空间可以使用
+为了增加颜色编码的识别度，使用以3为步长的序号编码，
+因此最大支持的道路数量为uint24的最大表示数字 16_777_216 / 3</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.node_highlight_style_factory">
+<span class="sig-name descname"><span class="pre">node_highlight_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.node_highlight_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.building_movable_style_factory">
+<span class="sig-name descname"><span class="pre">building_movable_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buildings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.building_movable_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.building_style_style_factory">
+<span class="sig-name descname"><span class="pre">building_style_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buildings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.building_style_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.building_quality_style_factory">
+<span class="sig-name descname"><span class="pre">building_quality_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buildings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.building_quality_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.building_simple_style_factory">
+<span class="sig-name descname"><span class="pre">building_simple_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buildings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.building_simple_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.region_accessible_style_factory">
+<span class="sig-name descname"><span class="pre">region_accessible_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.region_accessible_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.region_type_style_factory">
+<span class="sig-name descname"><span class="pre">region_type_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.region_type_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.region_simple_style_factory">
+<span class="sig-name descname"><span class="pre">region_simple_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.region_simple_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_road_style_factory_by_name">
+<span class="sig-name descname"><span class="pre">get_road_style_factory_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.get_road_style_factory_by_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_building_style_factory_by_name">
+<span class="sig-name descname"><span class="pre">get_building_style_factory_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.get_building_style_factory_by_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_region_style_factory_by_name">
+<span class="sig-name descname"><span class="pre">get_region_style_factory_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.get_region_style_factory_by_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_road_style_factory_by_idx">
+<span class="sig-name descname"><span class="pre">get_road_style_factory_by_idx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.get_road_style_factory_by_idx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_building_style_factory_by_idx">
+<span class="sig-name descname"><span class="pre">get_building_style_factory_by_idx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.get_building_style_factory_by_idx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_region_style_factory_by_idx">
+<span class="sig-name descname"><span class="pre">get_region_style_factory_by_idx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.get_region_style_factory_by_idx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_current_road_style_factory_idx">
+<span class="sig-name descname"><span class="pre">get_current_road_style_factory_idx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#style_module.StyleScheme.get_current_road_style_factory_idx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_current_road_style_factory_name">
+<span class="sig-name descname"><span class="pre">get_current_road_style_factory_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#style_module.StyleScheme.get_current_road_style_factory_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_current_building_style_factory_idx">
+<span class="sig-name descname"><span class="pre">get_current_building_style_factory_idx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#style_module.StyleScheme.get_current_building_style_factory_idx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_current_building_style_factory_name">
+<span class="sig-name descname"><span class="pre">get_current_building_style_factory_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#style_module.StyleScheme.get_current_building_style_factory_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_current_region_style_factory_idx">
+<span class="sig-name descname"><span class="pre">get_current_region_style_factory_idx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#style_module.StyleScheme.get_current_region_style_factory_idx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_current_region_style_factory_name">
+<span class="sig-name descname"><span class="pre">get_current_region_style_factory_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#style_module.StyleScheme.get_current_region_style_factory_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_current_road_style_factory">
+<span class="sig-name descname"><span class="pre">get_current_road_style_factory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.get_current_road_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_current_building_style_factory">
+<span class="sig-name descname"><span class="pre">get_current_building_style_factory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.get_current_building_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.get_current_region_style_factory">
+<span class="sig-name descname"><span class="pre">get_current_region_style_factory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.get_current_region_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.set_current_road_style_idx">
+<span class="sig-name descname"><span class="pre">set_current_road_style_idx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.set_current_road_style_idx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.set_current_building_style_idx">
+<span class="sig-name descname"><span class="pre">set_current_building_style_idx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.set_current_building_style_idx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.set_current_region_style_idx">
+<span class="sig-name descname"><span class="pre">set_current_region_style_idx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.set_current_region_style_idx" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.show_imgui_road_style_by_level_picker">
+<span class="sig-name descname"><span class="pre">show_imgui_road_style_by_level_picker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.show_imgui_road_style_by_level_picker" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.show_imgui_road_style_by_state_picker">
+<span class="sig-name descname"><span class="pre">show_imgui_road_style_by_state_picker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.show_imgui_road_style_by_state_picker" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.show_imgui_highlighted_road_style_picker">
+<span class="sig-name descname"><span class="pre">show_imgui_highlighted_road_style_picker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.show_imgui_highlighted_road_style_picker" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.show_imgui_highlighted_node_style_picker">
+<span class="sig-name descname"><span class="pre">show_imgui_highlighted_node_style_picker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.show_imgui_highlighted_node_style_picker" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.show_imgui_building_style_by_movable_picker">
+<span class="sig-name descname"><span class="pre">show_imgui_building_style_by_movable_picker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.show_imgui_building_style_by_movable_picker" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.show_imgui_building_style_by_style_picker">
+<span class="sig-name descname"><span class="pre">show_imgui_building_style_by_style_picker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.show_imgui_building_style_by_style_picker" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.show_imgui_building_style_by_quality_picker">
+<span class="sig-name descname"><span class="pre">show_imgui_building_style_by_quality_picker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.show_imgui_building_style_by_quality_picker" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.show_imgui_region_style_by_accessible_picker">
+<span class="sig-name descname"><span class="pre">show_imgui_region_style_by_accessible_picker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.show_imgui_region_style_by_accessible_picker" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.show_imgui_region_style_by_type_picker">
+<span class="sig-name descname"><span class="pre">show_imgui_region_style_by_type_picker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.show_imgui_region_style_by_type_picker" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.show_imgui_node_style_picker">
+<span class="sig-name descname"><span class="pre">show_imgui_node_style_picker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.show_imgui_node_style_picker" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleScheme.show_imgui_style_editor">
+<span class="sig-name descname"><span class="pre">show_imgui_style_editor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road_style_change_callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">building_style_change_callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_style_change_callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_style_change_callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">highlight_style_change_callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleScheme.show_imgui_style_editor" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="style_module.StyleManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">style_module.</span></span><span class="sig-name descname"><span class="pre">StyleManager</span></span><a class="headerlink" href="#style_module.StyleManager" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="style_module.StyleManager.instance">
+<span class="sig-name descname"><span class="pre">instance</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#style_module.StyleManager" title="style_module.StyleManager"><span class="pre">StyleManager</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;style_module.StyleManager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#style_module.StyleManager.instance" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="style_module.StyleManager.I">
+<span class="sig-name descname"><span class="pre">I</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#style_module.StyleManager" title="style_module.StyleManager"><span class="pre">StyleManager</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;style_module.StyleManager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#style_module.StyleManager.I" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="style_module.StyleManager.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#style_module.StyleManager.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="style_module.StyleManager.dis">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dis</span></span><a class="headerlink" href="#style_module.StyleManager.dis" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="style_module.StyleManager.env">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">env</span></span><a class="headerlink" href="#style_module.StyleManager.env" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="optimize_module.html" class="btn btn-neutral float-left" title="optimize_module module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="train_module.html" class="btn btn-neutral float-right" title="train_module module" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2024, FengYiheng WuWenxin QiuShubing。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

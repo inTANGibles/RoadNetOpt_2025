@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src &mdash; RoadNetOpt 0.5 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=37890895"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RoadNetOpt
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="DDPG.html">DDPG package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geo.html">geo package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graphic_module.html">graphic_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimize_module.html">optimize_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style_module.html">style_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_module.html">train_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources_module.html">resources_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RoadNetOpt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">src</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/modules.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="src">
+<h1>src<a class="headerlink" href="#src" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="DDPG.html">DDPG package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.legacy.html">DDPG.legacy package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#module-DDPG.legacy.env">DDPG.legacy.env module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#module-DDPG.legacy.reward_agent">DDPG.legacy.reward_agent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#module-DDPG.legacy.train1">DDPG.legacy.train1 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#module-DDPG.legacy.train2">DDPG.legacy.train2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#module-DDPG.legacy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html#module-DDPG.CNN">DDPG.CNN module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.CNN.CNN"><code class="docutils literal notranslate"><span class="pre">CNN</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.CNN.CNN.__init__"><code class="docutils literal notranslate"><span class="pre">CNN.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.CNN.CNN.forward"><code class="docutils literal notranslate"><span class="pre">CNN.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.CNN.CNN.calculate_cnn_output_shape"><code class="docutils literal notranslate"><span class="pre">CNN.calculate_cnn_output_shape()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.CNN.CNN.training"><code class="docutils literal notranslate"><span class="pre">CNN.training</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html#module-DDPG.DDPGNet">DDPG.DDPGNet module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.DDPGNet.PolicyNet"><code class="docutils literal notranslate"><span class="pre">PolicyNet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.DDPGNet.PolicyNet.__init__"><code class="docutils literal notranslate"><span class="pre">PolicyNet.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.DDPGNet.PolicyNet.forward"><code class="docutils literal notranslate"><span class="pre">PolicyNet.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.DDPGNet.PolicyNet.training"><code class="docutils literal notranslate"><span class="pre">PolicyNet.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.DDPGNet.CriticNet"><code class="docutils literal notranslate"><span class="pre">CriticNet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.DDPGNet.CriticNet.__init__"><code class="docutils literal notranslate"><span class="pre">CriticNet.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.DDPGNet.CriticNet.forward"><code class="docutils literal notranslate"><span class="pre">CriticNet.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.DDPGNet.CriticNet.training"><code class="docutils literal notranslate"><span class="pre">CriticNet.training</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html#module-DDPG.ReplayBuffer">DDPG.ReplayBuffer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.ReplayBuffer.ReplayBuffer"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.ReplayBuffer.ReplayBuffer.__init__"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.ReplayBuffer.ReplayBuffer.add"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.ReplayBuffer.ReplayBuffer.sample"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.sample()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.ReplayBuffer.ReplayBuffer.size"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.ReplayBuffer.ReplayBuffer.save"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.ReplayBuffer.ReplayBuffer.load"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.load()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html#module-DDPG.agent">DDPG.agent module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.agent.Agent"><code class="docutils literal notranslate"><span class="pre">Agent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.agent.Agent.__init__"><code class="docutils literal notranslate"><span class="pre">Agent.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.agent.Agent.actor"><code class="docutils literal notranslate"><span class="pre">Agent.actor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.agent.Agent.target_actor"><code class="docutils literal notranslate"><span class="pre">Agent.target_actor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.agent.Agent.critic_optimizer"><code class="docutils literal notranslate"><span class="pre">Agent.critic_optimizer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.agent.Agent.take_action"><code class="docutils literal notranslate"><span class="pre">Agent.take_action()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.agent.Agent.soft_update"><code class="docutils literal notranslate"><span class="pre">Agent.soft_update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.agent.Agent.update"><code class="docutils literal notranslate"><span class="pre">Agent.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html#module-DDPG.env">DDPG.env module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.env.RenderBackend"><code class="docutils literal notranslate"><span class="pre">RenderBackend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.env.RenderBackend.MATPLOTLIB"><code class="docutils literal notranslate"><span class="pre">RenderBackend.MATPLOTLIB</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.env.RenderBackend.OPENGL"><code class="docutils literal notranslate"><span class="pre">RenderBackend.OPENGL</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.env.RoadEnv"><code class="docutils literal notranslate"><span class="pre">RoadEnv</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.env.RoadEnv.MyTimer"><code class="docutils literal notranslate"><span class="pre">RoadEnv.MyTimer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.env.RoadEnv.__init__"><code class="docutils literal notranslate"><span class="pre">RoadEnv.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.env.RoadEnv.clear_and_spawn_agents"><code class="docutils literal notranslate"><span class="pre">RoadEnv.clear_and_spawn_agents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.env.RoadEnv.done_in_ndarray_format"><code class="docutils literal notranslate"><span class="pre">RoadEnv.done_in_ndarray_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.env.RoadEnv.final_reward"><code class="docutils literal notranslate"><span class="pre">RoadEnv.final_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.env.RoadEnv.get_image_observation"><code class="docutils literal notranslate"><span class="pre">RoadEnv.get_image_observation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.env.RoadEnv.render"><code class="docutils literal notranslate"><span class="pre">RoadEnv.render()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.env.RoadEnv.reset"><code class="docutils literal notranslate"><span class="pre">RoadEnv.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.env.RoadEnv.reward"><code class="docutils literal notranslate"><span class="pre">RoadEnv.reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.env.RoadEnv.step"><code class="docutils literal notranslate"><span class="pre">RoadEnv.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.env.sequential_mode_init"><code class="docutils literal notranslate"><span class="pre">sequential_mode_init()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.env.sequential_mode_reset"><code class="docutils literal notranslate"><span class="pre">sequential_mode_reset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.env.sequential_mode_step"><code class="docutils literal notranslate"><span class="pre">sequential_mode_step()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.env.synchronous_mode_init"><code class="docutils literal notranslate"><span class="pre">synchronous_mode_init()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.env.synchronous_mode_reset"><code class="docutils literal notranslate"><span class="pre">synchronous_mode_reset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.env.synchronous_mode_step"><code class="docutils literal notranslate"><span class="pre">synchronous_mode_step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html#module-DDPG.reward_agent">DDPG.reward_agent module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.reward_agent.RewardAgent"><code class="docutils literal notranslate"><span class="pre">RewardAgent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.reward_agent.RewardAgent.__init__"><code class="docutils literal notranslate"><span class="pre">RewardAgent.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.reward_agent.RewardAgent.backward_penalty"><code class="docutils literal notranslate"><span class="pre">RewardAgent.backward_penalty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.reward_agent.RewardAgent.bound_reward"><code class="docutils literal notranslate"><span class="pre">RewardAgent.bound_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.reward_agent.RewardAgent.building_region_reward"><code class="docutils literal notranslate"><span class="pre">RewardAgent.building_region_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.reward_agent.RewardAgent.get_final_rewards"><code class="docutils literal notranslate"><span class="pre">RewardAgent.get_final_rewards()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.reward_agent.RewardAgent.get_rewards"><code class="docutils literal notranslate"><span class="pre">RewardAgent.get_rewards()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.reward_agent.RewardAgent.graph_reward"><code class="docutils literal notranslate"><span class="pre">RewardAgent.graph_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.reward_agent.RewardAgent.reset"><code class="docutils literal notranslate"><span class="pre">RewardAgent.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.reward_agent.RewardAgent.road_reward"><code class="docutils literal notranslate"><span class="pre">RewardAgent.road_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.reward_agent.RewardAgent.step_penalty"><code class="docutils literal notranslate"><span class="pre">RewardAgent.step_penalty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.reward_agent.RewardAgent.terrain_reward"><code class="docutils literal notranslate"><span class="pre">RewardAgent.terrain_reward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html#module-DDPG.test">DDPG.test module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.test.test"><code class="docutils literal notranslate"><span class="pre">test()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html#module-DDPG.train">DDPG.train module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.train.LimitedQueue"><code class="docutils literal notranslate"><span class="pre">LimitedQueue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.train.LimitedQueue.__init__"><code class="docutils literal notranslate"><span class="pre">LimitedQueue.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.train.LimitedQueue.append"><code class="docutils literal notranslate"><span class="pre">LimitedQueue.append()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.train.MyTimer"><code class="docutils literal notranslate"><span class="pre">MyTimer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.train.MyTimer.__init__"><code class="docutils literal notranslate"><span class="pre">MyTimer.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.train.TrainMode"><code class="docutils literal notranslate"><span class="pre">TrainMode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.train.TrainMode.WARMUP"><code class="docutils literal notranslate"><span class="pre">TrainMode.WARMUP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.html#DDPG.train.TrainMode.TRAIN"><code class="docutils literal notranslate"><span class="pre">TrainMode.TRAIN</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.train.train"><code class="docutils literal notranslate"><span class="pre">train()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.train.epoch_generator"><code class="docutils literal notranslate"><span class="pre">epoch_generator()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.train.agent_play"><code class="docutils literal notranslate"><span class="pre">agent_play()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.train.agent_update"><code class="docutils literal notranslate"><span class="pre">agent_update()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.train.agent_take_action"><code class="docutils literal notranslate"><span class="pre">agent_take_action()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.train.shift_reward"><code class="docutils literal notranslate"><span class="pre">shift_reward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.train.assign_reward_weights"><code class="docutils literal notranslate"><span class="pre">assign_reward_weights()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.train.calculate_episode_return"><code class="docutils literal notranslate"><span class="pre">calculate_episode_return()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.train.add_to_replay_buffer"><code class="docutils literal notranslate"><span class="pre">add_to_replay_buffer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.train.save_model"><code class="docutils literal notranslate"><span class="pre">save_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.html#module-DDPG">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.conv"><code class="docutils literal notranslate"><span class="pre">conv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.html#DDPG.pool"><code class="docutils literal notranslate"><span class="pre">pool()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="GUI.html">GUI module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">examples module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#examples.init_plt"><code class="docutils literal notranslate"><span class="pre">init_plt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#examples.init_canvas"><code class="docutils literal notranslate"><span class="pre">init_canvas()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#examples.plot_obj"><code class="docutils literal notranslate"><span class="pre">plot_obj()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#examples.example_data_to_roads"><code class="docutils literal notranslate"><span class="pre">example_data_to_roads()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#examples.example_data_to_all"><code class="docutils literal notranslate"><span class="pre">example_data_to_all()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#examples.example_road_to_graph"><code class="docutils literal notranslate"><span class="pre">example_road_to_graph()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#examples.example_simplify_roads"><code class="docutils literal notranslate"><span class="pre">example_simplify_roads()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#examples.example_buildings_from_data"><code class="docutils literal notranslate"><span class="pre">example_buildings_from_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#examples.example_add_and_modify_road"><code class="docutils literal notranslate"><span class="pre">example_add_and_modify_road()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fields.html">fields package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fields.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fields.html#module-fields.attraction_field">fields.attraction_field module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fields.html#fields.attraction_field.AttractionField"><code class="docutils literal notranslate"><span class="pre">AttractionField</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.attraction_field.AttractionField.__init__"><code class="docutils literal notranslate"><span class="pre">AttractionField.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.attraction_field.AttractionField.sample"><code class="docutils literal notranslate"><span class="pre">AttractionField.sample()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fields.html#module-fields.building_field">fields.building_field module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fields.html#fields.building_field.BuildingField"><code class="docutils literal notranslate"><span class="pre">BuildingField</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.building_field.BuildingField.__init__"><code class="docutils literal notranslate"><span class="pre">BuildingField.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.building_field.BuildingField.sample"><code class="docutils literal notranslate"><span class="pre">BuildingField.sample()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fields.html#module-fields.direction_field">fields.direction_field module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fields.html#fields.direction_field.DirectionField"><code class="docutils literal notranslate"><span class="pre">DirectionField</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.direction_field.DirectionField.__init__"><code class="docutils literal notranslate"><span class="pre">DirectionField.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.direction_field.DirectionField.sample"><code class="docutils literal notranslate"><span class="pre">DirectionField.sample()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fields.html#module-fields.momentum_field">fields.momentum_field module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fields.html#fields.momentum_field.MomentumField"><code class="docutils literal notranslate"><span class="pre">MomentumField</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.momentum_field.MomentumField.__init__"><code class="docutils literal notranslate"><span class="pre">MomentumField.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.momentum_field.MomentumField.sample"><code class="docutils literal notranslate"><span class="pre">MomentumField.sample()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fields.html#module-fields.random_field">fields.random_field module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fields.html#fields.random_field.RandomField"><code class="docutils literal notranslate"><span class="pre">RandomField</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.random_field.RandomField.__init__"><code class="docutils literal notranslate"><span class="pre">RandomField.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.random_field.RandomField.sample"><code class="docutils literal notranslate"><span class="pre">RandomField.sample()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fields.html#module-fields">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fields.html#fields.Field"><code class="docutils literal notranslate"><span class="pre">Field</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.Field.__init__"><code class="docutils literal notranslate"><span class="pre">Field.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.Field.update"><code class="docutils literal notranslate"><span class="pre">Field.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.Field.sample"><code class="docutils literal notranslate"><span class="pre">Field.sample()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.Field.plot"><code class="docutils literal notranslate"><span class="pre">Field.plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fields.html#fields.Field.cache"><code class="docutils literal notranslate"><span class="pre">Field.cache()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="geo.html">geo package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="geo.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geo.html#module-geo.building">geo.building module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="geo.html#geo.building.Building"><code class="docutils literal notranslate"><span class="pre">Building</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.uid"><code class="docutils literal notranslate"><span class="pre">Building.uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.add_building"><code class="docutils literal notranslate"><span class="pre">Building.add_building()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.add_buildings"><code class="docutils literal notranslate"><span class="pre">Building.add_buildings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.add_building_by_coords"><code class="docutils literal notranslate"><span class="pre">Building.add_building_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.add_buildings_by_coords"><code class="docutils literal notranslate"><span class="pre">Building.add_buildings_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.delete_building"><code class="docutils literal notranslate"><span class="pre">Building.delete_building()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.delete_building_by_uid"><code class="docutils literal notranslate"><span class="pre">Building.delete_building_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.delete_all"><code class="docutils literal notranslate"><span class="pre">Building.delete_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.get_building_attrs"><code class="docutils literal notranslate"><span class="pre">Building.get_building_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.get_building_by_uid"><code class="docutils literal notranslate"><span class="pre">Building.get_building_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.get_building_by_index"><code class="docutils literal notranslate"><span class="pre">Building.get_building_by_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.get_buildings_by_attr_and_value"><code class="docutils literal notranslate"><span class="pre">Building.get_buildings_by_attr_and_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.get_first_building"><code class="docutils literal notranslate"><span class="pre">Building.get_first_building()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.get_last_building"><code class="docutils literal notranslate"><span class="pre">Building.get_last_building()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.get_all_buildings"><code class="docutils literal notranslate"><span class="pre">Building.get_all_buildings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.get_buildings_by_cluster"><code class="docutils literal notranslate"><span class="pre">Building.get_buildings_by_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.set_attr_value"><code class="docutils literal notranslate"><span class="pre">Building.set_attr_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.plot_buildings"><code class="docutils literal notranslate"><span class="pre">Building.plot_buildings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.plot_all"><code class="docutils literal notranslate"><span class="pre">Building.plot_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.plot_using_style_factory"><code class="docutils literal notranslate"><span class="pre">Building.plot_using_style_factory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.get_vertices_data"><code class="docutils literal notranslate"><span class="pre">Building.get_vertices_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.data_to_buildings"><code class="docutils literal notranslate"><span class="pre">Building.data_to_buildings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.building.Building.buildings_to_data"><code class="docutils literal notranslate"><span class="pre">Building.buildings_to_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="geo.html#module-geo.region">geo.region module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="geo.html#geo.region.Region"><code class="docutils literal notranslate"><span class="pre">Region</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.uid"><code class="docutils literal notranslate"><span class="pre">Region.uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.create_regions_by_coords"><code class="docutils literal notranslate"><span class="pre">Region.create_regions_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.add_region"><code class="docutils literal notranslate"><span class="pre">Region.add_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.add_regions"><code class="docutils literal notranslate"><span class="pre">Region.add_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.add_region_by_coords"><code class="docutils literal notranslate"><span class="pre">Region.add_region_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.add_regions_by_coords"><code class="docutils literal notranslate"><span class="pre">Region.add_regions_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.delete_region"><code class="docutils literal notranslate"><span class="pre">Region.delete_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.delete_region_by_uid"><code class="docutils literal notranslate"><span class="pre">Region.delete_region_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.delete_all"><code class="docutils literal notranslate"><span class="pre">Region.delete_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.create_region_by_min_max"><code class="docutils literal notranslate"><span class="pre">Region.create_region_by_min_max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.get_region_attrs"><code class="docutils literal notranslate"><span class="pre">Region.get_region_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.get_region_by_uid"><code class="docutils literal notranslate"><span class="pre">Region.get_region_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.get_region_by_index"><code class="docutils literal notranslate"><span class="pre">Region.get_region_by_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.get_regions_by_attr_and_value"><code class="docutils literal notranslate"><span class="pre">Region.get_regions_by_attr_and_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.get_first_region"><code class="docutils literal notranslate"><span class="pre">Region.get_first_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.get_last_region"><code class="docutils literal notranslate"><span class="pre">Region.get_last_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.get_all_regions"><code class="docutils literal notranslate"><span class="pre">Region.get_all_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.get_regions_by_cluster"><code class="docutils literal notranslate"><span class="pre">Region.get_regions_by_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.set_attr_value"><code class="docutils literal notranslate"><span class="pre">Region.set_attr_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.plot_regions"><code class="docutils literal notranslate"><span class="pre">Region.plot_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.plot_all"><code class="docutils literal notranslate"><span class="pre">Region.plot_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.plot_using_style_factory"><code class="docutils literal notranslate"><span class="pre">Region.plot_using_style_factory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.get_vertices_data"><code class="docutils literal notranslate"><span class="pre">Region.get_vertices_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.data_to_regions"><code class="docutils literal notranslate"><span class="pre">Region.data_to_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.region.Region.regions_to_data"><code class="docutils literal notranslate"><span class="pre">Region.regions_to_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="geo.html#module-geo.road">geo.road module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="geo.html#geo.road.Road"><code class="docutils literal notranslate"><span class="pre">Road</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.uid"><code class="docutils literal notranslate"><span class="pre">Road.uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_node_by_uid"><code class="docutils literal notranslate"><span class="pre">Road.get_node_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_node_by_index"><code class="docutils literal notranslate"><span class="pre">Road.get_node_by_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_nodes_by_indexes"><code class="docutils literal notranslate"><span class="pre">Road.get_nodes_by_indexes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_node_coord"><code class="docutils literal notranslate"><span class="pre">Road.get_node_coord()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.clear_unused_nodes"><code class="docutils literal notranslate"><span class="pre">Road.clear_unused_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.rebuild_coord_to_uid_dict"><code class="docutils literal notranslate"><span class="pre">Road.rebuild_coord_to_uid_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_all_nodes"><code class="docutils literal notranslate"><span class="pre">Road.get_all_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_close_nodes"><code class="docutils literal notranslate"><span class="pre">Road.get_close_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_nodes_avg_coord"><code class="docutils literal notranslate"><span class="pre">Road.get_nodes_avg_coord()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.merge_nodes"><code class="docutils literal notranslate"><span class="pre">Road.merge_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.merge_all_close_nodes"><code class="docutils literal notranslate"><span class="pre">Road.merge_all_close_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.create_roads_by_coords"><code class="docutils literal notranslate"><span class="pre">Road.create_roads_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.add_road"><code class="docutils literal notranslate"><span class="pre">Road.add_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.add_roads"><code class="docutils literal notranslate"><span class="pre">Road.add_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.add_road_by_coords"><code class="docutils literal notranslate"><span class="pre">Road.add_road_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.add_roads_by_coords"><code class="docutils literal notranslate"><span class="pre">Road.add_roads_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.delete_road"><code class="docutils literal notranslate"><span class="pre">Road.delete_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.delete_road_by_uid"><code class="docutils literal notranslate"><span class="pre">Road.delete_road_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.delete_roads_by_uids_list"><code class="docutils literal notranslate"><span class="pre">Road.delete_roads_by_uids_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.delete_all"><code class="docutils literal notranslate"><span class="pre">Road.delete_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_edge_attrs"><code class="docutils literal notranslate"><span class="pre">Road.get_edge_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_node_attrs"><code class="docutils literal notranslate"><span class="pre">Road.get_node_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_road_by_uid"><code class="docutils literal notranslate"><span class="pre">Road.get_road_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_road_by_index"><code class="docutils literal notranslate"><span class="pre">Road.get_road_by_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_roads_by_indexes"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_indexes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_roads_by_attr_and_value"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_attr_and_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_node_by_attr_and_value"><code class="docutils literal notranslate"><span class="pre">Road.get_node_by_attr_and_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_first_road"><code class="docutils literal notranslate"><span class="pre">Road.get_first_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_last_road"><code class="docutils literal notranslate"><span class="pre">Road.get_last_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_all_roads"><code class="docutils literal notranslate"><span class="pre">Road.get_all_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_roads_by_node"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_roads_by_cluster"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_road_by_hash"><code class="docutils literal notranslate"><span class="pre">Road.get_road_by_hash()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_roads_by_hashes"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_hashes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_valid_spawn_range"><code class="docutils literal notranslate"><span class="pre">Road.get_valid_spawn_range()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_road_last_point"><code class="docutils literal notranslate"><span class="pre">Road.get_road_last_point()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_road_last_element"><code class="docutils literal notranslate"><span class="pre">Road.get_road_last_element()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_dead_ends"><code class="docutils literal notranslate"><span class="pre">Road.get_dead_ends()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.add_point_to_road"><code class="docutils literal notranslate"><span class="pre">Road.add_point_to_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.add_points_to_road"><code class="docutils literal notranslate"><span class="pre">Road.add_points_to_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.update_road_points"><code class="docutils literal notranslate"><span class="pre">Road.update_road_points()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.replace_u"><code class="docutils literal notranslate"><span class="pre">Road.replace_u()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.replace_v"><code class="docutils literal notranslate"><span class="pre">Road.replace_v()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.detect_intersection"><code class="docutils literal notranslate"><span class="pre">Road.detect_intersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.interpolate_road"><code class="docutils literal notranslate"><span class="pre">Road.interpolate_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.interpolate_road_by_random_position"><code class="docutils literal notranslate"><span class="pre">Road.interpolate_road_by_random_position()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.split_road"><code class="docutils literal notranslate"><span class="pre">Road.split_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.split_road_by_coord"><code class="docutils literal notranslate"><span class="pre">Road.split_road_by_coord()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.split_road_by_coords"><code class="docutils literal notranslate"><span class="pre">Road.split_road_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.split_roads_by_intersection_data"><code class="docutils literal notranslate"><span class="pre">Road.split_roads_by_intersection_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.merge_roads"><code class="docutils literal notranslate"><span class="pre">Road.merge_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.simplify_roads"><code class="docutils literal notranslate"><span class="pre">Road.simplify_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.examine_invalid_roads"><code class="docutils literal notranslate"><span class="pre">Road.examine_invalid_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.auto_fix"><code class="docutils literal notranslate"><span class="pre">Road.auto_fix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_vertices_data_legacy"><code class="docutils literal notranslate"><span class="pre">Road.get_vertices_data_legacy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_vertices_data"><code class="docutils literal notranslate"><span class="pre">Road.get_vertices_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_node_vertices_data_legacy"><code class="docutils literal notranslate"><span class="pre">Road.get_node_vertices_data_legacy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.get_node_vertices_data"><code class="docutils literal notranslate"><span class="pre">Road.get_node_vertices_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.to_graph"><code class="docutils literal notranslate"><span class="pre">Road.to_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.from_graph"><code class="docutils literal notranslate"><span class="pre">Road.from_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.data_to_roads"><code class="docutils literal notranslate"><span class="pre">Road.data_to_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.roads_to_data"><code class="docutils literal notranslate"><span class="pre">Road.roads_to_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.quick_roads"><code class="docutils literal notranslate"><span class="pre">Road.quick_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.show_info"><code class="docutils literal notranslate"><span class="pre">Road.show_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.cache"><code class="docutils literal notranslate"><span class="pre">Road.cache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.clear_cache"><code class="docutils literal notranslate"><span class="pre">Road.clear_cache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road.Road.restore"><code class="docutils literal notranslate"><span class="pre">Road.restore()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="geo.html#module-geo.road_c">geo.road_c module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="geo.html#geo.road_c.Road"><code class="docutils literal notranslate"><span class="pre">Road</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.uid"><code class="docutils literal notranslate"><span class="pre">Road.uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.clear_unused_nodes"><code class="docutils literal notranslate"><span class="pre">Road.clear_unused_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.get_all_nodes"><code class="docutils literal notranslate"><span class="pre">Road.get_all_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.get_close_nodes"><code class="docutils literal notranslate"><span class="pre">Road.get_close_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.merge_grouped_nodes"><code class="docutils literal notranslate"><span class="pre">Road.merge_grouped_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.add_road_by_coords"><code class="docutils literal notranslate"><span class="pre">Road.add_road_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.add_roads_by_coords"><code class="docutils literal notranslate"><span class="pre">Road.add_roads_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.remove_road"><code class="docutils literal notranslate"><span class="pre">Road.remove_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.remove_all_roads"><code class="docutils literal notranslate"><span class="pre">Road.remove_all_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.get_road_by_uid"><code class="docutils literal notranslate"><span class="pre">Road.get_road_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.get_road_by_index"><code class="docutils literal notranslate"><span class="pre">Road.get_road_by_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.get_roads_by_indexes"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_indexes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.get_roads_by_attr_and_value"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_attr_and_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.get_all_roads"><code class="docutils literal notranslate"><span class="pre">Road.get_all_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.get_roads_by_cluster"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.get_valid_spawn_range"><code class="docutils literal notranslate"><span class="pre">Road.get_valid_spawn_range()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.get_road_last_coord"><code class="docutils literal notranslate"><span class="pre">Road.get_road_last_coord()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.get_road_last_vector"><code class="docutils literal notranslate"><span class="pre">Road.get_road_last_vector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.update_coords"><code class="docutils literal notranslate"><span class="pre">Road.update_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.add_u_node"><code class="docutils literal notranslate"><span class="pre">Road.add_u_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.add_v_node"><code class="docutils literal notranslate"><span class="pre">Road.add_v_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.replace_u_node"><code class="docutils literal notranslate"><span class="pre">Road.replace_u_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.replace_v_node"><code class="docutils literal notranslate"><span class="pre">Road.replace_v_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.interpolate_road"><code class="docutils literal notranslate"><span class="pre">Road.interpolate_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.split_road"><code class="docutils literal notranslate"><span class="pre">Road.split_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.split_road_by_coord"><code class="docutils literal notranslate"><span class="pre">Road.split_road_by_coord()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.split_road_by_random_position"><code class="docutils literal notranslate"><span class="pre">Road.split_road_by_random_position()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.merge_roads"><code class="docutils literal notranslate"><span class="pre">Road.merge_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.simplify_roads"><code class="docutils literal notranslate"><span class="pre">Road.simplify_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.get_vertices_data"><code class="docutils literal notranslate"><span class="pre">Road.get_vertices_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.get_node_vertices_data"><code class="docutils literal notranslate"><span class="pre">Road.get_node_vertices_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.to_graph"><code class="docutils literal notranslate"><span class="pre">Road.to_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.from_graph"><code class="docutils literal notranslate"><span class="pre">Road.from_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.data_to_roads"><code class="docutils literal notranslate"><span class="pre">Road.data_to_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.roads_to_data"><code class="docutils literal notranslate"><span class="pre">Road.roads_to_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.quick_roads"><code class="docutils literal notranslate"><span class="pre">Road.quick_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.show_info"><code class="docutils literal notranslate"><span class="pre">Road.show_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.cache"><code class="docutils literal notranslate"><span class="pre">Road.cache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.clear_cache"><code class="docutils literal notranslate"><span class="pre">Road.clear_cache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.road_c.Road.restore"><code class="docutils literal notranslate"><span class="pre">Road.restore()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="geo.html#module-geo.terrain">geo.terrain module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="geo.html#geo.terrain.Terrain"><code class="docutils literal notranslate"><span class="pre">Terrain</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.terrain.Terrain.plot_all"><code class="docutils literal notranslate"><span class="pre">Terrain.plot_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.terrain.Terrain.data_to_terrain"><code class="docutils literal notranslate"><span class="pre">Terrain.data_to_terrain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.terrain.Terrain.terrain_to_data"><code class="docutils literal notranslate"><span class="pre">Terrain.terrain_to_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="geo.html#module-geo">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="geo.html#geo.ObjectMeta"><code class="docutils literal notranslate"><span class="pre">ObjectMeta</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.ObjectMeta.__init__"><code class="docutils literal notranslate"><span class="pre">ObjectMeta.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.ObjectMeta.plot_all"><code class="docutils literal notranslate"><span class="pre">ObjectMeta.plot_all()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="geo.html#geo.Object"><code class="docutils literal notranslate"><span class="pre">Object</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.Object.__init__"><code class="docutils literal notranslate"><span class="pre">Object.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="geo.html#geo.Object.registry"><code class="docutils literal notranslate"><span class="pre">Object.registry</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="graphic_module.html">graphic_module module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.BlurPostProcessing"><code class="docutils literal notranslate"><span class="pre">BlurPostProcessing</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.BlurPostProcessing.__init__"><code class="docutils literal notranslate"><span class="pre">BlurPostProcessing.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.BuildingObserver"><code class="docutils literal notranslate"><span class="pre">BuildingObserver</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.BuildingObserver.__init__"><code class="docutils literal notranslate"><span class="pre">BuildingObserver.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.FrameBufferTexture"><code class="docutils literal notranslate"><span class="pre">FrameBufferTexture</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.FrameBufferTexture.__init__"><code class="docutils literal notranslate"><span class="pre">FrameBufferTexture.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.FrameBufferTexture.get_render_img"><code class="docutils literal notranslate"><span class="pre">FrameBufferTexture.get_render_img()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.FrameBufferTexture.render"><code class="docutils literal notranslate"><span class="pre">FrameBufferTexture.render()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.FrameBufferTexture.texture"><code class="docutils literal notranslate"><span class="pre">FrameBufferTexture.texture</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.FrameBufferTexture.texture_id"><code class="docutils literal notranslate"><span class="pre">FrameBufferTexture.texture_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.FrameBufferTexture.update_size"><code class="docutils literal notranslate"><span class="pre">FrameBufferTexture.update_size()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.GraphicManager"><code class="docutils literal notranslate"><span class="pre">GraphicManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.GraphicManager.I"><code class="docutils literal notranslate"><span class="pre">GraphicManager.I</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.GraphicManager.__init__"><code class="docutils literal notranslate"><span class="pre">GraphicManager.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.GraphicManager.bilt_to"><code class="docutils literal notranslate"><span class="pre">GraphicManager.bilt_to()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.GraphicManager.bilt_to_queue"><code class="docutils literal notranslate"><span class="pre">GraphicManager.bilt_to_queue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.GraphicManager.get_or_create_simple_texture"><code class="docutils literal notranslate"><span class="pre">GraphicManager.get_or_create_simple_texture()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.GraphicManager.handle_data_queue"><code class="docutils literal notranslate"><span class="pre">GraphicManager.handle_data_queue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.GraphicManager.register_frame_buffer_texture"><code class="docutils literal notranslate"><span class="pre">GraphicManager.register_frame_buffer_texture()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.GraphicManager.register_observer"><code class="docutils literal notranslate"><span class="pre">GraphicManager.register_observer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.GraphicManager.register_reward_observer"><code class="docutils literal notranslate"><span class="pre">GraphicManager.register_reward_observer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.GraphicManager.register_simple_texture"><code class="docutils literal notranslate"><span class="pre">GraphicManager.register_simple_texture()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.GraphicManager.unregister_frame_buffer_texture"><code class="docutils literal notranslate"><span class="pre">GraphicManager.unregister_frame_buffer_texture()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.GraphicManager.update"><code class="docutils literal notranslate"><span class="pre">GraphicManager.update()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.GraphicManager.update_main_graphic"><code class="docutils literal notranslate"><span class="pre">GraphicManager.update_main_graphic()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.ImguiWindowBlurLayer"><code class="docutils literal notranslate"><span class="pre">ImguiWindowBlurLayer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.ImguiWindowBlurLayer.__init__"><code class="docutils literal notranslate"><span class="pre">ImguiWindowBlurLayer.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.ImguiWindowBlurLayer.update"><code class="docutils literal notranslate"><span class="pre">ImguiWindowBlurLayer.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.__init__"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.add_close_node_debug_circle"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.add_close_node_debug_circle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.add_dead_node_debug_circle"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.add_dead_node_debug_circle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.add_intersection_debug_circle"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.add_intersection_debug_circle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.clear_building_data"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_building_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.clear_cache"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.clear_close_node_debug_circles"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_close_node_debug_circles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.clear_dead_node_debug_circles"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_dead_node_debug_circles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.clear_highlight_data"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_highlight_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.clear_intersection_debug_circles"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_intersection_debug_circles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.clear_node_data"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_node_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.clear_region_data"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_region_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.clear_road_data"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_road_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.clear_road_data_deep"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_road_data_deep()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.clear_x_y_lim"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_x_y_lim()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.end_drag_selection"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.end_drag_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.get_final_frame_buffer"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.get_final_frame_buffer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.get_final_texture_id"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.get_final_texture_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.get_road_or_node_idx_by_mouse_pos"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.get_road_or_node_idx_by_mouse_pos()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.mouse_pos_percent"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.mouse_pos_percent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.pan"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.pan()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.recheck_all"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.recheck_all()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.render"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.render()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.render_draw_list"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.render_draw_list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.show_imgui_display_editor"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.show_imgui_display_editor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.show_imgui_main_texture_settings"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.show_imgui_main_texture_settings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.start_drag_selection"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.start_drag_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.texture_ratio"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.texture_ratio</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.update"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.update()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.update_drag_selection"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.update_drag_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.world_space_height"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.world_space_height</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.world_space_width"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.world_space_width</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.zoom"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.zoom()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.MainFrameBufferTexture.zoom_all"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.zoom_all()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.NodeIdxFrameBufferTexture"><code class="docutils literal notranslate"><span class="pre">NodeIdxFrameBufferTexture</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.NodeIdxFrameBufferTexture.__init__"><code class="docutils literal notranslate"><span class="pre">NodeIdxFrameBufferTexture.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.NodeObserver"><code class="docutils literal notranslate"><span class="pre">NodeObserver</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.NodeObserver.__init__"><code class="docutils literal notranslate"><span class="pre">NodeObserver.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.ObsBlender"><code class="docutils literal notranslate"><span class="pre">ObsBlender</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.ObsBlender.__init__"><code class="docutils literal notranslate"><span class="pre">ObsBlender.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.Observer"><code class="docutils literal notranslate"><span class="pre">Observer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.Observer.__init__"><code class="docutils literal notranslate"><span class="pre">Observer.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.Observer.render"><code class="docutils literal notranslate"><span class="pre">Observer.render()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.Observer.update_buffer"><code class="docutils literal notranslate"><span class="pre">Observer.update_buffer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.Observer.update_observation_center"><code class="docutils literal notranslate"><span class="pre">Observer.update_observation_center()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.PostProcessing"><code class="docutils literal notranslate"><span class="pre">PostProcessing</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.PostProcessing.__init__"><code class="docutils literal notranslate"><span class="pre">PostProcessing.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.PostProcessing.render"><code class="docutils literal notranslate"><span class="pre">PostProcessing.render()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.PostProcessing.update_prog"><code class="docutils literal notranslate"><span class="pre">PostProcessing.update_prog()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.PostProcessingSequence"><code class="docutils literal notranslate"><span class="pre">PostProcessingSequence</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.PostProcessingSequence.__init__"><code class="docutils literal notranslate"><span class="pre">PostProcessingSequence.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.PostProcessingSequence.get_render_img"><code class="docutils literal notranslate"><span class="pre">PostProcessingSequence.get_render_img()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.PostProcessingSequence.render"><code class="docutils literal notranslate"><span class="pre">PostProcessingSequence.render()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.PostProcessingSequence.texture"><code class="docutils literal notranslate"><span class="pre">PostProcessingSequence.texture</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.PostProcessingSequence.texture_id"><code class="docutils literal notranslate"><span class="pre">PostProcessingSequence.texture_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.PostProcessingSequence.update_size"><code class="docutils literal notranslate"><span class="pre">PostProcessingSequence.update_size()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.RegionObserver"><code class="docutils literal notranslate"><span class="pre">RegionObserver</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.RegionObserver.__init__"><code class="docutils literal notranslate"><span class="pre">RegionObserver.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.RewardBlurPostProcessing"><code class="docutils literal notranslate"><span class="pre">RewardBlurPostProcessing</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.RewardBlurPostProcessing.__init__"><code class="docutils literal notranslate"><span class="pre">RewardBlurPostProcessing.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.RoadIdxFrameBufferTexture"><code class="docutils literal notranslate"><span class="pre">RoadIdxFrameBufferTexture</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.RoadIdxFrameBufferTexture.__init__"><code class="docutils literal notranslate"><span class="pre">RoadIdxFrameBufferTexture.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.RoadObserver"><code class="docutils literal notranslate"><span class="pre">RoadObserver</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.RoadObserver.__init__"><code class="docutils literal notranslate"><span class="pre">RoadObserver.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.ShaderPostProcessing"><code class="docutils literal notranslate"><span class="pre">ShaderPostProcessing</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.ShaderPostProcessing.__init__"><code class="docutils literal notranslate"><span class="pre">ShaderPostProcessing.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="graphic_module.html#graphic_module.SimpleTexture"><code class="docutils literal notranslate"><span class="pre">SimpleTexture</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.SimpleTexture.__init__"><code class="docutils literal notranslate"><span class="pre">SimpleTexture.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.SimpleTexture.bilt_data"><code class="docutils literal notranslate"><span class="pre">SimpleTexture.bilt_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="graphic_module.html#graphic_module.SimpleTexture.texture_id"><code class="docutils literal notranslate"><span class="pre">SimpleTexture.texture_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="optimize_module.html">optimize_module module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="optimize_module.html#optimize_module.RoadOptimizer"><code class="docutils literal notranslate"><span class="pre">RoadOptimizer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optimize_module.html#optimize_module.RoadOptimizer.__init__"><code class="docutils literal notranslate"><span class="pre">RoadOptimizer.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="optimize_module.html#optimize_module.RoadOptimizer.cluster_fields"><code class="docutils literal notranslate"><span class="pre">RoadOptimizer.cluster_fields()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="optimize_module.html#optimize_module.RoadOptimizer.clear_rewards"><code class="docutils literal notranslate"><span class="pre">RoadOptimizer.clear_rewards()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="optimize_module.html#optimize_module.RoadOptimizer.get_rewards"><code class="docutils literal notranslate"><span class="pre">RoadOptimizer.get_rewards()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="optimize_module.html#optimize_module.RoadOptimizer.step"><code class="docutils literal notranslate"><span class="pre">RoadOptimizer.step()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="optimize_module.html#optimize_module.RoadOptimizer.plot"><code class="docutils literal notranslate"><span class="pre">RoadOptimizer.plot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="resources_module.html">resources_module module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resources_module.html#resources_module.Resource"><code class="docutils literal notranslate"><span class="pre">Resource</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="resources_module.html#resources_module.Resource.__init__"><code class="docutils literal notranslate"><span class="pre">Resource.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources_module.html#resources_module.Resource.clear_data"><code class="docutils literal notranslate"><span class="pre">Resource.clear_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources_module.html#resources_module.Resource.get_data"><code class="docutils literal notranslate"><span class="pre">Resource.get_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="resources_module.html#resources_module.ResourcesManager"><code class="docutils literal notranslate"><span class="pre">ResourcesManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="resources_module.html#resources_module.ResourcesManager.__init__"><code class="docutils literal notranslate"><span class="pre">ResourcesManager.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources_module.html#resources_module.ResourcesManager.clear_data"><code class="docutils literal notranslate"><span class="pre">ResourcesManager.clear_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources_module.html#resources_module.ResourcesManager.create_resource"><code class="docutils literal notranslate"><span class="pre">ResourcesManager.create_resource()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="resources_module.html#resources_module.ResourcesManager.get_data"><code class="docutils literal notranslate"><span class="pre">ResourcesManager.get_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="style_module.html">style_module module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="style_module.html#style_module.StyleScheme"><code class="docutils literal notranslate"><span class="pre">StyleScheme</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.__init__"><code class="docutils literal notranslate"><span class="pre">StyleScheme.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.save_to_file"><code class="docutils literal notranslate"><span class="pre">StyleScheme.save_to_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.load_from_file"><code class="docutils literal notranslate"><span class="pre">StyleScheme.load_from_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.road_level_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.road_level_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.road_state_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.road_state_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.road_idx_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.road_idx_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.road_highlight_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.road_highlight_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.road_simple_style_factory_by_level"><code class="docutils literal notranslate"><span class="pre">StyleScheme.road_simple_style_factory_by_level()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.road_simple_style_factoryby_state"><code class="docutils literal notranslate"><span class="pre">StyleScheme.road_simple_style_factoryby_state()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.node_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.node_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.node_radius_penalty_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.node_radius_penalty_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.node_idx_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.node_idx_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.node_highlight_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.node_highlight_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.building_movable_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.building_movable_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.building_style_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.building_style_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.building_quality_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.building_quality_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.building_simple_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.building_simple_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.region_accessible_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.region_accessible_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.region_type_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.region_type_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.region_simple_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.region_simple_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_road_style_factory_by_name"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_road_style_factory_by_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_building_style_factory_by_name"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_building_style_factory_by_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_region_style_factory_by_name"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_region_style_factory_by_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_road_style_factory_by_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_road_style_factory_by_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_building_style_factory_by_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_building_style_factory_by_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_region_style_factory_by_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_region_style_factory_by_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_current_road_style_factory_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_road_style_factory_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_current_road_style_factory_name"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_road_style_factory_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_current_building_style_factory_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_building_style_factory_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_current_building_style_factory_name"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_building_style_factory_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_current_region_style_factory_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_region_style_factory_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_current_region_style_factory_name"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_region_style_factory_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_current_road_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_road_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_current_building_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_building_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.get_current_region_style_factory"><code class="docutils literal notranslate"><span class="pre">StyleScheme.get_current_region_style_factory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.set_current_road_style_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.set_current_road_style_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.set_current_building_style_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.set_current_building_style_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.set_current_region_style_idx"><code class="docutils literal notranslate"><span class="pre">StyleScheme.set_current_region_style_idx()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.show_imgui_road_style_by_level_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_road_style_by_level_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.show_imgui_road_style_by_state_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_road_style_by_state_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.show_imgui_highlighted_road_style_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_highlighted_road_style_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.show_imgui_highlighted_node_style_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_highlighted_node_style_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.show_imgui_building_style_by_movable_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_building_style_by_movable_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.show_imgui_building_style_by_style_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_building_style_by_style_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.show_imgui_building_style_by_quality_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_building_style_by_quality_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.show_imgui_region_style_by_accessible_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_region_style_by_accessible_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.show_imgui_region_style_by_type_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_region_style_by_type_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.show_imgui_node_style_picker"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_node_style_picker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleScheme.show_imgui_style_editor"><code class="docutils literal notranslate"><span class="pre">StyleScheme.show_imgui_style_editor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="style_module.html#style_module.StyleManager"><code class="docutils literal notranslate"><span class="pre">StyleManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleManager.instance"><code class="docutils literal notranslate"><span class="pre">StyleManager.instance</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleManager.I"><code class="docutils literal notranslate"><span class="pre">StyleManager.I</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleManager.__init__"><code class="docutils literal notranslate"><span class="pre">StyleManager.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleManager.dis"><code class="docutils literal notranslate"><span class="pre">StyleManager.dis</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="style_module.html#style_module.StyleManager.env"><code class="docutils literal notranslate"><span class="pre">StyleManager.env</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="train_module.html">train_module module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="train_module.html#train-module">Train Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="train_module.html#train_module.TrainManager"><code class="docutils literal notranslate"><span class="pre">TrainManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="train_module.html#train_module.TrainManager.I"><code class="docutils literal notranslate"><span class="pre">TrainManager.I</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="train_module.html#train_module.TrainManager.__init__"><code class="docutils literal notranslate"><span class="pre">TrainManager.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="train_module.html#train_module.TrainManager.is_training"><code class="docutils literal notranslate"><span class="pre">TrainManager.is_training</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="train_module.html#train_module.TrainManager.is_stopped"><code class="docutils literal notranslate"><span class="pre">TrainManager.is_stopped</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="train_module.html#train_module.TrainManager.is_paused"><code class="docutils literal notranslate"><span class="pre">TrainManager.is_paused</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="train_module.html#train_module.TrainManager.train_coroutine"><code class="docutils literal notranslate"><span class="pre">TrainManager.train_coroutine</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="train_module.html#train_module.TrainManager.default_env_args_copy"><code class="docutils literal notranslate"><span class="pre">TrainManager.default_env_args_copy</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="train_module.html#train_module.TrainManager.default_train_args_copy"><code class="docutils literal notranslate"><span class="pre">TrainManager.default_train_args_copy</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="train_module.html#train_module.TrainManager.default_gui_args_copy"><code class="docutils literal notranslate"><span class="pre">TrainManager.default_gui_args_copy</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="train_module.html#train_module.TrainManager.step_train"><code class="docutils literal notranslate"><span class="pre">TrainManager.step_train()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="train_module.html#train_module.TrainManager.start_train"><code class="docutils literal notranslate"><span class="pre">TrainManager.start_train()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="train_module.html#train_module.TrainManager.stop_train"><code class="docutils literal notranslate"><span class="pre">TrainManager.stop_train()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="train_module.html#train_module.TrainManager.pause_train"><code class="docutils literal notranslate"><span class="pre">TrainManager.pause_train()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="train_module.html#train_module.TrainManager.continue_train"><code class="docutils literal notranslate"><span class="pre">TrainManager.continue_train()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.building_utils">utils.building_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.building_utils.BuildingMovableType"><code class="docutils literal notranslate"><span class="pre">BuildingMovableType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingMovableType.NONDEMOLISHABLE"><code class="docutils literal notranslate"><span class="pre">BuildingMovableType.NONDEMOLISHABLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingMovableType.FLEXABLE"><code class="docutils literal notranslate"><span class="pre">BuildingMovableType.FLEXABLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingMovableType.DEMOLISHABLE"><code class="docutils literal notranslate"><span class="pre">BuildingMovableType.DEMOLISHABLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingMovableType.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">BuildingMovableType.UNDEFINED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.building_utils.BuildingStyle"><code class="docutils literal notranslate"><span class="pre">BuildingStyle</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingStyle.HERITAGE"><code class="docutils literal notranslate"><span class="pre">BuildingStyle.HERITAGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingStyle.HISTORICAL"><code class="docutils literal notranslate"><span class="pre">BuildingStyle.HISTORICAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingStyle.TRADITIONAL"><code class="docutils literal notranslate"><span class="pre">BuildingStyle.TRADITIONAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingStyle.NORMAL"><code class="docutils literal notranslate"><span class="pre">BuildingStyle.NORMAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingStyle.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">BuildingStyle.UNDEFINED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.building_utils.BuildingQuality"><code class="docutils literal notranslate"><span class="pre">BuildingQuality</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingQuality.GOOD"><code class="docutils literal notranslate"><span class="pre">BuildingQuality.GOOD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingQuality.FAIR"><code class="docutils literal notranslate"><span class="pre">BuildingQuality.FAIR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingQuality.POOR"><code class="docutils literal notranslate"><span class="pre">BuildingQuality.POOR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingQuality.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">BuildingQuality.UNDEFINED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.building_utils.BuildingCluster"><code class="docutils literal notranslate"><span class="pre">BuildingCluster</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingCluster.__init__"><code class="docutils literal notranslate"><span class="pre">BuildingCluster.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.building_utils.BuildingCluster.show_imgui_cluster_editor_button"><code class="docutils literal notranslate"><span class="pre">BuildingCluster.show_imgui_cluster_editor_button()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.common_utils">utils.common_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.common_utils.get_arg"><code class="docutils literal notranslate"><span class="pre">get_arg()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.common_utils.gaussian"><code class="docutils literal notranslate"><span class="pre">gaussian()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.common_utils.id_to_rgb"><code class="docutils literal notranslate"><span class="pre">id_to_rgb()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.common_utils.rgb_to_id"><code class="docutils literal notranslate"><span class="pre">rgb_to_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.common_utils.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.common_utils.to_triangles"><code class="docutils literal notranslate"><span class="pre">to_triangles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.common_utils.DuplicateFilter"><code class="docutils literal notranslate"><span class="pre">DuplicateFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.common_utils.DuplicateFilter.__init__"><code class="docutils literal notranslate"><span class="pre">DuplicateFilter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.common_utils.DuplicateFilter.filter"><code class="docutils literal notranslate"><span class="pre">DuplicateFilter.filter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.common_utils.duplicate_filter"><code class="docutils literal notranslate"><span class="pre">duplicate_filter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.field_utils">utils.field_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.field_utils.FieldOverlayMode"><code class="docutils literal notranslate"><span class="pre">FieldOverlayMode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.field_utils.FieldOverlayMode.ADD"><code class="docutils literal notranslate"><span class="pre">FieldOverlayMode.ADD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.field_utils.FieldOverlayMode.MUL"><code class="docutils literal notranslate"><span class="pre">FieldOverlayMode.MUL</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.field_utils.distance_field"><code class="docutils literal notranslate"><span class="pre">distance_field()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.field_utils.normalize_field"><code class="docutils literal notranslate"><span class="pre">normalize_field()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.graphic_uitls">utils.graphic_uitls module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.plot_as_array"><code class="docutils literal notranslate"><span class="pre">plot_as_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.plot_as_array2"><code class="docutils literal notranslate"><span class="pre">plot_as_array2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.world_space_to_image_space"><code class="docutils literal notranslate"><span class="pre">world_space_to_image_space()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.image_space_to_world_space"><code class="docutils literal notranslate"><span class="pre">image_space_to_world_space()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.image_space_to_image_window_space"><code class="docutils literal notranslate"><span class="pre">image_space_to_image_window_space()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.create_texture_from_array_legacy"><code class="docutils literal notranslate"><span class="pre">create_texture_from_array_legacy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.update_texture_legacy"><code class="docutils literal notranslate"><span class="pre">update_texture_legacy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.create_texture_from_array"><code class="docutils literal notranslate"><span class="pre">create_texture_from_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.remove_texture"><code class="docutils literal notranslate"><span class="pre">remove_texture()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.update_texture"><code class="docutils literal notranslate"><span class="pre">update_texture()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.blend_img_data"><code class="docutils literal notranslate"><span class="pre">blend_img_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.ImguiDrawListObject"><code class="docutils literal notranslate"><span class="pre">ImguiDrawListObject</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.ImguiDrawListObject.__init__"><code class="docutils literal notranslate"><span class="pre">ImguiDrawListObject.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.ImguiCircleWorldSpace"><code class="docutils literal notranslate"><span class="pre">ImguiCircleWorldSpace</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.ImguiCircleWorldSpace.__init__"><code class="docutils literal notranslate"><span class="pre">ImguiCircleWorldSpace.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.ImguiCircleWorldSpace.draw"><code class="docutils literal notranslate"><span class="pre">ImguiCircleWorldSpace.draw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.ImguiTextWorldSpace"><code class="docutils literal notranslate"><span class="pre">ImguiTextWorldSpace</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.ImguiTextWorldSpace.__init__"><code class="docutils literal notranslate"><span class="pre">ImguiTextWorldSpace.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.ImguiTextWorldSpace.draw"><code class="docutils literal notranslate"><span class="pre">ImguiTextWorldSpace.draw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.ImguiMousePointerScreenSpace"><code class="docutils literal notranslate"><span class="pre">ImguiMousePointerScreenSpace</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.ImguiMousePointerScreenSpace.__init__"><code class="docutils literal notranslate"><span class="pre">ImguiMousePointerScreenSpace.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.ImguiMousePointerScreenSpace.draw"><code class="docutils literal notranslate"><span class="pre">ImguiMousePointerScreenSpace.draw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.ImguiRectScreenSpace"><code class="docutils literal notranslate"><span class="pre">ImguiRectScreenSpace</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.ImguiRectScreenSpace.__init__"><code class="docutils literal notranslate"><span class="pre">ImguiRectScreenSpace.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.ImguiRectScreenSpace.draw"><code class="docutils literal notranslate"><span class="pre">ImguiRectScreenSpace.draw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.RenderObject"><code class="docutils literal notranslate"><span class="pre">RenderObject</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.RenderObject.__init__"><code class="docutils literal notranslate"><span class="pre">RenderObject.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.RenderObject.get_xy_lim"><code class="docutils literal notranslate"><span class="pre">RenderObject.get_xy_lim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.RenderObject.set_gdf"><code class="docutils literal notranslate"><span class="pre">RenderObject.set_gdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.RenderObject.set_style_factory"><code class="docutils literal notranslate"><span class="pre">RenderObject.set_style_factory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.RenderObject.update_buffer"><code class="docutils literal notranslate"><span class="pre">RenderObject.update_buffer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.RenderObject.update_prog"><code class="docutils literal notranslate"><span class="pre">RenderObject.update_prog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.RenderObject.render"><code class="docutils literal notranslate"><span class="pre">RenderObject.render()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.RoadRO"><code class="docutils literal notranslate"><span class="pre">RoadRO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.RoadRO.__init__"><code class="docutils literal notranslate"><span class="pre">RoadRO.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.BuildingRO"><code class="docutils literal notranslate"><span class="pre">BuildingRO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.BuildingRO.__init__"><code class="docutils literal notranslate"><span class="pre">BuildingRO.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.RegionRO"><code class="docutils literal notranslate"><span class="pre">RegionRO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.RegionRO.__init__"><code class="docutils literal notranslate"><span class="pre">RegionRO.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.NodeRO"><code class="docutils literal notranslate"><span class="pre">NodeRO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.NodeRO.__init__"><code class="docutils literal notranslate"><span class="pre">NodeRO.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.PointerRO"><code class="docutils literal notranslate"><span class="pre">PointerRO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.PointerRO.instance"><code class="docutils literal notranslate"><span class="pre">PointerRO.instance</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.PointerRO.__init__"><code class="docutils literal notranslate"><span class="pre">PointerRO.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.PointerRO.set_to_point_mode"><code class="docutils literal notranslate"><span class="pre">PointerRO.set_to_point_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.PointerRO.set_to_cross_mode"><code class="docutils literal notranslate"><span class="pre">PointerRO.set_to_cross_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.PointerRO.update_prog"><code class="docutils literal notranslate"><span class="pre">PointerRO.update_prog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.PointerRO.render"><code class="docutils literal notranslate"><span class="pre">PointerRO.render()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.RectRO"><code class="docutils literal notranslate"><span class="pre">RectRO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.RectRO.__init__"><code class="docutils literal notranslate"><span class="pre">RectRO.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.RectRO.update_prog"><code class="docutils literal notranslate"><span class="pre">RectRO.update_prog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.RectRO.render"><code class="docutils literal notranslate"><span class="pre">RectRO.render()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.graphic_uitls.FullScreenRO"><code class="docutils literal notranslate"><span class="pre">FullScreenRO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.FullScreenRO.__init__"><code class="docutils literal notranslate"><span class="pre">FullScreenRO.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.FullScreenRO.update_prog"><code class="docutils literal notranslate"><span class="pre">FullScreenRO.update_prog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.graphic_uitls.FullScreenRO.render"><code class="docutils literal notranslate"><span class="pre">FullScreenRO.render()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.image_utils">utils.image_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.image_utils.fig2array"><code class="docutils literal notranslate"><span class="pre">fig2array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.image_utils.array2image"><code class="docutils literal notranslate"><span class="pre">array2image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.image_utils.blur_image"><code class="docutils literal notranslate"><span class="pre">blur_image()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.io_utils">utils.io_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.io_utils.get_dxf_layers"><code class="docutils literal notranslate"><span class="pre">get_dxf_layers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.io_utils.save_data"><code class="docutils literal notranslate"><span class="pre">save_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.io_utils.load_data"><code class="docutils literal notranslate"><span class="pre">load_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.io_utils.open_file_window"><code class="docutils literal notranslate"><span class="pre">open_file_window()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.io_utils.save_file_window"><code class="docutils literal notranslate"><span class="pre">save_file_window()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.point_utils">utils.point_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.point_utils.xywh2points"><code class="docutils literal notranslate"><span class="pre">xywh2points()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.point_utils.point_grid"><code class="docutils literal notranslate"><span class="pre">point_grid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.point_utils.points_to_geo"><code class="docutils literal notranslate"><span class="pre">points_to_geo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.point_utils.plot_points"><code class="docutils literal notranslate"><span class="pre">plot_points()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.point_utils.points_in_radius"><code class="docutils literal notranslate"><span class="pre">points_in_radius()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.point_utils.offset_points"><code class="docutils literal notranslate"><span class="pre">offset_points()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.point_utils.normalize_vector"><code class="docutils literal notranslate"><span class="pre">normalize_vector()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.point_utils.normalize_vectors"><code class="docutils literal notranslate"><span class="pre">normalize_vectors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.point_utils.v_rotate_vectors"><code class="docutils literal notranslate"><span class="pre">v_rotate_vectors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.point_utils.vector_from_points"><code class="docutils literal notranslate"><span class="pre">vector_from_points()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.point_utils.vector_dot"><code class="docutils literal notranslate"><span class="pre">vector_dot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.polyline_utils">utils.polyline_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.polyline_utils.interpolate_by_t"><code class="docutils literal notranslate"><span class="pre">interpolate_by_t()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.polyline_utils.interpolate_by_distance"><code class="docutils literal notranslate"><span class="pre">interpolate_by_distance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.polyline_utils.get_closed_polyline"><code class="docutils literal notranslate"><span class="pre">get_closed_polyline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.region_utils">utils.region_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.region_utils.RegionAccessibleType"><code class="docutils literal notranslate"><span class="pre">RegionAccessibleType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.region_utils.RegionAccessibleType.ACCESSIBLE"><code class="docutils literal notranslate"><span class="pre">RegionAccessibleType.ACCESSIBLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.region_utils.RegionAccessibleType.RESTRICTED"><code class="docutils literal notranslate"><span class="pre">RegionAccessibleType.RESTRICTED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.region_utils.RegionAccessibleType.INACCESSIBLE"><code class="docutils literal notranslate"><span class="pre">RegionAccessibleType.INACCESSIBLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.region_utils.RegionAccessibleType.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">RegionAccessibleType.UNDEFINED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.region_utils.RegionType"><code class="docutils literal notranslate"><span class="pre">RegionType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.region_utils.RegionType.ARTIFICIAL"><code class="docutils literal notranslate"><span class="pre">RegionType.ARTIFICIAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.region_utils.RegionType.WATER"><code class="docutils literal notranslate"><span class="pre">RegionType.WATER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.region_utils.RegionType.BOUNDARY"><code class="docutils literal notranslate"><span class="pre">RegionType.BOUNDARY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.region_utils.RegionType.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">RegionType.UNDEFINED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.region_utils.RegionCluster"><code class="docutils literal notranslate"><span class="pre">RegionCluster</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.region_utils.RegionCluster.__init__"><code class="docutils literal notranslate"><span class="pre">RegionCluster.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.region_utils.RegionCluster.show_imgui_cluster_editor_button"><code class="docutils literal notranslate"><span class="pre">RegionCluster.show_imgui_cluster_editor_button()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.road_utils">utils.road_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.road_utils.RoadLevel"><code class="docutils literal notranslate"><span class="pre">RoadLevel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.road_utils.RoadLevel.TRUNK"><code class="docutils literal notranslate"><span class="pre">RoadLevel.TRUNK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.road_utils.RoadLevel.PRIMARY"><code class="docutils literal notranslate"><span class="pre">RoadLevel.PRIMARY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.road_utils.RoadLevel.SECONDARY"><code class="docutils literal notranslate"><span class="pre">RoadLevel.SECONDARY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.road_utils.RoadLevel.TERTIARY"><code class="docutils literal notranslate"><span class="pre">RoadLevel.TERTIARY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.road_utils.RoadLevel.FOOTWAY"><code class="docutils literal notranslate"><span class="pre">RoadLevel.FOOTWAY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.road_utils.RoadLevel.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">RoadLevel.UNDEFINED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.road_utils.RoadState"><code class="docutils literal notranslate"><span class="pre">RoadState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.road_utils.RoadState.RAW"><code class="docutils literal notranslate"><span class="pre">RoadState.RAW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.road_utils.RoadState.MODIFIED"><code class="docutils literal notranslate"><span class="pre">RoadState.MODIFIED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.road_utils.RoadState.OPTIMIZED"><code class="docutils literal notranslate"><span class="pre">RoadState.OPTIMIZED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.road_utils.RoadState.OPTIMIZING"><code class="docutils literal notranslate"><span class="pre">RoadState.OPTIMIZING</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.road_utils.highway_to_level"><code class="docutils literal notranslate"><span class="pre">highway_to_level()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.road_utils.RoadCluster"><code class="docutils literal notranslate"><span class="pre">RoadCluster</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.road_utils.RoadCluster.__init__"><code class="docutils literal notranslate"><span class="pre">RoadCluster.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html#utils.road_utils.RoadCluster.show_imgui_cluster_editor_button"><code class="docutils literal notranslate"><span class="pre">RoadCluster.show_imgui_cluster_editor_button()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2024, FengYiheng WuWenxin QiuShubing。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

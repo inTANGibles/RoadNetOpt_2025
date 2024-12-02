@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fields package &mdash; RoadNetOpt 0.5 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=37890895"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RoadNetOpt
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="DDPG.html">DDPG package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geo.html">geo package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graphic_module.html">graphic_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimize_module.html">optimize_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style_module.html">style_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_module.html">train_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources_module.html">resources_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RoadNetOpt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">fields package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/fields.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="fields-package">
+<h1>fields package<a class="headerlink" href="#fields-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-fields.attraction_field">
+<span id="fields-attraction-field-module"></span><h2>fields.attraction_field module<a class="headerlink" href="#module-fields.attraction_field" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="fields.attraction_field.AttractionField">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fields.attraction_field.</span></span><span class="sig-name descname"><span class="pre">AttractionField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attractive_points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fields.attraction_field.AttractionField" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#fields.Field" title="fields.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">Field</span></code></a></p>
+<p>吸引场
+range : 0 ~ 1</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.attraction_field.AttractionField.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attractive_points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fields.attraction_field.AttractionField.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.attraction_field.AttractionField.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fields.attraction_field.AttractionField.sample" title="Link to this definition"></a></dt>
+<dd><p>采样</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-fields.building_field">
+<span id="fields-building-field-module"></span><h2>fields.building_field module<a class="headerlink" href="#module-fields.building_field" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="fields.building_field.BuildingField">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fields.building_field.</span></span><span class="sig-name descname"><span class="pre">BuildingField</span></span><a class="headerlink" href="#fields.building_field.BuildingField" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#fields.Field" title="fields.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">Field</span></code></a></p>
+<p>限制不能进入的区域
+Inside : 0
+Outsize : 1</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.building_field.BuildingField.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fields.building_field.BuildingField.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.building_field.BuildingField.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fields.building_field.BuildingField.sample" title="Link to this definition"></a></dt>
+<dd><p>采样</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-fields.direction_field">
+<span id="fields-direction-field-module"></span><h2>fields.direction_field module<a class="headerlink" href="#module-fields.direction_field" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="fields.direction_field.DirectionField">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fields.direction_field.</span></span><span class="sig-name descname"><span class="pre">DirectionField</span></span><a class="headerlink" href="#fields.direction_field.DirectionField" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#fields.Field" title="fields.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">Field</span></code></a></p>
+<p>垂直梯度的方向场</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.direction_field.DirectionField.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fields.direction_field.DirectionField.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.direction_field.DirectionField.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fields.direction_field.DirectionField.sample" title="Link to this definition"></a></dt>
+<dd><p>采样</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-fields.momentum_field">
+<span id="fields-momentum-field-module"></span><h2>fields.momentum_field module<a class="headerlink" href="#module-fields.momentum_field" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="fields.momentum_field.MomentumField">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fields.momentum_field.</span></span><span class="sig-name descname"><span class="pre">MomentumField</span></span><a class="headerlink" href="#fields.momentum_field.MomentumField" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#fields.Field" title="fields.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">Field</span></code></a></p>
+<p>动量场</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.momentum_field.MomentumField.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fields.momentum_field.MomentumField.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.momentum_field.MomentumField.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fields.momentum_field.MomentumField.sample" title="Link to this definition"></a></dt>
+<dd><p>采样</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-fields.random_field">
+<span id="fields-random-field-module"></span><h2>fields.random_field module<a class="headerlink" href="#module-fields.random_field" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="fields.random_field.RandomField">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fields.random_field.</span></span><span class="sig-name descname"><span class="pre">RandomField</span></span><a class="headerlink" href="#fields.random_field.RandomField" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#fields.Field" title="fields.Field"><code class="xref py py-class docutils literal notranslate"><span class="pre">Field</span></code></a></p>
+<p>随机场</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.random_field.RandomField.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fields.random_field.RandomField.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.random_field.RandomField.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fields.random_field.RandomField.sample" title="Link to this definition"></a></dt>
+<dd><p>采样</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-fields">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-fields" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="fields.Field">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fields.</span></span><span class="sig-name descname"><span class="pre">Field</span></span><a class="headerlink" href="#fields.Field" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>场的基类， 所有的场都应继承这个基类</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.Field.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fields.Field.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.Field.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fields.Field.update" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.Field.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fields.Field.sample" title="Link to this definition"></a></dt>
+<dd><p>采样</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.Field.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">show_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fields.Field.plot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fields.Field.cache">
+<span class="sig-name descname"><span class="pre">cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rewards</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fields.Field.cache" title="Link to this definition"></a></dt>
+<dd><p>每次采样结束后调用，用以绘图</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2024, FengYiheng WuWenxin QiuShubing。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

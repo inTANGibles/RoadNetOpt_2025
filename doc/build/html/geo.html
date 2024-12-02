@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>geo package &mdash; RoadNetOpt 0.5 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=37890895"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="graphic_module module" href="graphic_module.html" />
+    <link rel="prev" title="DDPG.legacy package" href="DDPG.legacy.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RoadNetOpt
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="DDPG.html">DDPG package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">geo package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-geo.building">geo.building module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#geo.building.Building"><code class="docutils literal notranslate"><span class="pre">Building</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.uid"><code class="docutils literal notranslate"><span class="pre">Building.uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.add_building"><code class="docutils literal notranslate"><span class="pre">Building.add_building()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.add_buildings"><code class="docutils literal notranslate"><span class="pre">Building.add_buildings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.add_building_by_coords"><code class="docutils literal notranslate"><span class="pre">Building.add_building_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.add_buildings_by_coords"><code class="docutils literal notranslate"><span class="pre">Building.add_buildings_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.delete_building"><code class="docutils literal notranslate"><span class="pre">Building.delete_building()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.delete_building_by_uid"><code class="docutils literal notranslate"><span class="pre">Building.delete_building_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.delete_all"><code class="docutils literal notranslate"><span class="pre">Building.delete_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.get_building_attrs"><code class="docutils literal notranslate"><span class="pre">Building.get_building_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.get_building_by_uid"><code class="docutils literal notranslate"><span class="pre">Building.get_building_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.get_building_by_index"><code class="docutils literal notranslate"><span class="pre">Building.get_building_by_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.get_buildings_by_attr_and_value"><code class="docutils literal notranslate"><span class="pre">Building.get_buildings_by_attr_and_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.get_first_building"><code class="docutils literal notranslate"><span class="pre">Building.get_first_building()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.get_last_building"><code class="docutils literal notranslate"><span class="pre">Building.get_last_building()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.get_all_buildings"><code class="docutils literal notranslate"><span class="pre">Building.get_all_buildings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.get_buildings_by_cluster"><code class="docutils literal notranslate"><span class="pre">Building.get_buildings_by_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.set_attr_value"><code class="docutils literal notranslate"><span class="pre">Building.set_attr_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.plot_buildings"><code class="docutils literal notranslate"><span class="pre">Building.plot_buildings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.plot_all"><code class="docutils literal notranslate"><span class="pre">Building.plot_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.plot_using_style_factory"><code class="docutils literal notranslate"><span class="pre">Building.plot_using_style_factory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.get_vertices_data"><code class="docutils literal notranslate"><span class="pre">Building.get_vertices_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.data_to_buildings"><code class="docutils literal notranslate"><span class="pre">Building.data_to_buildings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.building.Building.buildings_to_data"><code class="docutils literal notranslate"><span class="pre">Building.buildings_to_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-geo.region">geo.region module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#geo.region.Region"><code class="docutils literal notranslate"><span class="pre">Region</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.uid"><code class="docutils literal notranslate"><span class="pre">Region.uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.create_regions_by_coords"><code class="docutils literal notranslate"><span class="pre">Region.create_regions_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.add_region"><code class="docutils literal notranslate"><span class="pre">Region.add_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.add_regions"><code class="docutils literal notranslate"><span class="pre">Region.add_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.add_region_by_coords"><code class="docutils literal notranslate"><span class="pre">Region.add_region_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.add_regions_by_coords"><code class="docutils literal notranslate"><span class="pre">Region.add_regions_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.delete_region"><code class="docutils literal notranslate"><span class="pre">Region.delete_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.delete_region_by_uid"><code class="docutils literal notranslate"><span class="pre">Region.delete_region_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.delete_all"><code class="docutils literal notranslate"><span class="pre">Region.delete_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.create_region_by_min_max"><code class="docutils literal notranslate"><span class="pre">Region.create_region_by_min_max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.get_region_attrs"><code class="docutils literal notranslate"><span class="pre">Region.get_region_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.get_region_by_uid"><code class="docutils literal notranslate"><span class="pre">Region.get_region_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.get_region_by_index"><code class="docutils literal notranslate"><span class="pre">Region.get_region_by_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.get_regions_by_attr_and_value"><code class="docutils literal notranslate"><span class="pre">Region.get_regions_by_attr_and_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.get_first_region"><code class="docutils literal notranslate"><span class="pre">Region.get_first_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.get_last_region"><code class="docutils literal notranslate"><span class="pre">Region.get_last_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.get_all_regions"><code class="docutils literal notranslate"><span class="pre">Region.get_all_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.get_regions_by_cluster"><code class="docutils literal notranslate"><span class="pre">Region.get_regions_by_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.set_attr_value"><code class="docutils literal notranslate"><span class="pre">Region.set_attr_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.plot_regions"><code class="docutils literal notranslate"><span class="pre">Region.plot_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.plot_all"><code class="docutils literal notranslate"><span class="pre">Region.plot_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.plot_using_style_factory"><code class="docutils literal notranslate"><span class="pre">Region.plot_using_style_factory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.get_vertices_data"><code class="docutils literal notranslate"><span class="pre">Region.get_vertices_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.data_to_regions"><code class="docutils literal notranslate"><span class="pre">Region.data_to_regions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.region.Region.regions_to_data"><code class="docutils literal notranslate"><span class="pre">Region.regions_to_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-geo.road">geo.road module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#geo.road.Road"><code class="docutils literal notranslate"><span class="pre">Road</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.uid"><code class="docutils literal notranslate"><span class="pre">Road.uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_node_by_uid"><code class="docutils literal notranslate"><span class="pre">Road.get_node_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_node_by_index"><code class="docutils literal notranslate"><span class="pre">Road.get_node_by_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_nodes_by_indexes"><code class="docutils literal notranslate"><span class="pre">Road.get_nodes_by_indexes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_node_coord"><code class="docutils literal notranslate"><span class="pre">Road.get_node_coord()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.clear_unused_nodes"><code class="docutils literal notranslate"><span class="pre">Road.clear_unused_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.rebuild_coord_to_uid_dict"><code class="docutils literal notranslate"><span class="pre">Road.rebuild_coord_to_uid_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_all_nodes"><code class="docutils literal notranslate"><span class="pre">Road.get_all_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_close_nodes"><code class="docutils literal notranslate"><span class="pre">Road.get_close_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_nodes_avg_coord"><code class="docutils literal notranslate"><span class="pre">Road.get_nodes_avg_coord()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.merge_nodes"><code class="docutils literal notranslate"><span class="pre">Road.merge_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.merge_all_close_nodes"><code class="docutils literal notranslate"><span class="pre">Road.merge_all_close_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.create_roads_by_coords"><code class="docutils literal notranslate"><span class="pre">Road.create_roads_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.add_road"><code class="docutils literal notranslate"><span class="pre">Road.add_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.add_roads"><code class="docutils literal notranslate"><span class="pre">Road.add_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.add_road_by_coords"><code class="docutils literal notranslate"><span class="pre">Road.add_road_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.add_roads_by_coords"><code class="docutils literal notranslate"><span class="pre">Road.add_roads_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.delete_road"><code class="docutils literal notranslate"><span class="pre">Road.delete_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.delete_road_by_uid"><code class="docutils literal notranslate"><span class="pre">Road.delete_road_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.delete_roads_by_uids_list"><code class="docutils literal notranslate"><span class="pre">Road.delete_roads_by_uids_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.delete_all"><code class="docutils literal notranslate"><span class="pre">Road.delete_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_edge_attrs"><code class="docutils literal notranslate"><span class="pre">Road.get_edge_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_node_attrs"><code class="docutils literal notranslate"><span class="pre">Road.get_node_attrs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_road_by_uid"><code class="docutils literal notranslate"><span class="pre">Road.get_road_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_road_by_index"><code class="docutils literal notranslate"><span class="pre">Road.get_road_by_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_roads_by_indexes"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_indexes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_roads_by_attr_and_value"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_attr_and_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_node_by_attr_and_value"><code class="docutils literal notranslate"><span class="pre">Road.get_node_by_attr_and_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_first_road"><code class="docutils literal notranslate"><span class="pre">Road.get_first_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_last_road"><code class="docutils literal notranslate"><span class="pre">Road.get_last_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_all_roads"><code class="docutils literal notranslate"><span class="pre">Road.get_all_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_roads_by_node"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_roads_by_cluster"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_road_by_hash"><code class="docutils literal notranslate"><span class="pre">Road.get_road_by_hash()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_roads_by_hashes"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_hashes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_valid_spawn_range"><code class="docutils literal notranslate"><span class="pre">Road.get_valid_spawn_range()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_road_last_point"><code class="docutils literal notranslate"><span class="pre">Road.get_road_last_point()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_road_last_element"><code class="docutils literal notranslate"><span class="pre">Road.get_road_last_element()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_dead_ends"><code class="docutils literal notranslate"><span class="pre">Road.get_dead_ends()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.add_point_to_road"><code class="docutils literal notranslate"><span class="pre">Road.add_point_to_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.add_points_to_road"><code class="docutils literal notranslate"><span class="pre">Road.add_points_to_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.update_road_points"><code class="docutils literal notranslate"><span class="pre">Road.update_road_points()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.replace_u"><code class="docutils literal notranslate"><span class="pre">Road.replace_u()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.replace_v"><code class="docutils literal notranslate"><span class="pre">Road.replace_v()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.detect_intersection"><code class="docutils literal notranslate"><span class="pre">Road.detect_intersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.interpolate_road"><code class="docutils literal notranslate"><span class="pre">Road.interpolate_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.interpolate_road_by_random_position"><code class="docutils literal notranslate"><span class="pre">Road.interpolate_road_by_random_position()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.split_road"><code class="docutils literal notranslate"><span class="pre">Road.split_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.split_road_by_coord"><code class="docutils literal notranslate"><span class="pre">Road.split_road_by_coord()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.split_road_by_coords"><code class="docutils literal notranslate"><span class="pre">Road.split_road_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.split_roads_by_intersection_data"><code class="docutils literal notranslate"><span class="pre">Road.split_roads_by_intersection_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.merge_roads"><code class="docutils literal notranslate"><span class="pre">Road.merge_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.simplify_roads"><code class="docutils literal notranslate"><span class="pre">Road.simplify_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.examine_invalid_roads"><code class="docutils literal notranslate"><span class="pre">Road.examine_invalid_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.auto_fix"><code class="docutils literal notranslate"><span class="pre">Road.auto_fix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_vertices_data_legacy"><code class="docutils literal notranslate"><span class="pre">Road.get_vertices_data_legacy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_vertices_data"><code class="docutils literal notranslate"><span class="pre">Road.get_vertices_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_node_vertices_data_legacy"><code class="docutils literal notranslate"><span class="pre">Road.get_node_vertices_data_legacy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.get_node_vertices_data"><code class="docutils literal notranslate"><span class="pre">Road.get_node_vertices_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.to_graph"><code class="docutils literal notranslate"><span class="pre">Road.to_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.from_graph"><code class="docutils literal notranslate"><span class="pre">Road.from_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.data_to_roads"><code class="docutils literal notranslate"><span class="pre">Road.data_to_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.roads_to_data"><code class="docutils literal notranslate"><span class="pre">Road.roads_to_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.quick_roads"><code class="docutils literal notranslate"><span class="pre">Road.quick_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.show_info"><code class="docutils literal notranslate"><span class="pre">Road.show_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.cache"><code class="docutils literal notranslate"><span class="pre">Road.cache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.clear_cache"><code class="docutils literal notranslate"><span class="pre">Road.clear_cache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road.Road.restore"><code class="docutils literal notranslate"><span class="pre">Road.restore()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-geo.road_c">geo.road_c module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#geo.road_c.Road"><code class="docutils literal notranslate"><span class="pre">Road</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.uid"><code class="docutils literal notranslate"><span class="pre">Road.uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.clear_unused_nodes"><code class="docutils literal notranslate"><span class="pre">Road.clear_unused_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.get_all_nodes"><code class="docutils literal notranslate"><span class="pre">Road.get_all_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.get_close_nodes"><code class="docutils literal notranslate"><span class="pre">Road.get_close_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.merge_grouped_nodes"><code class="docutils literal notranslate"><span class="pre">Road.merge_grouped_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.add_road_by_coords"><code class="docutils literal notranslate"><span class="pre">Road.add_road_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.add_roads_by_coords"><code class="docutils literal notranslate"><span class="pre">Road.add_roads_by_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.remove_road"><code class="docutils literal notranslate"><span class="pre">Road.remove_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.remove_all_roads"><code class="docutils literal notranslate"><span class="pre">Road.remove_all_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.get_road_by_uid"><code class="docutils literal notranslate"><span class="pre">Road.get_road_by_uid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.get_road_by_index"><code class="docutils literal notranslate"><span class="pre">Road.get_road_by_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.get_roads_by_indexes"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_indexes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.get_roads_by_attr_and_value"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_attr_and_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.get_all_roads"><code class="docutils literal notranslate"><span class="pre">Road.get_all_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.get_roads_by_cluster"><code class="docutils literal notranslate"><span class="pre">Road.get_roads_by_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.get_valid_spawn_range"><code class="docutils literal notranslate"><span class="pre">Road.get_valid_spawn_range()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.get_road_last_coord"><code class="docutils literal notranslate"><span class="pre">Road.get_road_last_coord()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.get_road_last_vector"><code class="docutils literal notranslate"><span class="pre">Road.get_road_last_vector()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.update_coords"><code class="docutils literal notranslate"><span class="pre">Road.update_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.add_u_node"><code class="docutils literal notranslate"><span class="pre">Road.add_u_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.add_v_node"><code class="docutils literal notranslate"><span class="pre">Road.add_v_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.replace_u_node"><code class="docutils literal notranslate"><span class="pre">Road.replace_u_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.replace_v_node"><code class="docutils literal notranslate"><span class="pre">Road.replace_v_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.interpolate_road"><code class="docutils literal notranslate"><span class="pre">Road.interpolate_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.split_road"><code class="docutils literal notranslate"><span class="pre">Road.split_road()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.split_road_by_coord"><code class="docutils literal notranslate"><span class="pre">Road.split_road_by_coord()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.split_road_by_random_position"><code class="docutils literal notranslate"><span class="pre">Road.split_road_by_random_position()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.merge_roads"><code class="docutils literal notranslate"><span class="pre">Road.merge_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.simplify_roads"><code class="docutils literal notranslate"><span class="pre">Road.simplify_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.get_vertices_data"><code class="docutils literal notranslate"><span class="pre">Road.get_vertices_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.get_node_vertices_data"><code class="docutils literal notranslate"><span class="pre">Road.get_node_vertices_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.to_graph"><code class="docutils literal notranslate"><span class="pre">Road.to_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.from_graph"><code class="docutils literal notranslate"><span class="pre">Road.from_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.data_to_roads"><code class="docutils literal notranslate"><span class="pre">Road.data_to_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.roads_to_data"><code class="docutils literal notranslate"><span class="pre">Road.roads_to_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.quick_roads"><code class="docutils literal notranslate"><span class="pre">Road.quick_roads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.show_info"><code class="docutils literal notranslate"><span class="pre">Road.show_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.cache"><code class="docutils literal notranslate"><span class="pre">Road.cache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.clear_cache"><code class="docutils literal notranslate"><span class="pre">Road.clear_cache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.road_c.Road.restore"><code class="docutils literal notranslate"><span class="pre">Road.restore()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-geo.terrain">geo.terrain module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#geo.terrain.Terrain"><code class="docutils literal notranslate"><span class="pre">Terrain</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#geo.terrain.Terrain.plot_all"><code class="docutils literal notranslate"><span class="pre">Terrain.plot_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.terrain.Terrain.data_to_terrain"><code class="docutils literal notranslate"><span class="pre">Terrain.data_to_terrain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.terrain.Terrain.terrain_to_data"><code class="docutils literal notranslate"><span class="pre">Terrain.terrain_to_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-geo">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#geo.ObjectMeta"><code class="docutils literal notranslate"><span class="pre">ObjectMeta</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#geo.ObjectMeta.__init__"><code class="docutils literal notranslate"><span class="pre">ObjectMeta.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.ObjectMeta.plot_all"><code class="docutils literal notranslate"><span class="pre">ObjectMeta.plot_all()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#geo.Object"><code class="docutils literal notranslate"><span class="pre">Object</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#geo.Object.__init__"><code class="docutils literal notranslate"><span class="pre">Object.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geo.Object.registry"><code class="docutils literal notranslate"><span class="pre">Object.registry</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="graphic_module.html">graphic_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimize_module.html">optimize_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style_module.html">style_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_module.html">train_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources_module.html">resources_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RoadNetOpt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">geo package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/geo.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="geo-package">
+<h1>geo package<a class="headerlink" href="#geo-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-geo.building">
+<span id="geo-building-module"></span><h2>geo.building module<a class="headerlink" href="#module-geo.building" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="geo.building.Building">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">geo.building.</span></span><span class="sig-name descname"><span class="pre">Building</span></span><a class="headerlink" href="#geo.building.Building" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#geo.Object" title="geo.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.uid">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">uid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.uid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.add_building">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_building</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">building</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_uids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.add_building" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.add_buildings">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_buildings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buildings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_uids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.add_buildings" title="Link to this definition"></a></dt>
+<dd><p>默认不返回uid</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.add_building_by_coords">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_building_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.building_utils.BuildingMovableType" title="utils.building_utils.BuildingMovableType"><span class="pre">BuildingMovableType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">BuildingMovableType.UNDEFINED</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.building_utils.BuildingStyle" title="utils.building_utils.BuildingStyle"><span class="pre">BuildingStyle</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">BuildingStyle.UNDEFINED</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.building_utils.BuildingQuality" title="utils.building_utils.BuildingQuality"><span class="pre">BuildingQuality</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">BuildingQuality.UNDEFINED</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_uids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.add_building_by_coords" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.add_buildings_by_coords">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_buildings_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">movable_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="utils.html#utils.building_utils.BuildingMovableType" title="utils.building_utils.BuildingMovableType"><span class="pre">BuildingMovableType</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="utils.html#utils.building_utils.BuildingStyle" title="utils.building_utils.BuildingStyle"><span class="pre">BuildingStyle</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quality_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="utils.html#utils.building_utils.BuildingQuality" title="utils.building_utils.BuildingQuality"><span class="pre">BuildingQuality</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_uids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.add_buildings_by_coords" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.delete_building">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_building</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">building</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.delete_building" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.delete_building_by_uid">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_building_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.delete_building_by_uid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.delete_all">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.delete_all" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.get_building_attrs">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_building_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.get_building_attrs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.get_building_by_uid">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_building_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.get_building_by_uid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.get_building_by_index">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_building_by_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.get_building_by_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.get_buildings_by_attr_and_value">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_buildings_by_attr_and_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.get_buildings_by_attr_and_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.get_first_building">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_first_building</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.get_first_building" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.get_last_building">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_last_building</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.get_last_building" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.get_all_buildings">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_buildings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.get_all_buildings" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.get_buildings_by_cluster">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_buildings_by_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.building_utils.BuildingCluster" title="utils.building_utils.BuildingCluster"><span class="pre">BuildingCluster</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.get_buildings_by_cluster" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.set_attr_value">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buildings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.set_attr_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.plot_buildings">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">plot_buildings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buildings</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.plot_buildings" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.plot_all">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">plot_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.plot_all" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.plot_using_style_factory">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">plot_using_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">buildings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.plot_using_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.get_vertices_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_vertices_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.get_vertices_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.data_to_buildings">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data_to_buildings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.data_to_buildings" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.building.Building.buildings_to_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">buildings_to_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.building.Building.buildings_to_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-geo.region">
+<span id="geo-region-module"></span><h2>geo.region module<a class="headerlink" href="#module-geo.region" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="geo.region.Region">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">geo.region.</span></span><span class="sig-name descname"><span class="pre">Region</span></span><a class="headerlink" href="#geo.region.Region" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#geo.Object" title="geo.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.uid">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">uid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.uid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.create_regions_by_coords">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_regions_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accessible_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="utils.html#utils.region_utils.RegionAccessibleType" title="utils.region_utils.RegionAccessibleType"><span class="pre">RegionAccessibleType</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_type_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="utils.html#utils.region_utils.RegionType" title="utils.region_utils.RegionType"><span class="pre">RegionType</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.create_regions_by_coords" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.add_region">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_uid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.add_region" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.add_regions">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_uid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.add_regions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.add_region_by_coords">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_region_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accessible</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.region_utils.RegionAccessibleType" title="utils.region_utils.RegionAccessibleType"><span class="pre">RegionAccessibleType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">RegionAccessibleType.UNDEFINED</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.region_utils.RegionType" title="utils.region_utils.RegionType"><span class="pre">RegionType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">RegionType.UNDEFINED</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.add_region_by_coords" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.add_regions_by_coords">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_regions_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accessible_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="utils.html#utils.region_utils.RegionAccessibleType" title="utils.region_utils.RegionAccessibleType"><span class="pre">RegionAccessibleType</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_type_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="utils.html#utils.region_utils.RegionType" title="utils.region_utils.RegionType"><span class="pre">RegionType</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.add_regions_by_coords" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.delete_region">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.delete_region" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.delete_region_by_uid">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_region_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.delete_region_by_uid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.delete_all">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.delete_all" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.create_region_by_min_max">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_region_by_min_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_max</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">GeoDataFrame</span></span></span><a class="headerlink" href="#geo.region.Region.create_region_by_min_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.get_region_attrs">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_region_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.get_region_attrs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.get_region_by_uid">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_region_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.get_region_by_uid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.get_region_by_index">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_region_by_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.get_region_by_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.get_regions_by_attr_and_value">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_regions_by_attr_and_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.get_regions_by_attr_and_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.get_first_region">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_first_region</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.get_first_region" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.get_last_region">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_last_region</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.get_last_region" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.get_all_regions">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_regions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.get_all_regions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.get_regions_by_cluster">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_regions_by_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.region_utils.RegionCluster" title="utils.region_utils.RegionCluster"><span class="pre">RegionCluster</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.get_regions_by_cluster" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.set_attr_value">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.set_attr_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.plot_regions">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">plot_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.plot_regions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.plot_all">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">plot_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.plot_all" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.plot_using_style_factory">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">plot_using_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.plot_using_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.get_vertices_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_vertices_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.get_vertices_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.data_to_regions">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data_to_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.data_to_regions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.region.Region.regions_to_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">regions_to_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.region.Region.regions_to_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-geo.road">
+<span id="geo-road-module"></span><h2>geo.road module<a class="headerlink" href="#module-geo.road" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="geo.road.Road">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">geo.road.</span></span><span class="sig-name descname"><span class="pre">Road</span></span><a class="headerlink" href="#geo.road.Road" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#geo.Object" title="geo.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
+<p>Road类提供了对道路数据进行操作和分析的方法。
+它可以添加、删除、合并和分割道路，计算道路的交点和相交关系，以及获取道路和节点的信息。
+此外，Road类还提供了缓存和自动修复功能，以提高数据处理效率。
+通过Road类，可以方便地处理和管理道路数据。</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.uid">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">uid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.uid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_node_by_uid">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_node_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_node_by_uid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_node_by_index">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_node_by_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="headerlink" href="#geo.road.Road.get_node_by_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_nodes_by_indexes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_nodes_by_indexes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">GeoDataFrame</span></span></span><a class="headerlink" href="#geo.road.Road.get_nodes_by_indexes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_node_coord">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_node_coord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#geo.road.Road.get_node_coord" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.clear_unused_nodes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear_unused_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.clear_unused_nodes" title="Link to this definition"></a></dt>
+<dd><p>清除所有没有被使用的node</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.rebuild_coord_to_uid_dict">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rebuild_coord_to_uid_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.rebuild_coord_to_uid_dict" title="Link to this definition"></a></dt>
+<dd><p>重建Road.__coord_to_node_uid</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_all_nodes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_all_nodes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_close_nodes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_close_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict[slice(&lt;class</span> <span class="pre">'int'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'geopandas.geodataframe.GeoDataFrame'&gt;,</span> <span class="pre">None)]</span></span></span><a class="headerlink" href="#geo.road.Road.get_close_nodes" title="Link to this definition"></a></dt>
+<dd><p>获取几乎重叠的nodes组
+:param eps: 领域的大小
+:param min_samples: 领域内最小样本数, 默认为2
+:return: 靠近的nodes的分组dict， key为组别， value为GeoDataFrame， 包含了这个组的所有nodes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_nodes_avg_coord">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_nodes_avg_coord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GeoDataFrame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_nodes_avg_coord" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.merge_nodes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">merge_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GeoDataFrame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.merge_nodes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.merge_all_close_nodes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">merge_all_close_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.merge_all_close_nodes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.create_roads_by_coords">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_roads_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="utils.html#utils.road_utils.RoadLevel" title="utils.road_utils.RoadLevel"><span class="pre">RoadLevel</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="utils.html#utils.road_utils.RoadState" title="utils.road_utils.RoadState"><span class="pre">RoadState</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">GeoDataFrame</span></span></span><a class="headerlink" href="#geo.road.Road.create_roads_by_coords" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.add_road">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_road</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_uid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">UUID</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#geo.road.Road.add_road" title="Link to this definition"></a></dt>
+<dd><p>添加road至Road.__edge_gdf</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.add_roads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_roads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GeoDataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_uid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">UUID</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#geo.road.Road.add_roads" title="Link to this definition"></a></dt>
+<dd><p>添加roads至Road.__edge_gdf</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.add_road_by_coords">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_road_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.road_utils.RoadLevel" title="utils.road_utils.RoadLevel"><span class="pre">RoadLevel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.road_utils.RoadState" title="utils.road_utils.RoadState"><span class="pre">RoadState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_uid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">UUID</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#geo.road.Road.add_road_by_coords" title="Link to this definition"></a></dt>
+<dd><p>通过坐标创建road并添加至Road.__edge_gdf</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.add_roads_by_coords">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_roads_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="utils.html#utils.road_utils.RoadLevel" title="utils.road_utils.RoadLevel"><span class="pre">RoadLevel</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="utils.html#utils.road_utils.RoadState" title="utils.road_utils.RoadState"><span class="pre">RoadState</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_uid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">UUID</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#geo.road.Road.add_roads_by_coords" title="Link to this definition"></a></dt>
+<dd><p>通过坐标创建roads并添加至Road.__edge_gdf</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.delete_road">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_road</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_nodes_immediately</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.delete_road" title="Link to this definition"></a></dt>
+<dd><p>删除road，默认自动清理node
+:param road: 要被删除的road
+:param update_nodes_immediately: 如果需要一次性大量删除road时，则可以不立即排查node是否要被删除。可以在所有road都被删除后统一安排清理
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.delete_road_by_uid">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_road_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_nodes_immediately</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.delete_road_by_uid" title="Link to this definition"></a></dt>
+<dd><p>通过uid删除road， 其他信息参考Road.delete_road方法</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.delete_roads_by_uids_list">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_roads_by_uids_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uids_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">UUID</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.delete_roads_by_uids_list" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.delete_all">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clear_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.delete_all" title="Link to this definition"></a></dt>
+<dd><p>清空所有内容， 默认cache也将被清除</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_edge_attrs">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_edge_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_edge_attrs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_node_attrs">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_node_attrs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_node_attrs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_road_by_uid">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_road_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_road_by_uid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_road_by_index">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_road_by_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="headerlink" href="#geo.road.Road.get_road_by_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_roads_by_indexes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_roads_by_indexes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">GeoDataFrame</span></span></span><a class="headerlink" href="#geo.road.Road.get_roads_by_indexes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_roads_by_attr_and_value">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_roads_by_attr_and_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">GeoDataFrame</span></span></span><a class="headerlink" href="#geo.road.Road.get_roads_by_attr_and_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_node_by_attr_and_value">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_node_by_attr_and_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_node_by_attr_and_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_first_road">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_first_road</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_first_road" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_last_road">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_last_road</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_last_road" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_all_roads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_roads</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_all_roads" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_roads_by_node">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_roads_by_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_roads_by_node" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_roads_by_cluster">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_roads_by_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.road_utils.RoadCluster" title="utils.road_utils.RoadCluster"><span class="pre">RoadCluster</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_roads_by_cluster" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_road_by_hash">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_road_by_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hash_code</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="headerlink" href="#geo.road.Road.get_road_by_hash" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_roads_by_hashes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_roads_by_hashes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hashes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">GeoDataFrame</span></span></span><a class="headerlink" href="#geo.road.Road.get_roads_by_hashes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_valid_spawn_range">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_valid_spawn_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_valid_spawn_range" title="Link to this definition"></a></dt>
+<dd><p>求可以生成新路的位置，如果没有，返回None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_road_last_point">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_road_last_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#geo.road.Road.get_road_last_point" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_road_last_element">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_road_last_element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">LineString</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Point</span></span></span><a class="headerlink" href="#geo.road.Road.get_road_last_element" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_dead_ends">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_dead_ends</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_dead_ends" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.add_point_to_road">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_point_to_road</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_nodes_immediately</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.add_point_to_road" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.add_points_to_road">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_points_to_road</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_nodes_immediately</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.add_points_to_road" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.update_road_points">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_road_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_nodes_immediately</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.update_road_points" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.replace_u">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">replace_u</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.replace_u" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.replace_v">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">replace_v</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.replace_v" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.detect_intersection">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">detect_intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">candidate_roads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GeoDataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_roads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GeoDataFrame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.detect_intersection" title="Link to this definition"></a></dt>
+<dd><p>计算道路相交， all_roads必须全包含roads。该方法依赖c#实现
+:param candidate_roads: 准备计算相交的道路
+:param all_roads: 参与计算的道路域
+:return: 返回谁和谁相交在哪 1. 相交的道路uid：list[tuple[uuid.UUID, uuid.UUID]] 2. 交点：list[tuple[float, float]]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.interpolate_road">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">interpolate_road</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#geo.road.Road.interpolate_road" title="Link to this definition"></a></dt>
+<dd><p>在road上取点， 失败返回None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.interpolate_road_by_random_position">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">interpolate_road_by_random_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.interpolate_road_by_random_position" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.split_road">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">split_road</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list[UUID('2a824775-bc48-46b6-9521-8a3cc5466ce9')]</span></span></span><a class="headerlink" href="#geo.road.Road.split_road" title="Link to this definition"></a></dt>
+<dd><p>先取点，后分割，返回分割后的list[uid]， 失败返回自身uid</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.split_road_by_coord">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">split_road_by_coord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_coord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list[UUID('b8f524bf-82e4-4ca4-9521-e8aca0c446e8')]</span></span></span><a class="headerlink" href="#geo.road.Road.split_road_by_coord" title="Link to this definition"></a></dt>
+<dd><p>通过坐标点分割道路， 返回分割后的list[uid]， 失败返回自身uid</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.split_road_by_coords">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">split_road_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list[UUID('8706a3bb-842e-4012-9e3a-01509b660bde')]</span></span></span><a class="headerlink" href="#geo.road.Road.split_road_by_coords" title="Link to this definition"></a></dt>
+<dd><p>通过一系列坐标点分割道路，返回分割后的list[uid]， 失败返回自身uid
+该方法调用c#实现</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.split_roads_by_intersection_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">split_roads_by_intersection_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road_uid_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">UUID</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">UUID</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intersection_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.split_roads_by_intersection_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.merge_roads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">merge_roads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">road2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_nodes_immediately</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.merge_roads" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.simplify_roads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">simplify_roads</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.simplify_roads" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.examine_invalid_roads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">examine_invalid_roads</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">UUID</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#geo.road.Road.examine_invalid_roads" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.auto_fix">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">auto_fix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.auto_fix" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_vertices_data_legacy">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_vertices_data_legacy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_vertices_data_legacy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_vertices_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_vertices_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_vertices_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_node_vertices_data_legacy">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_node_vertices_data_legacy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GeoDataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_node_vertices_data_legacy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.get_node_vertices_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_node_vertices_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GeoDataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.get_node_vertices_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.to_graph">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.to_graph" title="Link to this definition"></a></dt>
+<dd><p>fast implement, version 3
+此版特性包括：
+将计算内容转移到道路的创建与修改过程中，道路将维护u和v的变量，因此创建graph时无需重新计算，大大加速了graph的创建速度
+引入缓存机制，缓存过的graph部分将不再重新创建</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.from_graph">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.from_graph" title="Link to this definition"></a></dt>
+<dd><p>仅使用原有的edges数据进行创建，
+highway数据将自动转化为对应的level，geometry数据将会保留
+u，v信息将被抛弃，节点信息由geometry自动计算得到
+该方法速度较慢</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.data_to_roads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data_to_roads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.data_to_roads" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.roads_to_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">roads_to_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.roads_to_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.quick_roads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">quick_roads</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.quick_roads" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.show_info">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">show_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.show_info" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.cache">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.cache" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.clear_cache">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.clear_cache" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road.Road.restore">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">restore</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road.Road.restore" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-geo.road_c">
+<span id="geo-road-c-module"></span><h2>geo.road_c module<a class="headerlink" href="#module-geo.road_c" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="geo.road_c.Road">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">geo.road_c.</span></span><span class="sig-name descname"><span class="pre">Road</span></span><a class="headerlink" href="#geo.road_c.Road" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#geo.Object" title="geo.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.uid">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">uid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.uid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.clear_unused_nodes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear_unused_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.clear_unused_nodes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.get_all_nodes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.get_all_nodes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.get_close_nodes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_close_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.get_close_nodes" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eps</strong> – 领域的大小</p></li>
+<li><p><strong>min_samples</strong> – 领域内最小样本数, 默认为2</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.merge_grouped_nodes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">merge_grouped_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.merge_grouped_nodes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.add_road_by_coords">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_road_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.road_utils.RoadLevel" title="utils.road_utils.RoadLevel"><span class="pre">RoadLevel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.road_utils.RoadState" title="utils.road_utils.RoadState"><span class="pre">RoadState</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.add_road_by_coords" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.add_roads_by_coords">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_roads_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="utils.html#utils.road_utils.RoadLevel" title="utils.road_utils.RoadLevel"><span class="pre">RoadLevel</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="utils.html#utils.road_utils.RoadState" title="utils.road_utils.RoadState"><span class="pre">RoadState</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.add_roads_by_coords" title="Link to this definition"></a></dt>
+<dd><p>通过坐标创建roads并添加至Road.__edge_gdf</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.remove_road">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">remove_road</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.remove_road" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.remove_all_roads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">remove_all_roads</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.remove_all_roads" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.get_road_by_uid">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_road_by_uid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.get_road_by_uid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.get_road_by_index">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_road_by_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.get_road_by_index" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.get_roads_by_indexes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_roads_by_indexes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.get_roads_by_indexes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.get_roads_by_attr_and_value">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_roads_by_attr_and_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.road_utils.RoadLevel" title="utils.road_utils.RoadLevel"><span class="pre">RoadLevel</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="utils.html#utils.road_utils.RoadState" title="utils.road_utils.RoadState"><span class="pre">RoadState</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.get_roads_by_attr_and_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.get_all_roads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_roads</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.get_all_roads" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.get_roads_by_cluster">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_roads_by_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cluster</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.road_utils.RoadCluster" title="utils.road_utils.RoadCluster"><span class="pre">RoadCluster</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.get_roads_by_cluster" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.get_valid_spawn_range">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_valid_spawn_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.get_valid_spawn_range" title="Link to this definition"></a></dt>
+<dd><p>求可以生成新路的位置，如果没有，返回None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.get_road_last_coord">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_road_last_coord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.get_road_last_coord" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.get_road_last_vector">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_road_last_vector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.get_road_last_vector" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.update_coords">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cCoords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.update_coords" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.add_u_node">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_u_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.add_u_node" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.add_v_node">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_v_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.add_v_node" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.replace_u_node">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">replace_u_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.replace_u_node" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.replace_v_node">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">replace_v_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.replace_v_node" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.interpolate_road">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">interpolate_road</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.interpolate_road" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.split_road">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">split_road</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.split_road" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.split_road_by_coord">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">split_road_by_coord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cCoord</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.split_road_by_coord" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.split_road_by_random_position">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">split_road_by_random_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.split_road_by_random_position" title="Link to this definition"></a></dt>
+<dd><p>随机选取一个位置作为新路的出生点，并且将路进行分割， 返回分割点</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.merge_roads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">merge_roads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">road2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.merge_roads" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.simplify_roads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">simplify_roads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.simplify_roads" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.get_vertices_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_vertices_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.get_vertices_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.get_node_vertices_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_node_vertices_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GeoDataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.get_node_vertices_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.to_graph">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.to_graph" title="Link to this definition"></a></dt>
+<dd><p>fast implement, version 3
+此版特性包括：
+将计算内容转移到道路的创建与修改过程中，道路将维护u和v的变量，因此创建graph时无需重新计算，大大加速了graph的创建速度
+引入缓存机制，缓存过的graph部分将不再重新创建</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.from_graph">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.from_graph" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.data_to_roads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data_to_roads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.data_to_roads" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.roads_to_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">roads_to_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.roads_to_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.quick_roads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">quick_roads</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.quick_roads" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.show_info">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">show_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.show_info" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.cache">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.cache" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.clear_cache">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.clear_cache" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.road_c.Road.restore">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">restore</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.road_c.Road.restore" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-geo.terrain">
+<span id="geo-terrain-module"></span><h2>geo.terrain module<a class="headerlink" href="#module-geo.terrain" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="geo.terrain.Terrain">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">geo.terrain.</span></span><span class="sig-name descname"><span class="pre">Terrain</span></span><a class="headerlink" href="#geo.terrain.Terrain" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#geo.Object" title="geo.Object"><code class="xref py py-class docutils literal notranslate"><span class="pre">Object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.terrain.Terrain.plot_all">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">plot_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.terrain.Terrain.plot_all" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.terrain.Terrain.data_to_terrain">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data_to_terrain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.terrain.Terrain.data_to_terrain" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.terrain.Terrain.terrain_to_data">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">terrain_to_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.terrain.Terrain.terrain_to_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-geo">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-geo" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="geo.ObjectMeta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">geo.</span></span><span class="sig-name descname"><span class="pre">ObjectMeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.ObjectMeta" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.ObjectMeta.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#geo.ObjectMeta.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.ObjectMeta.plot_all">
+<span class="sig-name descname"><span class="pre">plot_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.ObjectMeta.plot_all" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="geo.Object">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">geo.</span></span><span class="sig-name descname"><span class="pre">Object</span></span><a class="headerlink" href="#geo.Object" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="geo.Object.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#geo.Object.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="geo.Object.registry">
+<span class="sig-name descname"><span class="pre">registry</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'geo.road.Road'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'geo.building.Building'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'geo.region.Region'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'geo.terrain.Terrain'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'geo.road_c.Road'&gt;]</span></em><a class="headerlink" href="#geo.Object.registry" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="DDPG.legacy.html" class="btn btn-neutral float-left" title="DDPG.legacy package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="graphic_module.html" class="btn btn-neutral float-right" title="graphic_module module" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2024, FengYiheng WuWenxin QiuShubing。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

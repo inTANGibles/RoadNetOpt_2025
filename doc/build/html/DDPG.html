@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DDPG package &mdash; RoadNetOpt 0.5 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=37890895"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="DDPG.legacy package" href="DDPG.legacy.html" />
+    <link rel="prev" title="Welcome to RoadNetOpt’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RoadNetOpt
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">DDPG package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.legacy.html">DDPG.legacy package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DDPG.CNN">DDPG.CNN module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.CNN.CNN"><code class="docutils literal notranslate"><span class="pre">CNN</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.CNN.CNN.__init__"><code class="docutils literal notranslate"><span class="pre">CNN.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.CNN.CNN.forward"><code class="docutils literal notranslate"><span class="pre">CNN.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.CNN.CNN.calculate_cnn_output_shape"><code class="docutils literal notranslate"><span class="pre">CNN.calculate_cnn_output_shape()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.CNN.CNN.training"><code class="docutils literal notranslate"><span class="pre">CNN.training</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DDPG.DDPGNet">DDPG.DDPGNet module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.DDPGNet.PolicyNet"><code class="docutils literal notranslate"><span class="pre">PolicyNet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.DDPGNet.PolicyNet.__init__"><code class="docutils literal notranslate"><span class="pre">PolicyNet.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.DDPGNet.PolicyNet.forward"><code class="docutils literal notranslate"><span class="pre">PolicyNet.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.DDPGNet.PolicyNet.training"><code class="docutils literal notranslate"><span class="pre">PolicyNet.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.DDPGNet.CriticNet"><code class="docutils literal notranslate"><span class="pre">CriticNet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.DDPGNet.CriticNet.__init__"><code class="docutils literal notranslate"><span class="pre">CriticNet.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.DDPGNet.CriticNet.forward"><code class="docutils literal notranslate"><span class="pre">CriticNet.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.DDPGNet.CriticNet.training"><code class="docutils literal notranslate"><span class="pre">CriticNet.training</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DDPG.ReplayBuffer">DDPG.ReplayBuffer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.ReplayBuffer.ReplayBuffer"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.ReplayBuffer.ReplayBuffer.__init__"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.ReplayBuffer.ReplayBuffer.add"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.ReplayBuffer.ReplayBuffer.sample"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.sample()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.ReplayBuffer.ReplayBuffer.size"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.ReplayBuffer.ReplayBuffer.save"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.ReplayBuffer.ReplayBuffer.load"><code class="docutils literal notranslate"><span class="pre">ReplayBuffer.load()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DDPG.agent">DDPG.agent module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.agent.Agent"><code class="docutils literal notranslate"><span class="pre">Agent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.agent.Agent.__init__"><code class="docutils literal notranslate"><span class="pre">Agent.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.agent.Agent.actor"><code class="docutils literal notranslate"><span class="pre">Agent.actor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.agent.Agent.target_actor"><code class="docutils literal notranslate"><span class="pre">Agent.target_actor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.agent.Agent.critic_optimizer"><code class="docutils literal notranslate"><span class="pre">Agent.critic_optimizer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.agent.Agent.take_action"><code class="docutils literal notranslate"><span class="pre">Agent.take_action()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.agent.Agent.soft_update"><code class="docutils literal notranslate"><span class="pre">Agent.soft_update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.agent.Agent.update"><code class="docutils literal notranslate"><span class="pre">Agent.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DDPG.env">DDPG.env module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.env.RenderBackend"><code class="docutils literal notranslate"><span class="pre">RenderBackend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.env.RenderBackend.MATPLOTLIB"><code class="docutils literal notranslate"><span class="pre">RenderBackend.MATPLOTLIB</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.env.RenderBackend.OPENGL"><code class="docutils literal notranslate"><span class="pre">RenderBackend.OPENGL</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.env.RoadEnv"><code class="docutils literal notranslate"><span class="pre">RoadEnv</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.env.RoadEnv.MyTimer"><code class="docutils literal notranslate"><span class="pre">RoadEnv.MyTimer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.env.RoadEnv.__init__"><code class="docutils literal notranslate"><span class="pre">RoadEnv.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.env.RoadEnv.clear_and_spawn_agents"><code class="docutils literal notranslate"><span class="pre">RoadEnv.clear_and_spawn_agents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.env.RoadEnv.done_in_ndarray_format"><code class="docutils literal notranslate"><span class="pre">RoadEnv.done_in_ndarray_format</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.env.RoadEnv.final_reward"><code class="docutils literal notranslate"><span class="pre">RoadEnv.final_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.env.RoadEnv.get_image_observation"><code class="docutils literal notranslate"><span class="pre">RoadEnv.get_image_observation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.env.RoadEnv.render"><code class="docutils literal notranslate"><span class="pre">RoadEnv.render()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.env.RoadEnv.reset"><code class="docutils literal notranslate"><span class="pre">RoadEnv.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.env.RoadEnv.reward"><code class="docutils literal notranslate"><span class="pre">RoadEnv.reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.env.RoadEnv.step"><code class="docutils literal notranslate"><span class="pre">RoadEnv.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.env.sequential_mode_init"><code class="docutils literal notranslate"><span class="pre">sequential_mode_init()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.env.sequential_mode_reset"><code class="docutils literal notranslate"><span class="pre">sequential_mode_reset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.env.sequential_mode_step"><code class="docutils literal notranslate"><span class="pre">sequential_mode_step()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.env.synchronous_mode_init"><code class="docutils literal notranslate"><span class="pre">synchronous_mode_init()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.env.synchronous_mode_reset"><code class="docutils literal notranslate"><span class="pre">synchronous_mode_reset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.env.synchronous_mode_step"><code class="docutils literal notranslate"><span class="pre">synchronous_mode_step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DDPG.reward_agent">DDPG.reward_agent module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.reward_agent.RewardAgent"><code class="docutils literal notranslate"><span class="pre">RewardAgent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.reward_agent.RewardAgent.__init__"><code class="docutils literal notranslate"><span class="pre">RewardAgent.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.reward_agent.RewardAgent.backward_penalty"><code class="docutils literal notranslate"><span class="pre">RewardAgent.backward_penalty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.reward_agent.RewardAgent.bound_reward"><code class="docutils literal notranslate"><span class="pre">RewardAgent.bound_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.reward_agent.RewardAgent.building_region_reward"><code class="docutils literal notranslate"><span class="pre">RewardAgent.building_region_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.reward_agent.RewardAgent.get_final_rewards"><code class="docutils literal notranslate"><span class="pre">RewardAgent.get_final_rewards()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.reward_agent.RewardAgent.get_rewards"><code class="docutils literal notranslate"><span class="pre">RewardAgent.get_rewards()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.reward_agent.RewardAgent.graph_reward"><code class="docutils literal notranslate"><span class="pre">RewardAgent.graph_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.reward_agent.RewardAgent.reset"><code class="docutils literal notranslate"><span class="pre">RewardAgent.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.reward_agent.RewardAgent.road_reward"><code class="docutils literal notranslate"><span class="pre">RewardAgent.road_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.reward_agent.RewardAgent.step_penalty"><code class="docutils literal notranslate"><span class="pre">RewardAgent.step_penalty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.reward_agent.RewardAgent.terrain_reward"><code class="docutils literal notranslate"><span class="pre">RewardAgent.terrain_reward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DDPG.test">DDPG.test module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.test.test"><code class="docutils literal notranslate"><span class="pre">test()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DDPG.train">DDPG.train module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.train.LimitedQueue"><code class="docutils literal notranslate"><span class="pre">LimitedQueue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.train.LimitedQueue.__init__"><code class="docutils literal notranslate"><span class="pre">LimitedQueue.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.train.LimitedQueue.append"><code class="docutils literal notranslate"><span class="pre">LimitedQueue.append()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.train.MyTimer"><code class="docutils literal notranslate"><span class="pre">MyTimer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.train.MyTimer.__init__"><code class="docutils literal notranslate"><span class="pre">MyTimer.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.train.TrainMode"><code class="docutils literal notranslate"><span class="pre">TrainMode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.train.TrainMode.WARMUP"><code class="docutils literal notranslate"><span class="pre">TrainMode.WARMUP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#DDPG.train.TrainMode.TRAIN"><code class="docutils literal notranslate"><span class="pre">TrainMode.TRAIN</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.train.train"><code class="docutils literal notranslate"><span class="pre">train()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.train.epoch_generator"><code class="docutils literal notranslate"><span class="pre">epoch_generator()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.train.agent_play"><code class="docutils literal notranslate"><span class="pre">agent_play()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.train.agent_update"><code class="docutils literal notranslate"><span class="pre">agent_update()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.train.agent_take_action"><code class="docutils literal notranslate"><span class="pre">agent_take_action()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.train.shift_reward"><code class="docutils literal notranslate"><span class="pre">shift_reward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.train.assign_reward_weights"><code class="docutils literal notranslate"><span class="pre">assign_reward_weights()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.train.calculate_episode_return"><code class="docutils literal notranslate"><span class="pre">calculate_episode_return()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.train.add_to_replay_buffer"><code class="docutils literal notranslate"><span class="pre">add_to_replay_buffer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.train.save_model"><code class="docutils literal notranslate"><span class="pre">save_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-DDPG">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.conv"><code class="docutils literal notranslate"><span class="pre">conv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#DDPG.pool"><code class="docutils literal notranslate"><span class="pre">pool()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="geo.html">geo package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graphic_module.html">graphic_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimize_module.html">optimize_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style_module.html">style_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_module.html">train_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources_module.html">resources_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RoadNetOpt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">DDPG package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/DDPG.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ddpg-package">
+<h1>DDPG package<a class="headerlink" href="#ddpg-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="DDPG.legacy.html">DDPG.legacy package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.legacy.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.legacy.html#module-DDPG.legacy.env">DDPG.legacy.env module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet"><code class="docutils literal notranslate"><span class="pre">RoadNet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.simple_agent"><code class="docutils literal notranslate"><span class="pre">RoadNet.simple_agent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.nb_new_roads"><code class="docutils literal notranslate"><span class="pre">RoadNet.nb_new_roads</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.distance"><code class="docutils literal notranslate"><span class="pre">RoadNet.distance</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.if_no_choice_roads"><code class="docutils literal notranslate"><span class="pre">RoadNet.if_no_choice_roads</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.choice"><code class="docutils literal notranslate"><span class="pre">RoadNet.choice</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.get_image"><code class="docutils literal notranslate"><span class="pre">RoadNet.get_image</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.if_render"><code class="docutils literal notranslate"><span class="pre">RoadNet.if_render</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.road_net_x_region"><code class="docutils literal notranslate"><span class="pre">RoadNet.road_net_x_region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.road_net_y_region"><code class="docutils literal notranslate"><span class="pre">RoadNet.road_net_y_region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.action_space_bound"><code class="docutils literal notranslate"><span class="pre">RoadNet.action_space_bound</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.action_space_boundMove"><code class="docutils literal notranslate"><span class="pre">RoadNet.action_space_boundMove</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.observation_space_shape"><code class="docutils literal notranslate"><span class="pre">RoadNet.observation_space_shape</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.__init__"><code class="docutils literal notranslate"><span class="pre">RoadNet.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.restore"><code class="docutils literal notranslate"><span class="pre">RoadNet.restore()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.check_line_and_out_random_distance"><code class="docutils literal notranslate"><span class="pre">RoadNet.check_line_and_out_random_distance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.out_start_points_by_index"><code class="docutils literal notranslate"><span class="pre">RoadNet.out_start_points_by_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.reset"><code class="docutils literal notranslate"><span class="pre">RoadNet.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.simple_agent_reset"><code class="docutils literal notranslate"><span class="pre">RoadNet.simple_agent_reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.return_image_observation"><code class="docutils literal notranslate"><span class="pre">RoadNet.return_image_observation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.render"><code class="docutils literal notranslate"><span class="pre">RoadNet.render()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.step"><code class="docutils literal notranslate"><span class="pre">RoadNet.step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.reward"><code class="docutils literal notranslate"><span class="pre">RoadNet.reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.if_out_region"><code class="docutils literal notranslate"><span class="pre">RoadNet.if_out_region()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.if_the_way_back"><code class="docutils literal notranslate"><span class="pre">RoadNet.if_the_way_back()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.done"><code class="docutils literal notranslate"><span class="pre">RoadNet.done()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.Done"><code class="docutils literal notranslate"><span class="pre">RoadNet.Done()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.simple_agent_Done"><code class="docutils literal notranslate"><span class="pre">RoadNet.simple_agent_Done()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.env.RoadNet.split_road_after_done"><code class="docutils literal notranslate"><span class="pre">RoadNet.split_road_after_done()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.legacy.html#module-DDPG.legacy.reward_agent">DDPG.legacy.reward_agent module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.reward_agent.RewardAgent"><code class="docutils literal notranslate"><span class="pre">RewardAgent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.reward_agent.RewardAgent.__init__"><code class="docutils literal notranslate"><span class="pre">RewardAgent.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.reward_agent.RewardAgent.headless"><code class="docutils literal notranslate"><span class="pre">RewardAgent.headless</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.reward_agent.RewardAgent.building_rewards"><code class="docutils literal notranslate"><span class="pre">RewardAgent.building_rewards()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.reward_agent.RewardAgent.graph_rewards"><code class="docutils literal notranslate"><span class="pre">RewardAgent.graph_rewards()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.reward_agent.RewardAgent.road_rewards"><code class="docutils literal notranslate"><span class="pre">RewardAgent.road_rewards()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.reward_agent.RewardAgent.terrain_rewards"><code class="docutils literal notranslate"><span class="pre">RewardAgent.terrain_rewards()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.reward_agent.RewardAgent.bound_rewards"><code class="docutils literal notranslate"><span class="pre">RewardAgent.bound_rewards()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.reward_agent.RewardAgent.agent_reward"><code class="docutils literal notranslate"><span class="pre">RewardAgent.agent_reward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.legacy.html#module-DDPG.legacy.train1">DDPG.legacy.train1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.train1.train"><code class="docutils literal notranslate"><span class="pre">train()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.legacy.html#module-DDPG.legacy.train2">DDPG.legacy.train2 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="DDPG.legacy.html#DDPG.legacy.train2.train"><code class="docutils literal notranslate"><span class="pre">train()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DDPG.legacy.html#module-DDPG.legacy">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-DDPG.CNN">
+<span id="ddpg-cnn-module"></span><h2>DDPG.CNN module<a class="headerlink" href="#module-DDPG.CNN" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="DDPG.CNN.CNN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DDPG.CNN.</span></span><span class="sig-name descname"><span class="pre">CNN</span></span><a class="headerlink" href="#DDPG.CNN.CNN" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.CNN.CNN.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.CNN.CNN.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.CNN.CNN.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.CNN.CNN.forward" title="Link to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.CNN.CNN.calculate_cnn_output_shape">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculate_cnn_output_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.CNN.CNN.calculate_cnn_output_shape" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="DDPG.CNN.CNN.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#DDPG.CNN.CNN.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-DDPG.DDPGNet">
+<span id="ddpg-ddpgnet-module"></span><h2>DDPG.DDPGNet module<a class="headerlink" href="#module-DDPG.DDPGNet" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="DDPG.DDPGNet.PolicyNet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DDPG.DDPGNet.</span></span><span class="sig-name descname"><span class="pre">PolicyNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nb_actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_space_bound</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_space_boundMove</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CNN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.DDPGNet.PolicyNet" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.DDPGNet.PolicyNet.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nb_actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_space_bound</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_space_boundMove</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CNN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.DDPGNet.PolicyNet.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.DDPGNet.PolicyNet.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.DDPGNet.PolicyNet.forward" title="Link to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="DDPG.DDPGNet.PolicyNet.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#DDPG.DDPGNet.PolicyNet.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="DDPG.DDPGNet.CriticNet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DDPG.DDPGNet.</span></span><span class="sig-name descname"><span class="pre">CriticNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nb_actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CNN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.DDPGNet.CriticNet" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.DDPGNet.CriticNet.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nb_actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CNN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.DDPGNet.CriticNet.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.DDPGNet.CriticNet.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.DDPGNet.CriticNet.forward" title="Link to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="DDPG.DDPGNet.CriticNet.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#DDPG.DDPGNet.CriticNet.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-DDPG.ReplayBuffer">
+<span id="ddpg-replaybuffer-module"></span><h2>DDPG.ReplayBuffer module<a class="headerlink" href="#module-DDPG.ReplayBuffer" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="DDPG.ReplayBuffer.ReplayBuffer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DDPG.ReplayBuffer.</span></span><span class="sig-name descname"><span class="pre">ReplayBuffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capacity</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.ReplayBuffer.ReplayBuffer" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.ReplayBuffer.ReplayBuffer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capacity</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.ReplayBuffer.ReplayBuffer.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.ReplayBuffer.ReplayBuffer.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">next_state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">done</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Done</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.ReplayBuffer.ReplayBuffer.add" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.ReplayBuffer.ReplayBuffer.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.ReplayBuffer.ReplayBuffer.sample" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.ReplayBuffer.ReplayBuffer.size">
+<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.ReplayBuffer.ReplayBuffer.size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.ReplayBuffer.ReplayBuffer.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.ReplayBuffer.ReplayBuffer.save" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.ReplayBuffer.ReplayBuffer.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.ReplayBuffer.ReplayBuffer.load" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-DDPG.agent">
+<span id="ddpg-agent-module"></span><h2>DDPG.agent module<a class="headerlink" href="#module-DDPG.agent" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="DDPG.agent.Agent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DDPG.agent.</span></span><span class="sig-name descname"><span class="pre">Agent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nb_actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_space_bound</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_space_boundMove</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actor_lr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critic_lr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.agent.Agent" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.agent.Agent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nb_actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_space_bound</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_space_boundMove</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actor_lr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critic_lr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.agent.Agent.__init__" title="Link to this definition"></a></dt>
+<dd><p>训练网络（真实）– CNN 策略 价值（评价）</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="DDPG.agent.Agent.actor">
+<span class="sig-name descname"><span class="pre">actor</span></span><a class="headerlink" href="#DDPG.agent.Agent.actor" title="Link to this definition"></a></dt>
+<dd><p>目标网络（预测）– CNN 策略 价值（评价）</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="DDPG.agent.Agent.target_actor">
+<span class="sig-name descname"><span class="pre">target_actor</span></span><a class="headerlink" href="#DDPG.agent.Agent.target_actor" title="Link to this definition"></a></dt>
+<dd><p>使训练网络和目标网络的参数相同</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="DDPG.agent.Agent.critic_optimizer">
+<span class="sig-name descname"><span class="pre">critic_optimizer</span></span><a class="headerlink" href="#DDPG.agent.Agent.critic_optimizer" title="Link to this definition"></a></dt>
+<dd><p>属性分配</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.agent.Agent.take_action">
+<span class="sig-name descname"><span class="pre">take_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.agent.Agent.take_action" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.agent.Agent.soft_update">
+<span class="sig-name descname"><span class="pre">soft_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">net</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_net</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.agent.Agent.soft_update" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.agent.Agent.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transition_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.agent.Agent.update" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-DDPG.env">
+<span id="ddpg-env-module"></span><h2>DDPG.env module<a class="headerlink" href="#module-DDPG.env" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="DDPG.env.RenderBackend">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DDPG.env.</span></span><span class="sig-name descname"><span class="pre">RenderBackend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.env.RenderBackend" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>渲染后端</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="DDPG.env.RenderBackend.MATPLOTLIB">
+<span class="sig-name descname"><span class="pre">MATPLOTLIB</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#DDPG.env.RenderBackend.MATPLOTLIB" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="DDPG.env.RenderBackend.OPENGL">
+<span class="sig-name descname"><span class="pre">OPENGL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#DDPG.env.RenderBackend.OPENGL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="DDPG.env.RoadEnv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DDPG.env.</span></span><span class="sig-name descname"><span class="pre">RoadEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_road_agents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_episode_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_img_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_view_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_step_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headless</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shared_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">render_backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#DDPG.env.RenderBackend" title="DDPG.env.RenderBackend"><span class="pre">RenderBackend</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">RenderBackend.OPENGL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_center</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">still_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.env.RoadEnv" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="DDPG.env.RoadEnv.MyTimer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MyTimer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#DDPG.env.RoadEnv" title="DDPG.env.RoadEnv"><span class="pre">RoadEnv</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.env.RoadEnv.MyTimer" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.env.RoadEnv.MyTimer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#DDPG.env.RoadEnv" title="DDPG.env.RoadEnv"><span class="pre">RoadEnv</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.env.RoadEnv.MyTimer.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.env.RoadEnv.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_road_agents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_episode_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_img_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_view_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_step_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headless</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shared_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">render_backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#DDPG.env.RenderBackend" title="DDPG.env.RenderBackend"><span class="pre">RenderBackend</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">RenderBackend.OPENGL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_center</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">still_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.env.RoadEnv.__init__" title="Link to this definition"></a></dt>
+<dd><p>智能体运行环境</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>请在道路、建筑、区域等加载完毕后再创建该环境。</p>
+<p>（在创建环境时会自动缓存原有道路，并且在注册观察渲染器时会自动将现有的道路、建筑、区域等作为buffer传入，</p>
+<p>而这些buffer后期将不再更新， 因此必须在道路、建筑、区域等加载完毕后再创建环境）</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_road_agents</strong> – 智能体数量</p></li>
+<li><p><strong>max_episode_step</strong> – 最大行动步数</p></li>
+<li><p><strong>region_min</strong> – 可活动区域的左上角顶点坐标（世界坐标）</p></li>
+<li><p><strong>region_max</strong> – 可活动区域的右下角坐标（世界坐标）</p></li>
+<li><p><strong>observation_img_size</strong> – 观察图像的像素大小</p></li>
+<li><p><strong>observation_view_size</strong> – 观察者的视野范围（世界坐标）</p></li>
+<li><p><strong>observation_center</strong> – 观察的中心坐标， 仅在still_mode==True时生效</p></li>
+<li><p><strong>still_mode</strong> – 摄像机是否静止，设为True时观察范围和位置固定， 并采用observation_center参数所提供的坐标作为观察中心， 否则摄像机跟随agent运动</p></li>
+<li><p><strong>action_step_range</strong> – 步长最小值，步长最大值</p></li>
+<li><p><strong>headless</strong> – 无头模式</p></li>
+<li><p><strong>shared_data</strong> – 共享的数据</p></li>
+<li><p><strong>render_backend</strong> – 渲染后端</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.env.RoadEnv.clear_and_spawn_agents">
+<span class="sig-name descname"><span class="pre">clear_and_spawn_agents</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.env.RoadEnv.clear_and_spawn_agents" title="Link to this definition"></a></dt>
+<dd><p>清除原来的roads， 并且生成新的road（起点）， 更新self.road_agents 和 self.agents_done</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="DDPG.env.RoadEnv.done_in_ndarray_format">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">done_in_ndarray_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#DDPG.env.RoadEnv.done_in_ndarray_format" title="Link to this definition"></a></dt>
+<dd><p>兼容性操作， 返回符合train要求的numpy格式的done</p>
+<p>注意：该操作不是计算done的方法，仅仅是将self.agents_done翻译为numpy格式</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.env.RoadEnv.final_reward">
+<span class="sig-name descname"><span class="pre">final_reward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.env.RoadEnv.final_reward" title="Link to this definition"></a></dt>
+<dd><p>在这里计算最终的reward</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.env.RoadEnv.get_image_observation">
+<span class="sig-name descname"><span class="pre">get_image_observation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#DDPG.env.RoadEnv.get_image_observation" title="Link to this definition"></a></dt>
+<dd><p>返回状态，为 图像 格式</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.env.RoadEnv.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.env.RoadEnv.render" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.env.RoadEnv.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#DDPG.env.RoadEnv.reset" title="Link to this definition"></a></dt>
+<dd><p>初始化新的道路，分随机初始化、选定道路初始化(TODO)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.env.RoadEnv.reward">
+<span class="sig-name descname"><span class="pre">reward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.env.RoadEnv.reward" title="Link to this definition"></a></dt>
+<dd><p>在这里计算每一步的reward</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.env.RoadEnv.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.env.RoadEnv.step" title="Link to this definition"></a></dt>
+<dd><p>返回new_observation, rewards, done, all_done</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.env.sequential_mode_init">
+<span class="sig-prename descclassname"><span class="pre">DDPG.env.</span></span><span class="sig-name descname"><span class="pre">sequential_mode_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_agents</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.env.sequential_mode_init" title="Link to this definition"></a></dt>
+<dd><p>顺序模式， agent一个一个跑</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.env.sequential_mode_reset">
+<span class="sig-prename descclassname"><span class="pre">DDPG.env.</span></span><span class="sig-name descname"><span class="pre">sequential_mode_reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.env.sequential_mode_reset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.env.sequential_mode_step">
+<span class="sig-prename descclassname"><span class="pre">DDPG.env.</span></span><span class="sig-name descname"><span class="pre">sequential_mode_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#DDPG.env.sequential_mode_step" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.env.synchronous_mode_init">
+<span class="sig-prename descclassname"><span class="pre">DDPG.env.</span></span><span class="sig-name descname"><span class="pre">synchronous_mode_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_agents</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.env.synchronous_mode_init" title="Link to this definition"></a></dt>
+<dd><p>同步模式，若干agent同时跑</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.env.synchronous_mode_reset">
+<span class="sig-prename descclassname"><span class="pre">DDPG.env.</span></span><span class="sig-name descname"><span class="pre">synchronous_mode_reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.env.synchronous_mode_reset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.env.synchronous_mode_step">
+<span class="sig-prename descclassname"><span class="pre">DDPG.env.</span></span><span class="sig-name descname"><span class="pre">synchronous_mode_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#DDPG.env.synchronous_mode_step" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-DDPG.reward_agent">
+<span id="ddpg-reward-agent-module"></span><h2>DDPG.reward_agent module<a class="headerlink" href="#module-DDPG.reward_agent" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="DDPG.reward_agent.RewardAgent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DDPG.reward_agent.</span></span><span class="sig-name descname"><span class="pre">RewardAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headless</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.reward_agent.RewardAgent" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>reward值计算的Opengl实现版本</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.reward_agent.RewardAgent.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headless</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.reward_agent.RewardAgent.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.reward_agent.RewardAgent.backward_penalty">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">backward_penalty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_is_forward</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.reward_agent.RewardAgent.backward_penalty" title="Link to this definition"></a></dt>
+<dd><p>如果回头，则扣分</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.reward_agent.RewardAgent.bound_reward">
+<span class="sig-name descname"><span class="pre">bound_reward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.reward_agent.RewardAgent.bound_reward" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.reward_agent.RewardAgent.building_region_reward">
+<span class="sig-name descname"><span class="pre">building_region_reward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.reward_agent.RewardAgent.building_region_reward" title="Link to this definition"></a></dt>
+<dd><p>限制不能进入的区域,传入当前建筑图像与智能体位置
+返回规则: 得分区间[-1,0],越靠近建筑越接近于-1</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.reward_agent.RewardAgent.get_final_rewards">
+<span class="sig-name descname"><span class="pre">get_final_rewards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">road_agents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">UUID</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Series</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intersect_with_road_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">UUID</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.reward_agent.RewardAgent.get_final_rewards" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.reward_agent.RewardAgent.get_rewards">
+<span class="sig-name descname"><span class="pre">get_rewards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">positions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_roads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_forwards</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.reward_agent.RewardAgent.get_rewards" title="Link to this definition"></a></dt>
+<dd><p>每次step需要刷新的内容
+先进行渲染，然后再计算reward</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>positions</strong> – 新生成的道路的最后一个点的位置（即智能体当前位置）</p></li>
+<li><p><strong>parent_roads</strong> – 智能体出生的道路</p></li>
+<li><p><strong>is_forwards</strong> – 是否向前</p></li>
+<li><p><strong>debug_dict</strong> – 用于输出debug信息，可以留空。格式为{i: {} for i in range(len(positions))}</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.reward_agent.RewardAgent.graph_reward">
+<span class="sig-name descname"><span class="pre">graph_reward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.reward_agent.RewardAgent.graph_reward" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.reward_agent.RewardAgent.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_roads</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.reward_agent.RewardAgent.reset" title="Link to this definition"></a></dt>
+<dd><p>每一轮需要刷新的内容</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.reward_agent.RewardAgent.road_reward">
+<span class="sig-name descname"><span class="pre">road_reward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.reward_agent.RewardAgent.road_reward" title="Link to this definition"></a></dt>
+<dd><p>限制智能体靠近出生道路,传入当前出生道路与智能体位置
+返回规则: 得分区间[-1,0],越靠近路越接近于-1</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.reward_agent.RewardAgent.step_penalty">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">step_penalty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.reward_agent.RewardAgent.step_penalty" title="Link to this definition"></a></dt>
+<dd><p>每走一步，累计一个负分</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.reward_agent.RewardAgent.terrain_reward">
+<span class="sig-name descname"><span class="pre">terrain_reward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.reward_agent.RewardAgent.terrain_reward" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-DDPG.test">
+<span id="ddpg-test-module"></span><h2>DDPG.test module<a class="headerlink" href="#module-DDPG.test" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.test.test">
+<span class="sig-prename descclassname"><span class="pre">DDPG.test.</span></span><span class="sig-name descname"><span class="pre">test</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.test.test" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-DDPG.train">
+<span id="ddpg-train-module"></span><h2>DDPG.train module<a class="headerlink" href="#module-DDPG.train" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="DDPG.train.LimitedQueue">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DDPG.train.</span></span><span class="sig-name descname"><span class="pre">LimitedQueue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.LimitedQueue" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">deque</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.train.LimitedQueue.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.LimitedQueue.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.train.LimitedQueue.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.LimitedQueue.append" title="Link to this definition"></a></dt>
+<dd><p>Add an element to the right side of the deque.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="DDPG.train.MyTimer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DDPG.train.</span></span><span class="sig-name descname"><span class="pre">MyTimer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.MyTimer" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="DDPG.train.MyTimer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.MyTimer.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="DDPG.train.TrainMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">DDPG.train.</span></span><span class="sig-name descname"><span class="pre">TrainMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.TrainMode" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="DDPG.train.TrainMode.WARMUP">
+<span class="sig-name descname"><span class="pre">WARMUP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#DDPG.train.TrainMode.WARMUP" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="DDPG.train.TrainMode.TRAIN">
+<span class="sig-name descname"><span class="pre">TRAIN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#DDPG.train.TrainMode.TRAIN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.train.train">
+<span class="sig-prename descclassname"><span class="pre">DDPG.train.</span></span><span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Namespace(data_path='../data/VirtualEnv/try2.bin',</span> <span class="pre">num_agents=1,</span> <span class="pre">region_min=(-40,</span> <span class="pre">-50),</span> <span class="pre">region_max=(500,</span> <span class="pre">500),</span> <span class="pre">observation_img_size=(128,</span> <span class="pre">128),</span> <span class="pre">observation_view_size=(400.0,</span> <span class="pre">400.0),</span> <span class="pre">observation_center=(200.0,</span> <span class="pre">200.0),</span> <span class="pre">still_mode=False,</span> <span class="pre">action_step_range=(20,</span> <span class="pre">60),</span> <span class="pre">max_episode_step=50)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Namespace(path_actor='',</span> <span class="pre">path_critic='',</span> <span class="pre">path_cnn='',</span> <span class="pre">path_buffer='',</span> <span class="pre">nb_actions=2,</span> <span class="pre">warmup_epochs=10000,</span> <span class="pre">train_epochs=10001,</span> <span class="pre">sigma=1.0,</span> <span class="pre">sigma_decay=0.9995,</span> <span class="pre">actor_lr=0.0001,</span> <span class="pre">critic_lr=0.001,</span> <span class="pre">tau=0.001,</span> <span class="pre">gamma=0.9,</span> <span class="pre">batch_size=64,</span> <span class="pre">buffer_capacity=10000,</span> <span class="pre">save_interval=10000,</span> <span class="pre">log_folder='',</span> <span class="pre">save_warmup_buffer=False)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gui_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Namespace(headless=False)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shared_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.train" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>env_args</strong> – </p></li>
+<li><p><strong>train_args</strong> – </p></li>
+<li><p><strong>gui_args</strong> – </p></li>
+<li><p><strong>shared_data</strong> – 共享信息 其中：slow_ratio: 1表示使用正常的yield， 0表示不使用yield（UI不会更新）， 数字越大，等待时间越长</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.train.epoch_generator">
+<span class="sig-prename descclassname"><span class="pre">DDPG.train.</span></span><span class="sig-name descname"><span class="pre">epoch_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#DDPG.train.TrainMode" title="DDPG.train.TrainMode"><span class="pre">TrainMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#DDPG.env.RoadEnv" title="DDPG.env.RoadEnv"><span class="pre">RoadEnv</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#DDPG.agent.Agent" title="DDPG.agent.Agent"><span class="pre">Agent</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replay_buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#DDPG.ReplayBuffer.ReplayBuffer" title="DDPG.ReplayBuffer.ReplayBuffer"><span class="pre">ReplayBuffer</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.epoch_generator" title="Link to this definition"></a></dt>
+<dd><p>每轮epoch运行的函数, 对于warmup和train都是一样的，通过设置mode来区分
+:param epoch:现在是第几轮
+:param mode:训练模式TrainMode.TRAIN  或 TrainMode.WARMUP
+:param env:
+:param agent:
+:param train_args:
+:param replay_buffer:
+:return:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.train.agent_play">
+<span class="sig-prename descclassname"><span class="pre">DDPG.train.</span></span><span class="sig-name descname"><span class="pre">agent_play</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">done</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replay_buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_data_buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.agent_play" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.train.agent_update">
+<span class="sig-prename descclassname"><span class="pre">DDPG.train.</span></span><span class="sig-name descname"><span class="pre">agent_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replay_buffer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.agent_update" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.train.agent_take_action">
+<span class="sig-prename descclassname"><span class="pre">DDPG.train.</span></span><span class="sig-name descname"><span class="pre">agent_take_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">done</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.agent_take_action" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.train.shift_reward">
+<span class="sig-prename descclassname"><span class="pre">DDPG.train.</span></span><span class="sig-name descname"><span class="pre">shift_reward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">final_reward</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.shift_reward" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.train.assign_reward_weights">
+<span class="sig-prename descclassname"><span class="pre">DDPG.train.</span></span><span class="sig-name descname"><span class="pre">assign_reward_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.assign_reward_weights" title="Link to this definition"></a></dt>
+<dd><p>reward权重分配方法
+:param x: 离最后一步的距离。 最后一步x=0， 离最后一步越近x越小
+:return: reward分配权重</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.train.calculate_episode_return">
+<span class="sig-prename descclassname"><span class="pre">DDPG.train.</span></span><span class="sig-name descname"><span class="pre">calculate_episode_return</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_buffer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.calculate_episode_return" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.train.add_to_replay_buffer">
+<span class="sig-prename descclassname"><span class="pre">DDPG.train.</span></span><span class="sig-name descname"><span class="pre">add_to_replay_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replay_buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#DDPG.ReplayBuffer.ReplayBuffer" title="DDPG.ReplayBuffer.ReplayBuffer"><span class="pre">ReplayBuffer</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.add_to_replay_buffer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.train.save_model">
+<span class="sig-prename descclassname"><span class="pre">DDPG.train.</span></span><span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.train.save_model" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-DDPG">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-DDPG" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.conv">
+<span class="sig-prename descclassname"><span class="pre">DDPG.</span></span><span class="sig-name descname"><span class="pre">conv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strip</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.conv" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="DDPG.pool">
+<span class="sig-prename descclassname"><span class="pre">DDPG.</span></span><span class="sig-name descname"><span class="pre">pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DDPG.pool" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to RoadNetOpt’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="DDPG.legacy.html" class="btn btn-neutral float-right" title="DDPG.legacy package" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2024, FengYiheng WuWenxin QiuShubing。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

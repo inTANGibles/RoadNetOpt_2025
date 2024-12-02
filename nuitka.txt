@@ -1,0 +1,2 @@
+
+nuitka --standalone --plugin-enable=tk-inter --enable-plugin=pyqt5 src/GUI.py

@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utils package &mdash; RoadNetOpt 0.5 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=37890895"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="resources_module module" href="resources_module.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RoadNetOpt
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="DDPG.html">DDPG package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geo.html">geo package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graphic_module.html">graphic_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimize_module.html">optimize_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style_module.html">style_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_module.html">train_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources_module.html">resources_module module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.building_utils">utils.building_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#utils.building_utils.BuildingMovableType"><code class="docutils literal notranslate"><span class="pre">BuildingMovableType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingMovableType.NONDEMOLISHABLE"><code class="docutils literal notranslate"><span class="pre">BuildingMovableType.NONDEMOLISHABLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingMovableType.FLEXABLE"><code class="docutils literal notranslate"><span class="pre">BuildingMovableType.FLEXABLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingMovableType.DEMOLISHABLE"><code class="docutils literal notranslate"><span class="pre">BuildingMovableType.DEMOLISHABLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingMovableType.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">BuildingMovableType.UNDEFINED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.building_utils.BuildingStyle"><code class="docutils literal notranslate"><span class="pre">BuildingStyle</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingStyle.HERITAGE"><code class="docutils literal notranslate"><span class="pre">BuildingStyle.HERITAGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingStyle.HISTORICAL"><code class="docutils literal notranslate"><span class="pre">BuildingStyle.HISTORICAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingStyle.TRADITIONAL"><code class="docutils literal notranslate"><span class="pre">BuildingStyle.TRADITIONAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingStyle.NORMAL"><code class="docutils literal notranslate"><span class="pre">BuildingStyle.NORMAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingStyle.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">BuildingStyle.UNDEFINED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.building_utils.BuildingQuality"><code class="docutils literal notranslate"><span class="pre">BuildingQuality</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingQuality.GOOD"><code class="docutils literal notranslate"><span class="pre">BuildingQuality.GOOD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingQuality.FAIR"><code class="docutils literal notranslate"><span class="pre">BuildingQuality.FAIR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingQuality.POOR"><code class="docutils literal notranslate"><span class="pre">BuildingQuality.POOR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingQuality.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">BuildingQuality.UNDEFINED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.building_utils.BuildingCluster"><code class="docutils literal notranslate"><span class="pre">BuildingCluster</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingCluster.__init__"><code class="docutils literal notranslate"><span class="pre">BuildingCluster.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.building_utils.BuildingCluster.show_imgui_cluster_editor_button"><code class="docutils literal notranslate"><span class="pre">BuildingCluster.show_imgui_cluster_editor_button()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.common_utils">utils.common_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#utils.common_utils.get_arg"><code class="docutils literal notranslate"><span class="pre">get_arg()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.common_utils.gaussian"><code class="docutils literal notranslate"><span class="pre">gaussian()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.common_utils.id_to_rgb"><code class="docutils literal notranslate"><span class="pre">id_to_rgb()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.common_utils.rgb_to_id"><code class="docutils literal notranslate"><span class="pre">rgb_to_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.common_utils.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.common_utils.to_triangles"><code class="docutils literal notranslate"><span class="pre">to_triangles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.common_utils.DuplicateFilter"><code class="docutils literal notranslate"><span class="pre">DuplicateFilter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.common_utils.DuplicateFilter.__init__"><code class="docutils literal notranslate"><span class="pre">DuplicateFilter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.common_utils.DuplicateFilter.filter"><code class="docutils literal notranslate"><span class="pre">DuplicateFilter.filter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.common_utils.duplicate_filter"><code class="docutils literal notranslate"><span class="pre">duplicate_filter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.field_utils">utils.field_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#utils.field_utils.FieldOverlayMode"><code class="docutils literal notranslate"><span class="pre">FieldOverlayMode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.field_utils.FieldOverlayMode.ADD"><code class="docutils literal notranslate"><span class="pre">FieldOverlayMode.ADD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.field_utils.FieldOverlayMode.MUL"><code class="docutils literal notranslate"><span class="pre">FieldOverlayMode.MUL</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.field_utils.distance_field"><code class="docutils literal notranslate"><span class="pre">distance_field()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.field_utils.normalize_field"><code class="docutils literal notranslate"><span class="pre">normalize_field()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.graphic_uitls">utils.graphic_uitls module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.plot_as_array"><code class="docutils literal notranslate"><span class="pre">plot_as_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.plot_as_array2"><code class="docutils literal notranslate"><span class="pre">plot_as_array2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.world_space_to_image_space"><code class="docutils literal notranslate"><span class="pre">world_space_to_image_space()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.image_space_to_world_space"><code class="docutils literal notranslate"><span class="pre">image_space_to_world_space()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.image_space_to_image_window_space"><code class="docutils literal notranslate"><span class="pre">image_space_to_image_window_space()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.create_texture_from_array_legacy"><code class="docutils literal notranslate"><span class="pre">create_texture_from_array_legacy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.update_texture_legacy"><code class="docutils literal notranslate"><span class="pre">update_texture_legacy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.create_texture_from_array"><code class="docutils literal notranslate"><span class="pre">create_texture_from_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.remove_texture"><code class="docutils literal notranslate"><span class="pre">remove_texture()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.update_texture"><code class="docutils literal notranslate"><span class="pre">update_texture()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.blend_img_data"><code class="docutils literal notranslate"><span class="pre">blend_img_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.ImguiDrawListObject"><code class="docutils literal notranslate"><span class="pre">ImguiDrawListObject</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.ImguiDrawListObject.__init__"><code class="docutils literal notranslate"><span class="pre">ImguiDrawListObject.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.ImguiCircleWorldSpace"><code class="docutils literal notranslate"><span class="pre">ImguiCircleWorldSpace</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.ImguiCircleWorldSpace.__init__"><code class="docutils literal notranslate"><span class="pre">ImguiCircleWorldSpace.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.ImguiCircleWorldSpace.draw"><code class="docutils literal notranslate"><span class="pre">ImguiCircleWorldSpace.draw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.ImguiTextWorldSpace"><code class="docutils literal notranslate"><span class="pre">ImguiTextWorldSpace</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.ImguiTextWorldSpace.__init__"><code class="docutils literal notranslate"><span class="pre">ImguiTextWorldSpace.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.ImguiTextWorldSpace.draw"><code class="docutils literal notranslate"><span class="pre">ImguiTextWorldSpace.draw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.ImguiMousePointerScreenSpace"><code class="docutils literal notranslate"><span class="pre">ImguiMousePointerScreenSpace</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.ImguiMousePointerScreenSpace.__init__"><code class="docutils literal notranslate"><span class="pre">ImguiMousePointerScreenSpace.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.ImguiMousePointerScreenSpace.draw"><code class="docutils literal notranslate"><span class="pre">ImguiMousePointerScreenSpace.draw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.ImguiRectScreenSpace"><code class="docutils literal notranslate"><span class="pre">ImguiRectScreenSpace</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.ImguiRectScreenSpace.__init__"><code class="docutils literal notranslate"><span class="pre">ImguiRectScreenSpace.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.ImguiRectScreenSpace.draw"><code class="docutils literal notranslate"><span class="pre">ImguiRectScreenSpace.draw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.RenderObject"><code class="docutils literal notranslate"><span class="pre">RenderObject</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.RenderObject.__init__"><code class="docutils literal notranslate"><span class="pre">RenderObject.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.RenderObject.get_xy_lim"><code class="docutils literal notranslate"><span class="pre">RenderObject.get_xy_lim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.RenderObject.set_gdf"><code class="docutils literal notranslate"><span class="pre">RenderObject.set_gdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.RenderObject.set_style_factory"><code class="docutils literal notranslate"><span class="pre">RenderObject.set_style_factory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.RenderObject.update_buffer"><code class="docutils literal notranslate"><span class="pre">RenderObject.update_buffer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.RenderObject.update_prog"><code class="docutils literal notranslate"><span class="pre">RenderObject.update_prog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.RenderObject.render"><code class="docutils literal notranslate"><span class="pre">RenderObject.render()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.RoadRO"><code class="docutils literal notranslate"><span class="pre">RoadRO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.RoadRO.__init__"><code class="docutils literal notranslate"><span class="pre">RoadRO.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.BuildingRO"><code class="docutils literal notranslate"><span class="pre">BuildingRO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.BuildingRO.__init__"><code class="docutils literal notranslate"><span class="pre">BuildingRO.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.RegionRO"><code class="docutils literal notranslate"><span class="pre">RegionRO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.RegionRO.__init__"><code class="docutils literal notranslate"><span class="pre">RegionRO.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.NodeRO"><code class="docutils literal notranslate"><span class="pre">NodeRO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.NodeRO.__init__"><code class="docutils literal notranslate"><span class="pre">NodeRO.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.PointerRO"><code class="docutils literal notranslate"><span class="pre">PointerRO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.PointerRO.instance"><code class="docutils literal notranslate"><span class="pre">PointerRO.instance</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.PointerRO.__init__"><code class="docutils literal notranslate"><span class="pre">PointerRO.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.PointerRO.set_to_point_mode"><code class="docutils literal notranslate"><span class="pre">PointerRO.set_to_point_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.PointerRO.set_to_cross_mode"><code class="docutils literal notranslate"><span class="pre">PointerRO.set_to_cross_mode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.PointerRO.update_prog"><code class="docutils literal notranslate"><span class="pre">PointerRO.update_prog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.PointerRO.render"><code class="docutils literal notranslate"><span class="pre">PointerRO.render()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.RectRO"><code class="docutils literal notranslate"><span class="pre">RectRO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.RectRO.__init__"><code class="docutils literal notranslate"><span class="pre">RectRO.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.RectRO.update_prog"><code class="docutils literal notranslate"><span class="pre">RectRO.update_prog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.RectRO.render"><code class="docutils literal notranslate"><span class="pre">RectRO.render()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.graphic_uitls.FullScreenRO"><code class="docutils literal notranslate"><span class="pre">FullScreenRO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.FullScreenRO.__init__"><code class="docutils literal notranslate"><span class="pre">FullScreenRO.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.FullScreenRO.update_prog"><code class="docutils literal notranslate"><span class="pre">FullScreenRO.update_prog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.graphic_uitls.FullScreenRO.render"><code class="docutils literal notranslate"><span class="pre">FullScreenRO.render()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.image_utils">utils.image_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#utils.image_utils.fig2array"><code class="docutils literal notranslate"><span class="pre">fig2array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.image_utils.array2image"><code class="docutils literal notranslate"><span class="pre">array2image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.image_utils.blur_image"><code class="docutils literal notranslate"><span class="pre">blur_image()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.io_utils">utils.io_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#utils.io_utils.get_dxf_layers"><code class="docutils literal notranslate"><span class="pre">get_dxf_layers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.io_utils.save_data"><code class="docutils literal notranslate"><span class="pre">save_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.io_utils.load_data"><code class="docutils literal notranslate"><span class="pre">load_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.io_utils.open_file_window"><code class="docutils literal notranslate"><span class="pre">open_file_window()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.io_utils.save_file_window"><code class="docutils literal notranslate"><span class="pre">save_file_window()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.point_utils">utils.point_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#utils.point_utils.xywh2points"><code class="docutils literal notranslate"><span class="pre">xywh2points()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.point_utils.point_grid"><code class="docutils literal notranslate"><span class="pre">point_grid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.point_utils.points_to_geo"><code class="docutils literal notranslate"><span class="pre">points_to_geo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.point_utils.plot_points"><code class="docutils literal notranslate"><span class="pre">plot_points()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.point_utils.points_in_radius"><code class="docutils literal notranslate"><span class="pre">points_in_radius()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.point_utils.offset_points"><code class="docutils literal notranslate"><span class="pre">offset_points()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.point_utils.normalize_vector"><code class="docutils literal notranslate"><span class="pre">normalize_vector()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.point_utils.normalize_vectors"><code class="docutils literal notranslate"><span class="pre">normalize_vectors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.point_utils.v_rotate_vectors"><code class="docutils literal notranslate"><span class="pre">v_rotate_vectors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.point_utils.vector_from_points"><code class="docutils literal notranslate"><span class="pre">vector_from_points()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.point_utils.vector_dot"><code class="docutils literal notranslate"><span class="pre">vector_dot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.polyline_utils">utils.polyline_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#utils.polyline_utils.interpolate_by_t"><code class="docutils literal notranslate"><span class="pre">interpolate_by_t()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.polyline_utils.interpolate_by_distance"><code class="docutils literal notranslate"><span class="pre">interpolate_by_distance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.polyline_utils.get_closed_polyline"><code class="docutils literal notranslate"><span class="pre">get_closed_polyline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.region_utils">utils.region_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#utils.region_utils.RegionAccessibleType"><code class="docutils literal notranslate"><span class="pre">RegionAccessibleType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.region_utils.RegionAccessibleType.ACCESSIBLE"><code class="docutils literal notranslate"><span class="pre">RegionAccessibleType.ACCESSIBLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.region_utils.RegionAccessibleType.RESTRICTED"><code class="docutils literal notranslate"><span class="pre">RegionAccessibleType.RESTRICTED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.region_utils.RegionAccessibleType.INACCESSIBLE"><code class="docutils literal notranslate"><span class="pre">RegionAccessibleType.INACCESSIBLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.region_utils.RegionAccessibleType.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">RegionAccessibleType.UNDEFINED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.region_utils.RegionType"><code class="docutils literal notranslate"><span class="pre">RegionType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.region_utils.RegionType.ARTIFICIAL"><code class="docutils literal notranslate"><span class="pre">RegionType.ARTIFICIAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.region_utils.RegionType.WATER"><code class="docutils literal notranslate"><span class="pre">RegionType.WATER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.region_utils.RegionType.BOUNDARY"><code class="docutils literal notranslate"><span class="pre">RegionType.BOUNDARY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.region_utils.RegionType.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">RegionType.UNDEFINED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.region_utils.RegionCluster"><code class="docutils literal notranslate"><span class="pre">RegionCluster</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.region_utils.RegionCluster.__init__"><code class="docutils literal notranslate"><span class="pre">RegionCluster.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.region_utils.RegionCluster.show_imgui_cluster_editor_button"><code class="docutils literal notranslate"><span class="pre">RegionCluster.show_imgui_cluster_editor_button()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.road_utils">utils.road_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#utils.road_utils.RoadLevel"><code class="docutils literal notranslate"><span class="pre">RoadLevel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.road_utils.RoadLevel.TRUNK"><code class="docutils literal notranslate"><span class="pre">RoadLevel.TRUNK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.road_utils.RoadLevel.PRIMARY"><code class="docutils literal notranslate"><span class="pre">RoadLevel.PRIMARY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.road_utils.RoadLevel.SECONDARY"><code class="docutils literal notranslate"><span class="pre">RoadLevel.SECONDARY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.road_utils.RoadLevel.TERTIARY"><code class="docutils literal notranslate"><span class="pre">RoadLevel.TERTIARY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.road_utils.RoadLevel.FOOTWAY"><code class="docutils literal notranslate"><span class="pre">RoadLevel.FOOTWAY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.road_utils.RoadLevel.UNDEFINED"><code class="docutils literal notranslate"><span class="pre">RoadLevel.UNDEFINED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.road_utils.RoadState"><code class="docutils literal notranslate"><span class="pre">RoadState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.road_utils.RoadState.RAW"><code class="docutils literal notranslate"><span class="pre">RoadState.RAW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.road_utils.RoadState.MODIFIED"><code class="docutils literal notranslate"><span class="pre">RoadState.MODIFIED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.road_utils.RoadState.OPTIMIZED"><code class="docutils literal notranslate"><span class="pre">RoadState.OPTIMIZED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.road_utils.RoadState.OPTIMIZING"><code class="docutils literal notranslate"><span class="pre">RoadState.OPTIMIZING</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.road_utils.highway_to_level"><code class="docutils literal notranslate"><span class="pre">highway_to_level()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.road_utils.RoadCluster"><code class="docutils literal notranslate"><span class="pre">RoadCluster</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.road_utils.RoadCluster.__init__"><code class="docutils literal notranslate"><span class="pre">RoadCluster.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.road_utils.RoadCluster.show_imgui_cluster_editor_button"><code class="docutils literal notranslate"><span class="pre">RoadCluster.show_imgui_cluster_editor_button()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RoadNetOpt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">utils package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/utils.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utils-package">
+<h1>utils package<a class="headerlink" href="#utils-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-utils.building_utils">
+<span id="utils-building-utils-module"></span><h2>utils.building_utils module<a class="headerlink" href="#module-utils.building_utils" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingMovableType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.building_utils.</span></span><span class="sig-name descname"><span class="pre">BuildingMovableType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.building_utils.BuildingMovableType" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingMovableType.NONDEMOLISHABLE">
+<span class="sig-name descname"><span class="pre">NONDEMOLISHABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#utils.building_utils.BuildingMovableType.NONDEMOLISHABLE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingMovableType.FLEXABLE">
+<span class="sig-name descname"><span class="pre">FLEXABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#utils.building_utils.BuildingMovableType.FLEXABLE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingMovableType.DEMOLISHABLE">
+<span class="sig-name descname"><span class="pre">DEMOLISHABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#utils.building_utils.BuildingMovableType.DEMOLISHABLE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingMovableType.UNDEFINED">
+<span class="sig-name descname"><span class="pre">UNDEFINED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#utils.building_utils.BuildingMovableType.UNDEFINED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingStyle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.building_utils.</span></span><span class="sig-name descname"><span class="pre">BuildingStyle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.building_utils.BuildingStyle" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingStyle.HERITAGE">
+<span class="sig-name descname"><span class="pre">HERITAGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#utils.building_utils.BuildingStyle.HERITAGE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingStyle.HISTORICAL">
+<span class="sig-name descname"><span class="pre">HISTORICAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#utils.building_utils.BuildingStyle.HISTORICAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingStyle.TRADITIONAL">
+<span class="sig-name descname"><span class="pre">TRADITIONAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#utils.building_utils.BuildingStyle.TRADITIONAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingStyle.NORMAL">
+<span class="sig-name descname"><span class="pre">NORMAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#utils.building_utils.BuildingStyle.NORMAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingStyle.UNDEFINED">
+<span class="sig-name descname"><span class="pre">UNDEFINED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#utils.building_utils.BuildingStyle.UNDEFINED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingQuality">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.building_utils.</span></span><span class="sig-name descname"><span class="pre">BuildingQuality</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.building_utils.BuildingQuality" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingQuality.GOOD">
+<span class="sig-name descname"><span class="pre">GOOD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#utils.building_utils.BuildingQuality.GOOD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingQuality.FAIR">
+<span class="sig-name descname"><span class="pre">FAIR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#utils.building_utils.BuildingQuality.FAIR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingQuality.POOR">
+<span class="sig-name descname"><span class="pre">POOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#utils.building_utils.BuildingQuality.POOR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingQuality.UNDEFINED">
+<span class="sig-name descname"><span class="pre">UNDEFINED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#utils.building_utils.BuildingQuality.UNDEFINED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingCluster">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.building_utils.</span></span><span class="sig-name descname"><span class="pre">BuildingCluster</span></span><a class="headerlink" href="#utils.building_utils.BuildingCluster" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingCluster.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.building_utils.BuildingCluster.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.building_utils.BuildingCluster.show_imgui_cluster_editor_button">
+<span class="sig-name descname"><span class="pre">show_imgui_cluster_editor_button</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.building_utils.BuildingCluster.show_imgui_cluster_editor_button" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-utils.common_utils">
+<span id="utils-common-utils-module"></span><h2>utils.common_utils module<a class="headerlink" href="#module-utils.common_utils" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.common_utils.get_arg">
+<span class="sig-prename descclassname"><span class="pre">utils.common_utils.</span></span><span class="sig-name descname"><span class="pre">get_arg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.common_utils.get_arg" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.common_utils.gaussian">
+<span class="sig-prename descclassname"><span class="pre">utils.common_utils.</span></span><span class="sig-name descname"><span class="pre">gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.common_utils.gaussian" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.common_utils.id_to_rgb">
+<span class="sig-prename descclassname"><span class="pre">utils.common_utils.</span></span><span class="sig-name descname"><span class="pre">id_to_rgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.common_utils.id_to_rgb" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.common_utils.rgb_to_id">
+<span class="sig-prename descclassname"><span class="pre">utils.common_utils.</span></span><span class="sig-name descname"><span class="pre">rgb_to_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.common_utils.rgb_to_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.common_utils.timer">
+<span class="sig-prename descclassname"><span class="pre">utils.common_utils.</span></span><span class="sig-name descname"><span class="pre">timer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.common_utils.timer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.common_utils.to_triangles">
+<span class="sig-prename descclassname"><span class="pre">utils.common_utils.</span></span><span class="sig-name descname"><span class="pre">to_triangles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">polygon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.common_utils.to_triangles" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.common_utils.DuplicateFilter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.common_utils.</span></span><span class="sig-name descname"><span class="pre">DuplicateFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.common_utils.DuplicateFilter" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Filters away duplicate log messages.
+Modified version of: <a class="reference external" href="https://stackoverflow.com/a/31953563/965332">https://stackoverflow.com/a/31953563/965332</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.common_utils.DuplicateFilter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.common_utils.DuplicateFilter.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.common_utils.DuplicateFilter.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.common_utils.DuplicateFilter.filter" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.common_utils.duplicate_filter">
+<span class="sig-prename descclassname"><span class="pre">utils.common_utils.</span></span><span class="sig-name descname"><span class="pre">duplicate_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.common_utils.duplicate_filter" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-utils.field_utils">
+<span id="utils-field-utils-module"></span><h2>utils.field_utils module<a class="headerlink" href="#module-utils.field_utils" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.field_utils.FieldOverlayMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.field_utils.</span></span><span class="sig-name descname"><span class="pre">FieldOverlayMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.field_utils.FieldOverlayMode" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">enumerate</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.field_utils.FieldOverlayMode.ADD">
+<span class="sig-name descname"><span class="pre">ADD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#utils.field_utils.FieldOverlayMode.ADD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.field_utils.FieldOverlayMode.MUL">
+<span class="sig-name descname"><span class="pre">MUL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#utils.field_utils.FieldOverlayMode.MUL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.field_utils.distance_field">
+<span class="sig-prename descclassname"><span class="pre">utils.field_utils.</span></span><span class="sig-name descname"><span class="pre">distance_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_cloud</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.field_utils.distance_field" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.field_utils.normalize_field">
+<span class="sig-prename descclassname"><span class="pre">utils.field_utils.</span></span><span class="sig-name descname"><span class="pre">normalize_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.field_utils.normalize_field" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-utils.graphic_uitls">
+<span id="utils-graphic-uitls-module"></span><h2>utils.graphic_uitls module<a class="headerlink" href="#module-utils.graphic_uitls" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.graphic_uitls.plot_as_array">
+<span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">plot_as_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_lim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_lim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antialiased</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.plot_as_array" title="Link to this definition"></a></dt>
+<dd><p>kwargs 将会被传递给_plot_gdf_func的gdf.plot方法</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.graphic_uitls.plot_as_array2">
+<span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">plot_as_array2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plot_func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_lim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_lim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">antialiased</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.plot_as_array2" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.graphic_uitls.world_space_to_image_space">
+<span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">world_space_to_image_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_lim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_lim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.world_space_to_image_space" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.graphic_uitls.image_space_to_world_space">
+<span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">image_space_to_world_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_lim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_lim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.image_space_to_world_space" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.graphic_uitls.image_space_to_image_window_space">
+<span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">image_space_to_image_window_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.image_space_to_image_window_space" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.graphic_uitls.create_texture_from_array_legacy">
+<span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">create_texture_from_array_legacy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.create_texture_from_array_legacy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.graphic_uitls.update_texture_legacy">
+<span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">update_texture_legacy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texture_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.update_texture_legacy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.graphic_uitls.create_texture_from_array">
+<span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">create_texture_from_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.create_texture_from_array" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.graphic_uitls.remove_texture">
+<span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">remove_texture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texture_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.remove_texture" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.graphic_uitls.update_texture">
+<span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">update_texture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texture_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.update_texture" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.graphic_uitls.blend_img_data">
+<span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">blend_img_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.blend_img_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.graphic_uitls.ImguiDrawListObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">ImguiDrawListObject</span></span><a class="headerlink" href="#utils.graphic_uitls.ImguiDrawListObject" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>使用imgui draw list方法绘制的图形
+see <a class="reference external" href="https://pyimgui.readthedocs.io/en/latest/reference/imgui.core.html#imgui.core._DrawList.add_circle">https://pyimgui.readthedocs.io/en/latest/reference/imgui.core.html#imgui.core._DrawList.add_circle</a>
+add_text(self, float pos_x, float pos_y, ImU32 col, str text)
+add_circle(self, float centre_x, float centre_y, float radius, ImU32 col, int num_segments=0, float thickness=1.0)
+add_circle_filled(self, float centre_x, float centre_y, float radius, ImU32 col, ImU32 num_segments=0)
+add_image(self, texture_id, tuple a, tuple b, tuple uv_a=(0, 0), tuple uv_b=(1, 1), ImU32 col=0xffffffff)
+add_line(self, float start_x, float start_y, float end_x, float end_y, ImU32 col, float thickness=1.0)
+add_ngon(self, float centre_x, float centre_y, float radius, ImU32 col, int num_segments, float thickness=1.0)
+add_polyline(self, list points, ImU32 col, ImDrawFlags flags=0, float thickness=1.0)
+add_quad(self, float point1_x, float point1_y, float point2_x, float point2_y, float point3_x, float point3_y, float point4_x, float point4_y, ImU32 col, float thickness=1.0)
+add_rect(self, float upper_left_x, float upper_left_y, float lower_right_x, float lower_right_y, ImU32 col, float rounding=0.0, ImDrawFlags flags=0, float thickness=1.0)
+add_rect_filled(self, float upper_left_x, float upper_left_y, float lower_right_x, float lower_right_y, ImU32 col, float rounding=0.0, ImDrawFlags flags=0)
+add_triangle(self, float point1_x, float point1_y, float point2_x, float point2_y, float point3_x, float point3_y, ImU32 col, float thickness=1.0)</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.ImguiDrawListObject.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.ImguiDrawListObject.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.graphic_uitls.ImguiCircleWorldSpace">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">ImguiCircleWorldSpace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screen_radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_draw_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_texture</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.ImguiCircleWorldSpace" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#utils.graphic_uitls.ImguiDrawListObject" title="utils.graphic_uitls.ImguiDrawListObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImguiDrawListObject</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.ImguiCircleWorldSpace.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screen_radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_draw_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_texture</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.ImguiCircleWorldSpace.__init__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>world_x</strong> – x_position in world space</p></li>
+<li><p><strong>world_y</strong> – y_position in world space</p></li>
+<li><p><strong>screen_radius</strong> – radius on screen</p></li>
+<li><p><strong>color</strong> – tuple, rgba</p></li>
+<li><p><strong>target_draw_list</strong> – call “imgui.get_window_draw_list()” in image window</p></li>
+<li><p><strong>target_texture</strong> – SimpleTexture or FrameBufferTexture or any other class which has width, height, x_lim, y_lim</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.ImguiCircleWorldSpace.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.ImguiCircleWorldSpace.draw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.graphic_uitls.ImguiTextWorldSpace">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">ImguiTextWorldSpace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_draw_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_texture</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.ImguiTextWorldSpace" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#utils.graphic_uitls.ImguiDrawListObject" title="utils.graphic_uitls.ImguiDrawListObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImguiDrawListObject</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.ImguiTextWorldSpace.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_draw_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_texture</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.ImguiTextWorldSpace.__init__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>world_x</strong> – </p></li>
+<li><p><strong>world_y</strong> – </p></li>
+<li><p><strong>text</strong> – </p></li>
+<li><p><strong>color</strong> – </p></li>
+<li><p><strong>target_draw_list</strong> – </p></li>
+<li><p><strong>target_texture</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.ImguiTextWorldSpace.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.ImguiTextWorldSpace.draw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.graphic_uitls.ImguiMousePointerScreenSpace">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">ImguiMousePointerScreenSpace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.6,</span> <span class="pre">0.6,</span> <span class="pre">0.6,</span> <span class="pre">0.5)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.ImguiMousePointerScreenSpace" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#utils.graphic_uitls.ImguiDrawListObject" title="utils.graphic_uitls.ImguiDrawListObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImguiDrawListObject</span></code></a></p>
+<p>main texture 专用</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.ImguiMousePointerScreenSpace.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.6,</span> <span class="pre">0.6,</span> <span class="pre">0.6,</span> <span class="pre">0.5)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.ImguiMousePointerScreenSpace.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.ImguiMousePointerScreenSpace.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.ImguiMousePointerScreenSpace.draw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.graphic_uitls.ImguiRectScreenSpace">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">ImguiRectScreenSpace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.8,</span> <span class="pre">0.8,</span> <span class="pre">0.8,</span> <span class="pre">0.32)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.ImguiRectScreenSpace" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#utils.graphic_uitls.ImguiDrawListObject" title="utils.graphic_uitls.ImguiDrawListObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImguiDrawListObject</span></code></a></p>
+<p>main texture 专用</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.ImguiRectScreenSpace.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.8,</span> <span class="pre">0.8,</span> <span class="pre">0.8,</span> <span class="pre">0.32)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.ImguiRectScreenSpace.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.ImguiRectScreenSpace.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_space_start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_space_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.ImguiRectScreenSpace.draw" title="Link to this definition"></a></dt>
+<dd><p>start end 为图像空间坐标</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RenderObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">RenderObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertices_data_get_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RenderObject" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RenderObject.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vertices_data_get_func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RenderObject.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RenderObject.get_xy_lim">
+<span class="sig-name descname"><span class="pre">get_xy_lim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RenderObject.get_xy_lim" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RenderObject.set_gdf">
+<span class="sig-name descname"><span class="pre">set_gdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gdf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RenderObject.set_gdf" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RenderObject.set_style_factory">
+<span class="sig-name descname"><span class="pre">set_style_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RenderObject.set_style_factory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RenderObject.update_buffer">
+<span class="sig-name descname"><span class="pre">update_buffer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RenderObject.update_buffer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RenderObject.update_prog">
+<span class="sig-name descname"><span class="pre">update_prog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_lim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_lim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RenderObject.update_prog" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RenderObject.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RenderObject.render" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RoadRO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">RoadRO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RoadRO" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#utils.graphic_uitls.RenderObject" title="utils.graphic_uitls.RenderObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">RenderObject</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RoadRO.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RoadRO.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.graphic_uitls.BuildingRO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">BuildingRO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.BuildingRO" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#utils.graphic_uitls.RenderObject" title="utils.graphic_uitls.RenderObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">RenderObject</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.BuildingRO.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.BuildingRO.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RegionRO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">RegionRO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RegionRO" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#utils.graphic_uitls.RenderObject" title="utils.graphic_uitls.RenderObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">RenderObject</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RegionRO.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RegionRO.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.graphic_uitls.NodeRO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">NodeRO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.NodeRO" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#utils.graphic_uitls.RenderObject" title="utils.graphic_uitls.RenderObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">RenderObject</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.NodeRO.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style_factory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.NodeRO.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.graphic_uitls.PointerRO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">PointerRO</span></span><a class="headerlink" href="#utils.graphic_uitls.PointerRO" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.graphic_uitls.PointerRO.instance">
+<span class="sig-name descname"><span class="pre">instance</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#utils.graphic_uitls.PointerRO" title="utils.graphic_uitls.PointerRO"><span class="pre">PointerRO</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#utils.graphic_uitls.PointerRO.instance" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.PointerRO.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.PointerRO.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.PointerRO.set_to_point_mode">
+<span class="sig-name descname"><span class="pre">set_to_point_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.PointerRO.set_to_point_mode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.PointerRO.set_to_cross_mode">
+<span class="sig-name descname"><span class="pre">set_to_cross_mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.PointerRO.set_to_cross_mode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.PointerRO.update_prog">
+<span class="sig-name descname"><span class="pre">update_prog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">texture_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.PointerRO.update_prog" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.PointerRO.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.PointerRO.render" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RectRO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">RectRO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RectRO" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RectRO.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RectRO.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RectRO.update_prog">
+<span class="sig-name descname"><span class="pre">update_prog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RectRO.update_prog" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> – (0 to 1) texture space</p></li>
+<li><p><strong>size</strong> – (0 to 1) texture space</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.RectRO.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.RectRO.render" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.graphic_uitls.FullScreenRO">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.graphic_uitls.</span></span><span class="sig-name descname"><span class="pre">FullScreenRO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">program_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.FullScreenRO" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.FullScreenRO.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">program_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.FullScreenRO.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.FullScreenRO.update_prog">
+<span class="sig-name descname"><span class="pre">update_prog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.FullScreenRO.update_prog" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.graphic_uitls.FullScreenRO.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.graphic_uitls.FullScreenRO.render" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-utils.image_utils">
+<span id="utils-image-utils-module"></span><h2>utils.image_utils module<a class="headerlink" href="#module-utils.image_utils" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.image_utils.fig2array">
+<span class="sig-prename descclassname"><span class="pre">utils.image_utils.</span></span><span class="sig-name descname"><span class="pre">fig2array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Figure</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#utils.image_utils.fig2array" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.image_utils.array2image">
+<span class="sig-prename descclassname"><span class="pre">utils.image_utils.</span></span><span class="sig-name descname"><span class="pre">array2image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">&lt;module</span> <span class="pre">'PIL.Image'</span> <span class="pre">from</span> <span class="pre">'C:\\ProgramData\\miniconda3\\envs\\RoadNetOpt\\lib\\site-packages\\PIL\\Image.py'&gt;</span></span></span><a class="headerlink" href="#utils.image_utils.array2image" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.image_utils.blur_image">
+<span class="sig-prename descclassname"><span class="pre">utils.image_utils.</span></span><span class="sig-name descname"><span class="pre">blur_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image:</span> <span class="pre">&lt;module</span> <span class="pre">'PIL.Image'</span> <span class="pre">from</span> <span class="pre">'C:\\ProgramData\\miniconda3\\envs\\RoadNetOpt\\lib\\site-packages\\PIL\\Image.py'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius=3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.image_utils.blur_image" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-utils.io_utils">
+<span id="utils-io-utils-module"></span><h2>utils.io_utils module<a class="headerlink" href="#module-utils.io_utils" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io_utils.get_dxf_layers">
+<span class="sig-prename descclassname"><span class="pre">utils.io_utils.</span></span><span class="sig-name descname"><span class="pre">get_dxf_layers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_doc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.io_utils.get_dxf_layers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io_utils.save_data">
+<span class="sig-prename descclassname"><span class="pre">utils.io_utils.</span></span><span class="sig-name descname"><span class="pre">save_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.io_utils.save_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io_utils.load_data">
+<span class="sig-prename descclassname"><span class="pre">utils.io_utils.</span></span><span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.io_utils.load_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io_utils.open_file_window">
+<span class="sig-prename descclassname"><span class="pre">utils.io_utils.</span></span><span class="sig-name descname"><span class="pre">open_file_window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.io_utils.open_file_window" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io_utils.save_file_window">
+<span class="sig-prename descclassname"><span class="pre">utils.io_utils.</span></span><span class="sig-name descname"><span class="pre">save_file_window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.io_utils.save_file_window" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-utils.point_utils">
+<span id="utils-point-utils-module"></span><h2>utils.point_utils module<a class="headerlink" href="#module-utils.point_utils" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.point_utils.xywh2points">
+<span class="sig-prename descclassname"><span class="pre">utils.point_utils.</span></span><span class="sig-name descname"><span class="pre">xywh2points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.point_utils.xywh2points" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.point_utils.point_grid">
+<span class="sig-prename descclassname"><span class="pre">utils.point_utils.</span></span><span class="sig-name descname"><span class="pre">point_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.point_utils.point_grid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.point_utils.points_to_geo">
+<span class="sig-prename descclassname"><span class="pre">utils.point_utils.</span></span><span class="sig-name descname"><span class="pre">points_to_geo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.point_utils.points_to_geo" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.point_utils.plot_points">
+<span class="sig-prename descclassname"><span class="pre">utils.point_utils.</span></span><span class="sig-name descname"><span class="pre">plot_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.point_utils.plot_points" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.point_utils.points_in_radius">
+<span class="sig-prename descclassname"><span class="pre">utils.point_utils.</span></span><span class="sig-name descname"><span class="pre">points_in_radius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#utils.point_utils.points_in_radius" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.point_utils.offset_points">
+<span class="sig-prename descclassname"><span class="pre">utils.point_utils.</span></span><span class="sig-name descname"><span class="pre">offset_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.point_utils.offset_points" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.point_utils.normalize_vector">
+<span class="sig-prename descclassname"><span class="pre">utils.point_utils.</span></span><span class="sig-name descname"><span class="pre">normalize_vector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.point_utils.normalize_vector" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.point_utils.normalize_vectors">
+<span class="sig-prename descclassname"><span class="pre">utils.point_utils.</span></span><span class="sig-name descname"><span class="pre">normalize_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.point_utils.normalize_vectors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.point_utils.v_rotate_vectors">
+<span class="sig-prename descclassname"><span class="pre">utils.point_utils.</span></span><span class="sig-name descname"><span class="pre">v_rotate_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.point_utils.v_rotate_vectors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.point_utils.vector_from_points">
+<span class="sig-prename descclassname"><span class="pre">utils.point_utils.</span></span><span class="sig-name descname"><span class="pre">vector_from_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.point_utils.vector_from_points" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.point_utils.vector_dot">
+<span class="sig-prename descclassname"><span class="pre">utils.point_utils.</span></span><span class="sig-name descname"><span class="pre">vector_dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vec1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vec2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.point_utils.vector_dot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-utils.polyline_utils">
+<span id="utils-polyline-utils-module"></span><h2>utils.polyline_utils module<a class="headerlink" href="#module-utils.polyline_utils" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.polyline_utils.interpolate_by_t">
+<span class="sig-prename descclassname"><span class="pre">utils.polyline_utils.</span></span><span class="sig-name descname"><span class="pre">interpolate_by_t</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.polyline_utils.interpolate_by_t" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.polyline_utils.interpolate_by_distance">
+<span class="sig-prename descclassname"><span class="pre">utils.polyline_utils.</span></span><span class="sig-name descname"><span class="pre">interpolate_by_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.polyline_utils.interpolate_by_distance" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.polyline_utils.get_closed_polyline">
+<span class="sig-prename descclassname"><span class="pre">utils.polyline_utils.</span></span><span class="sig-name descname"><span class="pre">get_closed_polyline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.polyline_utils.get_closed_polyline" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-utils.region_utils">
+<span id="utils-region-utils-module"></span><h2>utils.region_utils module<a class="headerlink" href="#module-utils.region_utils" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.region_utils.RegionAccessibleType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.region_utils.</span></span><span class="sig-name descname"><span class="pre">RegionAccessibleType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.region_utils.RegionAccessibleType" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.region_utils.RegionAccessibleType.ACCESSIBLE">
+<span class="sig-name descname"><span class="pre">ACCESSIBLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#utils.region_utils.RegionAccessibleType.ACCESSIBLE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.region_utils.RegionAccessibleType.RESTRICTED">
+<span class="sig-name descname"><span class="pre">RESTRICTED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#utils.region_utils.RegionAccessibleType.RESTRICTED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.region_utils.RegionAccessibleType.INACCESSIBLE">
+<span class="sig-name descname"><span class="pre">INACCESSIBLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#utils.region_utils.RegionAccessibleType.INACCESSIBLE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.region_utils.RegionAccessibleType.UNDEFINED">
+<span class="sig-name descname"><span class="pre">UNDEFINED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#utils.region_utils.RegionAccessibleType.UNDEFINED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.region_utils.RegionType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.region_utils.</span></span><span class="sig-name descname"><span class="pre">RegionType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.region_utils.RegionType" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.region_utils.RegionType.ARTIFICIAL">
+<span class="sig-name descname"><span class="pre">ARTIFICIAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#utils.region_utils.RegionType.ARTIFICIAL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.region_utils.RegionType.WATER">
+<span class="sig-name descname"><span class="pre">WATER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#utils.region_utils.RegionType.WATER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.region_utils.RegionType.BOUNDARY">
+<span class="sig-name descname"><span class="pre">BOUNDARY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#utils.region_utils.RegionType.BOUNDARY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.region_utils.RegionType.UNDEFINED">
+<span class="sig-name descname"><span class="pre">UNDEFINED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#utils.region_utils.RegionType.UNDEFINED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.region_utils.RegionCluster">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.region_utils.</span></span><span class="sig-name descname"><span class="pre">RegionCluster</span></span><a class="headerlink" href="#utils.region_utils.RegionCluster" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.region_utils.RegionCluster.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.region_utils.RegionCluster.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.region_utils.RegionCluster.show_imgui_cluster_editor_button">
+<span class="sig-name descname"><span class="pre">show_imgui_cluster_editor_button</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.region_utils.RegionCluster.show_imgui_cluster_editor_button" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-utils.road_utils">
+<span id="utils-road-utils-module"></span><h2>utils.road_utils module<a class="headerlink" href="#module-utils.road_utils" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.road_utils.RoadLevel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.road_utils.</span></span><span class="sig-name descname"><span class="pre">RoadLevel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.road_utils.RoadLevel" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.road_utils.RoadLevel.TRUNK">
+<span class="sig-name descname"><span class="pre">TRUNK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#utils.road_utils.RoadLevel.TRUNK" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.road_utils.RoadLevel.PRIMARY">
+<span class="sig-name descname"><span class="pre">PRIMARY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#utils.road_utils.RoadLevel.PRIMARY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.road_utils.RoadLevel.SECONDARY">
+<span class="sig-name descname"><span class="pre">SECONDARY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#utils.road_utils.RoadLevel.SECONDARY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.road_utils.RoadLevel.TERTIARY">
+<span class="sig-name descname"><span class="pre">TERTIARY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#utils.road_utils.RoadLevel.TERTIARY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.road_utils.RoadLevel.FOOTWAY">
+<span class="sig-name descname"><span class="pre">FOOTWAY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#utils.road_utils.RoadLevel.FOOTWAY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.road_utils.RoadLevel.UNDEFINED">
+<span class="sig-name descname"><span class="pre">UNDEFINED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#utils.road_utils.RoadLevel.UNDEFINED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.road_utils.RoadState">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.road_utils.</span></span><span class="sig-name descname"><span class="pre">RoadState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.road_utils.RoadState" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.road_utils.RoadState.RAW">
+<span class="sig-name descname"><span class="pre">RAW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#utils.road_utils.RoadState.RAW" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.road_utils.RoadState.MODIFIED">
+<span class="sig-name descname"><span class="pre">MODIFIED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#utils.road_utils.RoadState.MODIFIED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.road_utils.RoadState.OPTIMIZED">
+<span class="sig-name descname"><span class="pre">OPTIMIZED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#utils.road_utils.RoadState.OPTIMIZED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.road_utils.RoadState.OPTIMIZING">
+<span class="sig-name descname"><span class="pre">OPTIMIZING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#utils.road_utils.RoadState.OPTIMIZING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.road_utils.highway_to_level">
+<span class="sig-prename descclassname"><span class="pre">utils.road_utils.</span></span><span class="sig-name descname"><span class="pre">highway_to_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">highway</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.road_utils.highway_to_level" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.road_utils.RoadCluster">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.road_utils.</span></span><span class="sig-name descname"><span class="pre">RoadCluster</span></span><a class="headerlink" href="#utils.road_utils.RoadCluster" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.road_utils.RoadCluster.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.road_utils.RoadCluster.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.road_utils.RoadCluster.show_imgui_cluster_editor_button">
+<span class="sig-name descname"><span class="pre">show_imgui_cluster_editor_button</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.road_utils.RoadCluster.show_imgui_cluster_editor_button" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="resources_module.html" class="btn btn-neutral float-left" title="resources_module module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2024, FengYiheng WuWenxin QiuShubing。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

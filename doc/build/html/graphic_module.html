@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>graphic_module module &mdash; RoadNetOpt 0.5 文档</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=37890895"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="optimize_module module" href="optimize_module.html" />
+    <link rel="prev" title="geo package" href="geo.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RoadNetOpt
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="DDPG.html">DDPG package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geo.html">geo package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">graphic_module module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.BlurPostProcessing"><code class="docutils literal notranslate"><span class="pre">BlurPostProcessing</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.BlurPostProcessing.__init__"><code class="docutils literal notranslate"><span class="pre">BlurPostProcessing.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.BuildingObserver"><code class="docutils literal notranslate"><span class="pre">BuildingObserver</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.BuildingObserver.__init__"><code class="docutils literal notranslate"><span class="pre">BuildingObserver.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.FrameBufferTexture"><code class="docutils literal notranslate"><span class="pre">FrameBufferTexture</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.FrameBufferTexture.__init__"><code class="docutils literal notranslate"><span class="pre">FrameBufferTexture.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.FrameBufferTexture.get_render_img"><code class="docutils literal notranslate"><span class="pre">FrameBufferTexture.get_render_img()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.FrameBufferTexture.render"><code class="docutils literal notranslate"><span class="pre">FrameBufferTexture.render()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.FrameBufferTexture.texture"><code class="docutils literal notranslate"><span class="pre">FrameBufferTexture.texture</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.FrameBufferTexture.texture_id"><code class="docutils literal notranslate"><span class="pre">FrameBufferTexture.texture_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.FrameBufferTexture.update_size"><code class="docutils literal notranslate"><span class="pre">FrameBufferTexture.update_size()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.GraphicManager"><code class="docutils literal notranslate"><span class="pre">GraphicManager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.GraphicManager.I"><code class="docutils literal notranslate"><span class="pre">GraphicManager.I</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.GraphicManager.__init__"><code class="docutils literal notranslate"><span class="pre">GraphicManager.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.GraphicManager.bilt_to"><code class="docutils literal notranslate"><span class="pre">GraphicManager.bilt_to()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.GraphicManager.bilt_to_queue"><code class="docutils literal notranslate"><span class="pre">GraphicManager.bilt_to_queue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.GraphicManager.get_or_create_simple_texture"><code class="docutils literal notranslate"><span class="pre">GraphicManager.get_or_create_simple_texture()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.GraphicManager.handle_data_queue"><code class="docutils literal notranslate"><span class="pre">GraphicManager.handle_data_queue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.GraphicManager.register_frame_buffer_texture"><code class="docutils literal notranslate"><span class="pre">GraphicManager.register_frame_buffer_texture()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.GraphicManager.register_observer"><code class="docutils literal notranslate"><span class="pre">GraphicManager.register_observer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.GraphicManager.register_reward_observer"><code class="docutils literal notranslate"><span class="pre">GraphicManager.register_reward_observer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.GraphicManager.register_simple_texture"><code class="docutils literal notranslate"><span class="pre">GraphicManager.register_simple_texture()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.GraphicManager.unregister_frame_buffer_texture"><code class="docutils literal notranslate"><span class="pre">GraphicManager.unregister_frame_buffer_texture()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.GraphicManager.update"><code class="docutils literal notranslate"><span class="pre">GraphicManager.update()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.GraphicManager.update_main_graphic"><code class="docutils literal notranslate"><span class="pre">GraphicManager.update_main_graphic()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.ImguiWindowBlurLayer"><code class="docutils literal notranslate"><span class="pre">ImguiWindowBlurLayer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.ImguiWindowBlurLayer.__init__"><code class="docutils literal notranslate"><span class="pre">ImguiWindowBlurLayer.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.ImguiWindowBlurLayer.update"><code class="docutils literal notranslate"><span class="pre">ImguiWindowBlurLayer.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.__init__"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.add_close_node_debug_circle"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.add_close_node_debug_circle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.add_dead_node_debug_circle"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.add_dead_node_debug_circle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.add_intersection_debug_circle"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.add_intersection_debug_circle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.clear_building_data"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_building_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.clear_cache"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_cache()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.clear_close_node_debug_circles"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_close_node_debug_circles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.clear_dead_node_debug_circles"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_dead_node_debug_circles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.clear_highlight_data"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_highlight_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.clear_intersection_debug_circles"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_intersection_debug_circles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.clear_node_data"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_node_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.clear_region_data"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_region_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.clear_road_data"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_road_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.clear_road_data_deep"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_road_data_deep()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.clear_x_y_lim"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.clear_x_y_lim()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.end_drag_selection"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.end_drag_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.get_final_frame_buffer"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.get_final_frame_buffer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.get_final_texture_id"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.get_final_texture_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.get_road_or_node_idx_by_mouse_pos"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.get_road_or_node_idx_by_mouse_pos()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.mouse_pos_percent"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.mouse_pos_percent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.pan"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.pan()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.recheck_all"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.recheck_all()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.render"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.render()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.render_draw_list"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.render_draw_list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.show_imgui_display_editor"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.show_imgui_display_editor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.show_imgui_main_texture_settings"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.show_imgui_main_texture_settings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.start_drag_selection"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.start_drag_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.texture_ratio"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.texture_ratio</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.update"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.update()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.update_drag_selection"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.update_drag_selection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.world_space_height"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.world_space_height</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.world_space_width"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.world_space_width</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.zoom"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.zoom()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.MainFrameBufferTexture.zoom_all"><code class="docutils literal notranslate"><span class="pre">MainFrameBufferTexture.zoom_all()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.NodeIdxFrameBufferTexture"><code class="docutils literal notranslate"><span class="pre">NodeIdxFrameBufferTexture</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.NodeIdxFrameBufferTexture.__init__"><code class="docutils literal notranslate"><span class="pre">NodeIdxFrameBufferTexture.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.NodeObserver"><code class="docutils literal notranslate"><span class="pre">NodeObserver</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.NodeObserver.__init__"><code class="docutils literal notranslate"><span class="pre">NodeObserver.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.ObsBlender"><code class="docutils literal notranslate"><span class="pre">ObsBlender</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.ObsBlender.__init__"><code class="docutils literal notranslate"><span class="pre">ObsBlender.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.Observer"><code class="docutils literal notranslate"><span class="pre">Observer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.Observer.__init__"><code class="docutils literal notranslate"><span class="pre">Observer.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.Observer.render"><code class="docutils literal notranslate"><span class="pre">Observer.render()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.Observer.update_buffer"><code class="docutils literal notranslate"><span class="pre">Observer.update_buffer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.Observer.update_observation_center"><code class="docutils literal notranslate"><span class="pre">Observer.update_observation_center()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.PostProcessing"><code class="docutils literal notranslate"><span class="pre">PostProcessing</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.PostProcessing.__init__"><code class="docutils literal notranslate"><span class="pre">PostProcessing.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.PostProcessing.render"><code class="docutils literal notranslate"><span class="pre">PostProcessing.render()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.PostProcessing.update_prog"><code class="docutils literal notranslate"><span class="pre">PostProcessing.update_prog()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.PostProcessingSequence"><code class="docutils literal notranslate"><span class="pre">PostProcessingSequence</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.PostProcessingSequence.__init__"><code class="docutils literal notranslate"><span class="pre">PostProcessingSequence.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.PostProcessingSequence.get_render_img"><code class="docutils literal notranslate"><span class="pre">PostProcessingSequence.get_render_img()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.PostProcessingSequence.render"><code class="docutils literal notranslate"><span class="pre">PostProcessingSequence.render()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.PostProcessingSequence.texture"><code class="docutils literal notranslate"><span class="pre">PostProcessingSequence.texture</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.PostProcessingSequence.texture_id"><code class="docutils literal notranslate"><span class="pre">PostProcessingSequence.texture_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.PostProcessingSequence.update_size"><code class="docutils literal notranslate"><span class="pre">PostProcessingSequence.update_size()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.RegionObserver"><code class="docutils literal notranslate"><span class="pre">RegionObserver</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.RegionObserver.__init__"><code class="docutils literal notranslate"><span class="pre">RegionObserver.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.RewardBlurPostProcessing"><code class="docutils literal notranslate"><span class="pre">RewardBlurPostProcessing</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.RewardBlurPostProcessing.__init__"><code class="docutils literal notranslate"><span class="pre">RewardBlurPostProcessing.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.RoadIdxFrameBufferTexture"><code class="docutils literal notranslate"><span class="pre">RoadIdxFrameBufferTexture</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.RoadIdxFrameBufferTexture.__init__"><code class="docutils literal notranslate"><span class="pre">RoadIdxFrameBufferTexture.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.RoadObserver"><code class="docutils literal notranslate"><span class="pre">RoadObserver</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.RoadObserver.__init__"><code class="docutils literal notranslate"><span class="pre">RoadObserver.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.ShaderPostProcessing"><code class="docutils literal notranslate"><span class="pre">ShaderPostProcessing</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.ShaderPostProcessing.__init__"><code class="docutils literal notranslate"><span class="pre">ShaderPostProcessing.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#graphic_module.SimpleTexture"><code class="docutils literal notranslate"><span class="pre">SimpleTexture</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.SimpleTexture.__init__"><code class="docutils literal notranslate"><span class="pre">SimpleTexture.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.SimpleTexture.bilt_data"><code class="docutils literal notranslate"><span class="pre">SimpleTexture.bilt_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graphic_module.SimpleTexture.texture_id"><code class="docutils literal notranslate"><span class="pre">SimpleTexture.texture_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="optimize_module.html">optimize_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style_module.html">style_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_module.html">train_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources_module.html">resources_module module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RoadNetOpt</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">graphic_module module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/graphic_module.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-graphic_module">
+<span id="graphic-module-module"></span><h1>graphic_module module<a class="headerlink" href="#module-graphic_module" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.BlurPostProcessing">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">BlurPostProcessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.BlurPostProcessing" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#graphic_module.PostProcessing" title="graphic_module.PostProcessing"><code class="xref py py-class docutils literal notranslate"><span class="pre">PostProcessing</span></code></a></p>
+<p>模糊后处理</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.BlurPostProcessing.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.BlurPostProcessing.__init__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>direction</strong> – (1, 0) or (0, 1)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.BuildingObserver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">BuildingObserver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_gdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bg_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.BuildingObserver" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#graphic_module.Observer" title="graphic_module.Observer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observer</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.BuildingObserver.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_gdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bg_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.BuildingObserver.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.FrameBufferTexture">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">FrameBufferTexture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.FrameBufferTexture" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>使用modernGL 的 FrameBuffer作为渲染画布的高级Texture对象
+此类为基类， 实现了基础属性的获取与修改，支持改变texture的尺寸并自动注册和销毁
+要对该Texture进行修改，需要继承该类并对render方法进行修改</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.FrameBufferTexture.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.FrameBufferTexture.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.FrameBufferTexture.get_render_img">
+<span class="sig-name descname"><span class="pre">get_render_img</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tensor</span></span></span><a class="headerlink" href="#graphic_module.FrameBufferTexture.get_render_img" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.FrameBufferTexture.render">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.FrameBufferTexture.render" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="graphic_module.FrameBufferTexture.texture">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">texture</span></span><a class="headerlink" href="#graphic_module.FrameBufferTexture.texture" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="graphic_module.FrameBufferTexture.texture_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">texture_id</span></span><a class="headerlink" href="#graphic_module.FrameBufferTexture.texture_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.FrameBufferTexture.update_size">
+<span class="sig-name descname"><span class="pre">update_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.FrameBufferTexture.update_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.GraphicManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">GraphicManager</span></span><a class="headerlink" href="#graphic_module.GraphicManager" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="graphic_module.GraphicManager.I">
+<span class="sig-name descname"><span class="pre">I</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#graphic_module.GraphicManager" title="graphic_module.GraphicManager"><span class="pre">GraphicManager</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#graphic_module.GraphicManager.I" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.GraphicManager.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.GraphicManager.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.GraphicManager.bilt_to">
+<span class="sig-name descname"><span class="pre">bilt_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.GraphicManager.bilt_to" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.GraphicManager.bilt_to_queue">
+<span class="sig-name descname"><span class="pre">bilt_to_queue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.GraphicManager.bilt_to_queue" title="Link to this definition"></a></dt>
+<dd><p>给频繁bilt或不在主线程的程序使用</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.GraphicManager.get_or_create_simple_texture">
+<span class="sig-name descname"><span class="pre">get_or_create_simple_texture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">800</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">800</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#graphic_module.SimpleTexture" title="graphic_module.SimpleTexture"><span class="pre">SimpleTexture</span></a></span></span><a class="headerlink" href="#graphic_module.GraphicManager.get_or_create_simple_texture" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.GraphicManager.handle_data_queue">
+<span class="sig-name descname"><span class="pre">handle_data_queue</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.GraphicManager.handle_data_queue" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.GraphicManager.register_frame_buffer_texture">
+<span class="sig-name descname"><span class="pre">register_frame_buffer_texture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame_buffer_texture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#graphic_module.FrameBufferTexture" title="graphic_module.FrameBufferTexture"><span class="pre">FrameBufferTexture</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.GraphicManager.register_frame_buffer_texture" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.GraphicManager.register_observer">
+<span class="sig-name descname"><span class="pre">register_observer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#graphic_module.Observer" title="graphic_module.Observer"><span class="pre">Observer</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#graphic_module.PostProcessing" title="graphic_module.PostProcessing"><span class="pre">PostProcessing</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.GraphicManager.register_observer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.GraphicManager.register_reward_observer">
+<span class="sig-name descname"><span class="pre">register_reward_observer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#graphic_module.Observer" title="graphic_module.Observer"><span class="pre">Observer</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#graphic_module.SimpleTexture" title="graphic_module.SimpleTexture"><span class="pre">SimpleTexture</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#graphic_module.PostProcessing" title="graphic_module.PostProcessing"><span class="pre">PostProcessing</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#graphic_module.PostProcessingSequence" title="graphic_module.PostProcessingSequence"><span class="pre">PostProcessingSequence</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.GraphicManager.register_reward_observer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.GraphicManager.register_simple_texture">
+<span class="sig-name descname"><span class="pre">register_simple_texture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simple_texture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#graphic_module.SimpleTexture" title="graphic_module.SimpleTexture"><span class="pre">SimpleTexture</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.GraphicManager.register_simple_texture" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.GraphicManager.unregister_frame_buffer_texture">
+<span class="sig-name descname"><span class="pre">unregister_frame_buffer_texture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.GraphicManager.unregister_frame_buffer_texture" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.GraphicManager.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.GraphicManager.update" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.GraphicManager.update_main_graphic">
+<span class="sig-name descname"><span class="pre">update_main_graphic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.GraphicManager.update_main_graphic" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.ImguiWindowBlurLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">ImguiWindowBlurLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.ImguiWindowBlurLayer" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#graphic_module.PostProcessingSequence" title="graphic_module.PostProcessingSequence"><code class="xref py py-class docutils literal notranslate"><span class="pre">PostProcessingSequence</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.ImguiWindowBlurLayer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.ImguiWindowBlurLayer.__init__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_frame_buffer</strong> – FrameBufferTexture类及其子类， 或者PostProcessing类</p></li>
+<li><p><strong>steps</strong> – PPStepTemplate类，数量不限， 按顺序排列</p></li>
+</ul>
+</dd>
+</dl>
+<p>使用示例：
+(self属于FrameBufferTexture类)
+self._post_processing = PostProcessing(
+self.width, self.height, self,
+BlurPostProcessing(‘blur1’, self.width, self.height, (1.0, 0.0)),
+BlurPostProcessing(‘blur2’, self.width, self.height, (0.0, 1.0))
+)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.ImguiWindowBlurLayer.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.ImguiWindowBlurLayer.update" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">MainFrameBufferTexture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#graphic_module.FrameBufferTexture" title="graphic_module.FrameBufferTexture"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrameBufferTexture</span></code></a></p>
+<p>主视图 渲染窗口</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.add_close_node_debug_circle">
+<span class="sig-name descname"><span class="pre">add_close_node_debug_circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screen_radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.add_close_node_debug_circle" title="Link to this definition"></a></dt>
+<dd><p>添加相近节点的debug 圆圈显示</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.add_dead_node_debug_circle">
+<span class="sig-name descname"><span class="pre">add_dead_node_debug_circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screen_radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuple_color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.add_dead_node_debug_circle" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.add_intersection_debug_circle">
+<span class="sig-name descname"><span class="pre">add_intersection_debug_circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">world_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screen_radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tuple_color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.add_intersection_debug_circle" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.clear_building_data">
+<span class="sig-name descname"><span class="pre">clear_building_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.clear_building_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.clear_cache">
+<span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.clear_cache" title="Link to this definition"></a></dt>
+<dd><p>清除所有缓存， 全部重新检查并绘制</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.clear_close_node_debug_circles">
+<span class="sig-name descname"><span class="pre">clear_close_node_debug_circles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.clear_close_node_debug_circles" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.clear_dead_node_debug_circles">
+<span class="sig-name descname"><span class="pre">clear_dead_node_debug_circles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.clear_dead_node_debug_circles" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.clear_highlight_data">
+<span class="sig-name descname"><span class="pre">clear_highlight_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.clear_highlight_data" title="Link to this definition"></a></dt>
+<dd><p>刷新高亮内容</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.clear_intersection_debug_circles">
+<span class="sig-name descname"><span class="pre">clear_intersection_debug_circles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.clear_intersection_debug_circles" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.clear_node_data">
+<span class="sig-name descname"><span class="pre">clear_node_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.clear_node_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.clear_region_data">
+<span class="sig-name descname"><span class="pre">clear_region_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.clear_region_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.clear_road_data">
+<span class="sig-name descname"><span class="pre">clear_road_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.clear_road_data" title="Link to this definition"></a></dt>
+<dd><p>适用于road的颜色、显示等发生改变时</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.clear_road_data_deep">
+<span class="sig-name descname"><span class="pre">clear_road_data_deep</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.clear_road_data_deep" title="Link to this definition"></a></dt>
+<dd><p>适用于road的文件结构改变时</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.clear_x_y_lim">
+<span class="sig-name descname"><span class="pre">clear_x_y_lim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.clear_x_y_lim" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.end_drag_selection">
+<span class="sig-name descname"><span class="pre">end_drag_selection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.end_drag_selection" title="Link to this definition"></a></dt>
+<dd><p>鼠标结束拖动的事件</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.get_final_frame_buffer">
+<span class="sig-name descname"><span class="pre">get_final_frame_buffer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.get_final_frame_buffer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.get_final_texture_id">
+<span class="sig-name descname"><span class="pre">get_final_texture_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.get_final_texture_id" title="Link to this definition"></a></dt>
+<dd><p>由于这个类还包含了其他渲染的frame buffer， 因此需要通过这个方法取出最终的渲染buffer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.get_road_or_node_idx_by_mouse_pos">
+<span class="sig-name descname"><span class="pre">get_road_or_node_idx_by_mouse_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texture_space_mouse_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_roads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.get_road_or_node_idx_by_mouse_pos" title="Link to this definition"></a></dt>
+<dd><p>根据鼠标位置（图像空间）获取道路或节点的id
+:param texture_space_mouse_pos: 鼠标位置（图像空间）
+:param select_roads: 值为True，则为选择道路模式，否则为选择节点模式
+:return: 被选择的道路idx， 若点击空白或没有图像，则返回None</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.mouse_pos_percent">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mouse_pos_percent</span></span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.mouse_pos_percent" title="Link to this definition"></a></dt>
+<dd><p>鼠标位置在图像中的百分比</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.pan">
+<span class="sig-name descname"><span class="pre">pan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texture_space_delta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.pan" title="Link to this definition"></a></dt>
+<dd><p>平移</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.recheck_all">
+<span class="sig-name descname"><span class="pre">recheck_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.recheck_all" title="Link to this definition"></a></dt>
+<dd><p>重新检查所有项目</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.render" title="Link to this definition"></a></dt>
+<dd><p>在self.fbo 画布上进行渲染。被调用即进行渲染，不进行逻辑判断
+该方法继承自基类的render</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.render_draw_list">
+<span class="sig-name descname"><span class="pre">render_draw_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.render_draw_list" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.show_imgui_display_editor">
+<span class="sig-name descname"><span class="pre">show_imgui_display_editor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.show_imgui_display_editor" title="Link to this definition"></a></dt>
+<dd><p>imgui 图层显示</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.show_imgui_main_texture_settings">
+<span class="sig-name descname"><span class="pre">show_imgui_main_texture_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.show_imgui_main_texture_settings" title="Link to this definition"></a></dt>
+<dd><p>主图形渲染设置</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.start_drag_selection">
+<span class="sig-name descname"><span class="pre">start_drag_selection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texture_space_mouse_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_roads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.start_drag_selection" title="Link to this definition"></a></dt>
+<dd><p>鼠标开始拖动时的事件， 记录初始位置以及idx图像
+:param texture_space_mouse_pos: 鼠标位置（图像空间）
+:param select_roads: 值为True，则为选择道路模式，否则为选择节点模式</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.texture_ratio">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">texture_ratio</span></span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.texture_ratio" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.update" title="Link to this definition"></a></dt>
+<dd><p>每帧调用</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.update_drag_selection">
+<span class="sig-name descname"><span class="pre">update_drag_selection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_space_mouse_pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.update_drag_selection" title="Link to this definition"></a></dt>
+<dd><p>鼠标持续拖动事件， 获取框选范围内的idx列表
+:param image_space_mouse_pos: 鼠标位置（图像空间）
+:return: 被框选的idx list， 失败则返回None</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.world_space_height">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">world_space_height</span></span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.world_space_height" title="Link to this definition"></a></dt>
+<dd><p>显示区域的高度（世界空间）</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.world_space_width">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">world_space_width</span></span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.world_space_width" title="Link to this definition"></a></dt>
+<dd><p>显示区域的宽度（世界空间）</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.zoom">
+<span class="sig-name descname"><span class="pre">zoom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texture_space_center</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.zoom" title="Link to this definition"></a></dt>
+<dd><p>缩放</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.MainFrameBufferTexture.zoom_all">
+<span class="sig-name descname"><span class="pre">zoom_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.MainFrameBufferTexture.zoom_all" title="Link to this definition"></a></dt>
+<dd><p>重新获取x_lim 和 y_lim，并自动缩放</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.NodeIdxFrameBufferTexture">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">NodeIdxFrameBufferTexture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.NodeIdxFrameBufferTexture" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#graphic_module.FrameBufferTexture" title="graphic_module.FrameBufferTexture"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrameBufferTexture</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.NodeIdxFrameBufferTexture.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.NodeIdxFrameBufferTexture.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.NodeObserver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">NodeObserver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_gdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bg_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.NodeObserver" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#graphic_module.Observer" title="graphic_module.Observer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observer</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.NodeObserver.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_gdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bg_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.NodeObserver.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.ObsBlender">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">ObsBlender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.ObsBlender" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#graphic_module.PostProcessing" title="graphic_module.PostProcessing"><code class="xref py py-class docutils literal notranslate"><span class="pre">PostProcessing</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.ObsBlender.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.ObsBlender.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.Observer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">Observer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">render_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_gdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bg_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.Observer" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#graphic_module.FrameBufferTexture" title="graphic_module.FrameBufferTexture"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrameBufferTexture</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.Observer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">render_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_gdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bg_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.Observer.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.Observer.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.Observer.render" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.Observer.update_buffer">
+<span class="sig-name descname"><span class="pre">update_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gdf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.Observer.update_buffer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.Observer.update_observation_center">
+<span class="sig-name descname"><span class="pre">update_observation_center</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.Observer.update_observation_center" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.PostProcessing">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">PostProcessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">program_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.PostProcessing" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#graphic_module.FrameBufferTexture" title="graphic_module.FrameBufferTexture"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrameBufferTexture</span></code></a></p>
+<p>后处理渲染的(单步)(模板)</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.PostProcessing.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">program_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.PostProcessing.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.PostProcessing.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_texture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Texture</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">Texture</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.PostProcessing.render" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>in_texture</strong> – 输入的texture, 将被传入shader的sampler2D变量</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.PostProcessing.update_prog">
+<span class="sig-name descname"><span class="pre">update_prog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.PostProcessing.update_prog" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.PostProcessingSequence">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">PostProcessingSequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_frame_buffer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.PostProcessingSequence" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>一系列post processing的组合</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.PostProcessingSequence.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_frame_buffer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.PostProcessingSequence.__init__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_frame_buffer</strong> – FrameBufferTexture类及其子类， 或者PostProcessing类</p></li>
+<li><p><strong>steps</strong> – PPStepTemplate类，数量不限， 按顺序排列</p></li>
+</ul>
+</dd>
+</dl>
+<p>使用示例：
+(self属于FrameBufferTexture类)
+self._post_processing = PostProcessing(
+self.width, self.height, self,
+BlurPostProcessing(‘blur1’, self.width, self.height, (1.0, 0.0)),
+BlurPostProcessing(‘blur2’, self.width, self.height, (0.0, 1.0))
+)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.PostProcessingSequence.get_render_img">
+<span class="sig-name descname"><span class="pre">get_render_img</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tensor</span></span></span><a class="headerlink" href="#graphic_module.PostProcessingSequence.get_render_img" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.PostProcessingSequence.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.PostProcessingSequence.render" title="Link to this definition"></a></dt>
+<dd><p>仅支持一个Sample2D纹理输入的后处理shader</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="graphic_module.PostProcessingSequence.texture">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">texture</span></span><a class="headerlink" href="#graphic_module.PostProcessingSequence.texture" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="graphic_module.PostProcessingSequence.texture_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">texture_id</span></span><a class="headerlink" href="#graphic_module.PostProcessingSequence.texture_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.PostProcessingSequence.update_size">
+<span class="sig-name descname"><span class="pre">update_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.PostProcessingSequence.update_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.RegionObserver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">RegionObserver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_gdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bg_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.RegionObserver" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#graphic_module.Observer" title="graphic_module.Observer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observer</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.RegionObserver.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_gdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bg_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.RegionObserver.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.RewardBlurPostProcessing">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">RewardBlurPostProcessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_frame_buffer_texture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#graphic_module.FrameBufferTexture" title="graphic_module.FrameBufferTexture"><span class="pre">FrameBufferTexture</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.RewardBlurPostProcessing" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#graphic_module.PostProcessingSequence" title="graphic_module.PostProcessingSequence"><code class="xref py py-class docutils literal notranslate"><span class="pre">PostProcessingSequence</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.RewardBlurPostProcessing.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_frame_buffer_texture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#graphic_module.FrameBufferTexture" title="graphic_module.FrameBufferTexture"><span class="pre">FrameBufferTexture</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.RewardBlurPostProcessing.__init__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_frame_buffer</strong> – FrameBufferTexture类及其子类， 或者PostProcessing类</p></li>
+<li><p><strong>steps</strong> – PPStepTemplate类，数量不限， 按顺序排列</p></li>
+</ul>
+</dd>
+</dl>
+<p>使用示例：
+(self属于FrameBufferTexture类)
+self._post_processing = PostProcessing(
+self.width, self.height, self,
+BlurPostProcessing(‘blur1’, self.width, self.height, (1.0, 0.0)),
+BlurPostProcessing(‘blur2’, self.width, self.height, (0.0, 1.0))
+)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.RoadIdxFrameBufferTexture">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">RoadIdxFrameBufferTexture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.RoadIdxFrameBufferTexture" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#graphic_module.FrameBufferTexture" title="graphic_module.FrameBufferTexture"><code class="xref py py-class docutils literal notranslate"><span class="pre">FrameBufferTexture</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.RoadIdxFrameBufferTexture.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.RoadIdxFrameBufferTexture.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.RoadObserver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">RoadObserver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_gdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bg_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.RoadObserver" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#graphic_module.Observer" title="graphic_module.Observer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Observer</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.RoadObserver.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_gdf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bg_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.RoadObserver.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.ShaderPostProcessing">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">ShaderPostProcessing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.ShaderPostProcessing" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#graphic_module.PostProcessing" title="graphic_module.PostProcessing"><code class="xref py py-class docutils literal notranslate"><span class="pre">PostProcessing</span></code></a></p>
+<p>将接收到的纹理颜色映射到frag color</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.ShaderPostProcessing.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.ShaderPostProcessing.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="graphic_module.SimpleTexture">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">graphic_module.</span></span><span class="sig-name descname"><span class="pre">SimpleTexture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.SimpleTexture" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.SimpleTexture.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.SimpleTexture.__init__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="graphic_module.SimpleTexture.bilt_data">
+<span class="sig-name descname"><span class="pre">bilt_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#graphic_module.SimpleTexture.bilt_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="graphic_module.SimpleTexture.texture_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">texture_id</span></span><a class="headerlink" href="#graphic_module.SimpleTexture.texture_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="geo.html" class="btn btn-neutral float-left" title="geo package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="optimize_module.html" class="btn btn-neutral float-right" title="optimize_module module" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2024, FengYiheng WuWenxin QiuShubing。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

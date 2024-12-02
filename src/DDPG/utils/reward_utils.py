@@ -1,0 +1,50 @@
+
+BUILDING_REGION_REWARD = 0b0000  # 0
+ROAD_REWARD = 0b0001  # 1
+TERRAIN_REWARD = 0b0010  # 2
+BOUND_REWARD = 0b0011  # 3
+STEP_PENALTY = 0b0100  # 4
+BACKWARD_PENALTY = 0b0101  # 5
+CROSS_NODE_PENALTY = 0b0110  # 6
+REWARD_SUM = 0b0111  # 7  //特殊值
+
+FINAL_DEFAULT = 0b1000  # 8
+FINAL_ENDNODE_REWARD = 0b1001  # 9
+FINAL_DISTANCE_REWARD = 0b1101
+FINAL_ANGLE_REWARD = 0b1110
+FINAL_REWARD_SHIFT = 0b1011  # 10  //特殊值
+FINAL_REWARD_WEIGHT = 0b1100  # 11  //特殊值
+
+REWARD_KEYS = {
+    BUILDING_REGION_REWARD,
+    ROAD_REWARD,
+    TERRAIN_REWARD,
+    BOUND_REWARD,
+    STEP_PENALTY,
+    BACKWARD_PENALTY,
+    CROSS_NODE_PENALTY,
+}
+
+FINAL_REWARD_KEYS = {
+    FINAL_DEFAULT,
+    FINAL_ENDNODE_REWARD,
+    FINAL_DISTANCE_REWARD,
+    FINAL_ANGLE_REWARD,
+}
+
+REWARD_DISPLAY_NAMES = {
+    BUILDING_REGION_REWARD: 'building_region_reward',
+    ROAD_REWARD: 'road_reward',
+    TERRAIN_REWARD: 'terrain_reward',
+    BOUND_REWARD: 'bound_reward',
+    STEP_PENALTY: 'step_penalty',
+    BACKWARD_PENALTY: 'backward_penalty',
+    CROSS_NODE_PENALTY: 'cross_node_penalty',
+    REWARD_SUM: 'sum',
+
+    FINAL_DEFAULT: 'final_default',
+    FINAL_ENDNODE_REWARD: 'final_endnode_reward',
+    FINAL_DISTANCE_REWARD: 'final_distance_ratio_reward',
+    FINAL_ANGLE_REWARD: 'final_acute_angle_reward',
+    FINAL_REWARD_SHIFT: 'final_reward_shift',
+}
