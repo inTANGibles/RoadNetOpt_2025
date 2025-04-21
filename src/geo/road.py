@@ -771,6 +771,25 @@ class RoadCollection:
         dist = random.uniform(dist_min, dist_max)
         return self.interpolate_road(road, dist, normalized=False)
 
+    def interpolate_road_by_fixed_interval(self, road: pd.Series, interval: float):
+        dist_min, dist_max = self.get_valid_spawn_range(road)
+        if dist_min is None or dist_max is None:
+            return None
+
+        # 计算距离范围内的所有插值点
+        distances = np.arange(dist_min, dist_max, interval)  # 每隔 interval 生成一个距离
+        if len(distances) == 0:
+            return None  # 如果没有有效距离，返回 None
+
+        # 选择第一个插值点作为 spawn_point
+        selected_distance = distances[0]
+        return self.interpolate_road(road, selected_distance, normalized=False)
+
+    def identification_of_cutoff_roads(self):
+        return
+    def find_end_points_cutoff_roads(self):
+        return
+
     def split_road(self, road: pd.Series, distance: float, normalized: bool) -> list[uuid.uuid4()]:
         """先取点，后分割，返回分割后的list[uid]， 失败返回自身uid"""
         assert isinstance(road, pd.Series)

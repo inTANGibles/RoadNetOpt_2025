@@ -72,6 +72,7 @@ class FrameBufferTexture:
         self.ctx = g.mCtx
         # 新建一个frame buffer object， 在上面进行渲染绘图
         self.fbo = self.ctx.framebuffer(color_attachments=self.ctx.texture((width, height), 4))  # frame buffer object
+        # self.fbo.color_attachments[0].filter = (moderngl.NEAREST, moderngl.NEAREST)
         if g.mModernglWindowRenderer is not None:
             g.mModernglWindowRenderer.register_texture(self.fbo.color_attachments[0])
 
@@ -89,6 +90,7 @@ class FrameBufferTexture:
         self.width, self.height = width, height
 
         self.fbo = self.ctx.framebuffer(color_attachments=self.ctx.texture((width, height), 4))
+        # self.fbo.color_attachments[0].filter = (moderngl.NEAREST, moderngl.NEAREST)
         if g.mModernglWindowRenderer is not None:
             g.mModernglWindowRenderer.register_texture(self.fbo.color_attachments[0])
         logging.debug(f'texture size updated to {self.width, self.height}, id = {self.fbo.color_attachments[0].glo}')
@@ -148,7 +150,7 @@ class MainFrameBufferTexture(FrameBufferTexture):
         self._cached_region_uid = None
 
         # vertex array objects, buffer and programs
-
+        # render object格式！
         _rosf = sm.I.dis.get_current_road_style_factory()
         _busf = sm.I.dis.get_current_building_style_factory()
         _resf = sm.I.dis.get_current_region_style_factory()
@@ -767,7 +769,7 @@ class PostProcessing(FrameBufferTexture):
         :param in_texture: 输入的texture, 将被传入shader的sampler2D变量
         """
         self.fbo.use()
-        self.fbo.clear()
+        self.fbo.clear(0.0, 0.0, 0.0, 1.0)
         # 这里将in_texture作为参数传入
         if isinstance(in_texture, list):
             location = [i for i in range(len(in_texture))]
@@ -807,6 +809,7 @@ class ObsBlender(PostProcessing):
         self.renderer.prog['raw_roads_texture'].value = 3
         self.renderer.prog['new_roads_texture'].value = 4
         self.renderer.prog['node_texture'].value = 5
+
 
 
 class PostProcessingSequence:
@@ -897,8 +900,32 @@ class RewardBlurPostProcessing(PostProcessingSequence):
 
 
 class Observer(FrameBufferTexture):
+    """
+       观察者类 (Observer) - 负责管理环境中智能体的观察视野，并渲染观测结果。
+
+       继承自 FrameBufferTexture，实现了：
+       - 设定观察视野范围（observation_size）
+       - 更新观测中心位置
+       - 存储并更新空间数据（GeoDataFrame）
+       - 通过 FrameBuffer 渲染当前观测区域
+
+       参数：
+       - name (str): 观察器的名称
+       - width (int): 纹理的宽度
+       - height (int): 纹理的高度
+       - observation_size (tuple[float, float]): 观察范围大小，表示在世界坐标中的宽度和高度
+       - render_object: 负责渲染的对象
+       - initial_gdf: 初始空间数据 (GeoDataFrame)
+       - bg_color (tuple): 背景颜色，默认为黑色 (0, 0, 0, 0)
+       """
+
     def __init__(self, name, width, height, observation_size: tuple[float, float], render_object, initial_gdf,
                  bg_color=(0, 0, 0, 0)):
+        """
+        初始化 Observer，设定观测范围、渲染对象和缓存数据。
+
+        继承自 FrameBufferTexture，创建一个帧缓冲区 (FBO) 用于存储渲染结果。
+        """
         super().__init__(name, width, height, exposed=False)
         self.render_object = render_object
         self.observation_size = observation_size  # 视野范围， 世界坐标
@@ -907,6 +934,12 @@ class Observer(FrameBufferTexture):
         self.bg_color = bg_color
 
     def update_observation_center(self, center):
+        """
+        更新观察中心的位置，并调整观察范围的边界。
+
+        参数：
+        - center (tuple[float, float]): 观察中心的坐标 (x, y)
+        """
         self.x_lim = (center[0] - self.observation_size[0] / 2, center[0] + self.observation_size[0] / 2)
         self.y_lim = (center[1] - self.observation_size[1] / 2, center[1] + self.observation_size[1] / 2)
 
@@ -962,7 +995,7 @@ class NodeObserver(Observer):
 
 
 class GraphicManager:
-    I: 'GraphicManager' = None  # 实例化 只有在gui模式才能引用
+    I: 'GraphicManager' = None  # 图像系统中唯一的图形管理器实例
 
     def __init__(self, headless=False):
         GraphicManager.I = self

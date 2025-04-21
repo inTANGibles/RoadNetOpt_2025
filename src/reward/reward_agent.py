@@ -196,6 +196,7 @@ class RewardAgent:
         return reward
 
     def terrain_reward(self):
+        # todo: 后期如何涉及水体等自然区域
         return 0
 
     def bound_reward(self):
@@ -226,6 +227,7 @@ class RewardAgent:
 
     @staticmethod
     def backward_penalty(_is_forward):
+        # todo: 好好查看什么是“回头路”
         """如果回头，则扣分"""
         if _is_forward:
             return 0
@@ -233,6 +235,7 @@ class RewardAgent:
             return -1
 
     def graph_reward(self):
+        #todo:什么意思
         _ = self
         return 0
 

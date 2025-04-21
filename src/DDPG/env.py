@@ -340,6 +340,8 @@ class RoadEnv:
     def render(self):
         raise NotImplementedError
 
+
+    # 智能体动作action的更新逻辑
     def step(self, action):
         """
         返回new_observation, rewards, done, all_done

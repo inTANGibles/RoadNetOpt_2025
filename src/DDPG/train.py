@@ -29,7 +29,7 @@ logging.basicConfig(level=logging.INFO)
  - 以下args给定的默认数值，如果是float的话一定要写成float的形式，例如0.0，不要写成0，否则会被gui解析为int
 '''
 DEFAULT_ENV_ARGS = Namespace(
-    data_path=r'../data/VirtualEnv/only_roads.bin',  # 地图数据文件， bin格式。如果留空，则使用已经加载的数据
+    data_path=r'../data/VirtualEnv/map_mini_0421.bin',  # 地图数据文件， bin格式。如果留空，则使用已经加载的数据
     num_agents=1,  # 智能体数量
     region_min=None,  # None表示自动计算范围
     region_max=None,
@@ -37,8 +37,8 @@ DEFAULT_ENV_ARGS = Namespace(
     observation_view_size=(400.0, 400.0),
     observation_center=(200.0, 200.0),  # 摄像机视角的中心点坐标
     still_mode=False,  # 是否固定摄像机视角
-    action_step_range=(15, 40),#(20,60)
-    max_episode_step=50,  # 每个智能体最多走多少步
+    action_step_range=(30, 100),#(20,60)
+    max_episode_step=10,  # 每个智能体最多走多少步
 )
 
 DEFAULT_TRAIN_ARGS = Namespace(
@@ -47,8 +47,8 @@ DEFAULT_TRAIN_ARGS = Namespace(
     path_cnn='',  # 缓存的cnn的pth文件
     path_buffer='',  # 缓存的buffer文件
     nb_actions=2,  # action的维度
-    warmup_epochs=10000,  # 预热轮次
-    train_epochs=10001,  # 训练轮次
+    warmup_epochs=99,  # 预热轮次
+    train_epochs=100,  # 训练轮次
     sigma=1.000,  # 自由探索初始值
     sigma_decay=0.9995,  # 自由探索的衰减值
     actor_lr=1e-4,  #
@@ -397,6 +397,9 @@ def agent_update(env, agent, replay_buffer, train_args):
             critic_loss, actor_loss = agent.update(i, transition_dict)
     # end update
     return critic_loss, actor_loss
+
+
+# 该部分action具有噪声逻辑，action通过angle和step size显示
 
 
 def agent_take_action(env, done, agent, state, train_args):

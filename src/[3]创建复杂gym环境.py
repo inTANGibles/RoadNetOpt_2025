@@ -16,7 +16,7 @@ from style_module import StyleManager
 from utils import headless_utils, RoadLevel, RoadState, io_utils
 
 
-def generate_chessboard(image_size, grid_size = 16):
+def generate_chessboard(image_size, grid_size):
     # 生成棋盘格图像
     chessboard = np.zeros((image_size, image_size, 4), dtype=np.uint8)
 
@@ -26,6 +26,7 @@ def generate_chessboard(image_size, grid_size = 16):
     # 根据行列索引生成棋盘格
     chessboard[:, :, :3] = np.where((rows + cols) % 2 == 0, 200, 100)[:,:,np.newaxis] # RGB通道
     chessboard[:, :, 3] = 255  # 设置透明度通道为不透明
+    cv2.imshow("Chessboard",chessboard)
     return chessboard
 
 
@@ -214,6 +215,8 @@ class MyGLContext(headless_utils.GLContext):
 
     def main(self):
         chessboard = generate_chessboard(512, 10)
+        chessboard_bgr = cv2.cvtColor(chessboard,cv2.COLOR_BGRA2BGR)
+
 
         data = io_utils.load_data("../data/和县/data.bin")
         env = MyEnv(data)
@@ -233,7 +236,7 @@ class MyGLContext(headless_utils.GLContext):
                 result[:, :, c] = chessboard[:, :, c] * (1 - alpha) + img[:, :, c] * alpha
             # 将BGR图像转换为RGB格式
             result = cv2.cvtColor(result, cv2.COLOR_BGR2RGB)
-            cv2.imshow("render", result)
+            # cv2.imshow("render", result)
             key = cv2.waitKey(0)  # 设置帧率为 30fps
             if key == ord('q'):
                 break
@@ -243,6 +246,6 @@ class MyGLContext(headless_utils.GLContext):
 
 if __name__ == '__main__':
     MyGLContext.run()
-    # cv2.imshow("Chessboard", generate_chessboard(512, 10))
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
+    cv2.imshow("Chessboard", generate_chessboard(512, 10))
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()

@@ -114,6 +114,7 @@ def imgui_tab_item_data_to_gdfs_content():
             Building.data_to_buildings(mCachedData),
             Region.data_to_regions(mCachedData),
             GraphicManager.I.MainTexture.clear_cache()
+            # 通过GraphicManager 管理的一个主纹理 MainTexture 渲染出来，缓存了三个图层
         ), args=(0,))
     Spinner.spinner('data_to_all')
 

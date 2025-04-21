@@ -21,9 +21,9 @@ class RoadState(Enum):
 
 #  路口距离阈值
 distance_threshold_by_road_level = {
-    RoadLevel.TRUNK: 80,
-    RoadLevel.PRIMARY: 60,
-    RoadLevel.SECONDARY: 40,
+    RoadLevel.TRUNK: 20,
+    RoadLevel.PRIMARY: 20,
+    RoadLevel.SECONDARY: 20,
     RoadLevel.TERTIARY: 20,
     RoadLevel.FOOTWAY: 10,
     RoadLevel.UNDEFINED: 10

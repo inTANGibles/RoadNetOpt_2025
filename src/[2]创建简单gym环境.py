@@ -14,7 +14,7 @@ class MyEnv(gym.Env):
         self.steps = 0
 
         self.action_space = gym.spaces.Box(-1, 1, (2,), dtype=np.float32)
-        self.observation_space = gym.spaces.Box(0, 255, (128, 128, 3), dtype=np.uint8)
+        self.observation_space = gym.spaces.Box(0, 255, (128, 128, 3), dtype=np.uint8)  # state space
 
     def reset(self, *, seed: int | None = None, options: dict[str, Any] | None = None, ) -> tuple[ObsType, dict[str, Any]]:
         self.pos = 0
@@ -40,6 +40,7 @@ class MyEnv(gym.Env):
 
     def render(self) -> RenderFrame | list[RenderFrame] | None:
         print(self.pos)
+        print(self.steps)
         return None
 
     def close(self):
@@ -53,13 +54,14 @@ class MyGLContext(headless_utils.GLContext):
 
     def main(self):
         env = MyEnv()
-        state, info = env.reset()
+
         done = False
         while not done:
             action = env.action_space.sample()
             next_state, reward, done, truncated, info = env.step(action)
             env.render()
             state = next_state
+            print("action",action,"state",type(state),"reward",reward)
 
 
 if __name__ == '__main__':

@@ -6,7 +6,7 @@ from utils import headless_utils, io_utils
 
 register(
     id='MyTestingEnv-v0',
-    entry_point='[3]创建复杂gym环境:MyEnv',
+    entry_point='[3_1]创建复杂gym环境:MyEnv',
 )
 
 
@@ -22,7 +22,7 @@ class MyGLContext(headless_utils.GLContext):
         state, info = env.reset()
         done = False
         while not done:
-            action = env.action_space.sample()
+            action = env.action_space.sample() #随机动作
             next_state, reward, done, truncated, info = env.step(action)
             state = next_state
 

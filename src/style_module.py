@@ -18,7 +18,7 @@ class StyleScheme:
         self.version = INFO_VERSION
         self.name = name
         self.ROAD_COLOR_BY_LEVEL = {
-            RoadLevel.TRUNK: (0, 0, 0, 1),
+            RoadLevel.TRUNK: (1, 0, 0, 1),
             RoadLevel.PRIMARY: (0.2, 0.2, 0.2, 1),
             RoadLevel.SECONDARY: (0.3, 0.3, 0.3, 1),
             RoadLevel.TERTIARY: (0.4, 0.4, 0.4, 1),
@@ -26,7 +26,7 @@ class StyleScheme:
             RoadLevel.UNDEFINED: (0, 0, 0, 1),
         }
         self.ROAD_WIDTH_BY_LEVEL = {
-            RoadLevel.TRUNK: 5,
+            RoadLevel.TRUNK: 1,
             RoadLevel.PRIMARY: 4,
             RoadLevel.SECONDARY: 4,
             RoadLevel.TERTIARY: 3,
@@ -40,7 +40,7 @@ class StyleScheme:
             RoadState.OPTIMIZING: (0.4, 0.4, 0.4, 1),
         }
         self.ROAD_WIDTH_BY_STATE = {
-            RoadState.RAW: 3,
+            RoadState.RAW: 1,
             RoadState.OPTIMIZED: 3,
             RoadState.OPTIMIZING: 5,
         }
@@ -66,7 +66,7 @@ class StyleScheme:
         }
 
         self.REGION_COLOR_BY_ACCESSIBLE = {
-            RegionAccessibleType.ACCESSIBLE: (0, 0, 0, 0.3),
+            RegionAccessibleType.ACCESSIBLE: (1, 0, 0, 0.3),
             RegionAccessibleType.RESTRICTED: (0.2, 0.2, 0.2, 0.3),
             RegionAccessibleType.INACCESSIBLE: (0.4, 0.4, 0.4, 0.3),
             RegionAccessibleType.UNDEFINED: (0.6, 0.6, 0.6, 0.3)
@@ -248,6 +248,9 @@ class StyleScheme:
             max_road_level = RoadLevel(max_road_level)
             distance = road_utils.distance_threshold_by_road_level[max_road_level]
             distance_list.append(distance)
+
+
+
         width = np.array(distance_list)
         num = len(nodes)
         # width = np.full(num, 10)  # TODO 后续改为不同类型道路需要的宽度

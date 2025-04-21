@@ -3,7 +3,7 @@ from __future__ import annotations
 import random
 from enum import Enum
 from typing import Any, SupportsFloat, Optional
-
+import matplotlib.pyplot as plt
 import cv2
 import geopandas as gpd
 import gymnasium as gym
@@ -27,6 +27,7 @@ class RewardSystem:
         self.Road = env.Road
         self.Building = env.Building
         self.Region = env.Region
+        self.reward_details = []# 用于存储每一步的详细 reward 信息
 
         # region 创建observer 渲染器
         self.observers = {
@@ -109,6 +110,20 @@ class RewardSystem:
         # 首先更新observers
         self._update_observers(road_agent)
 
+        """
+        计算当前步骤的奖励并记录详细信息
+        """
+        # 计算各部分奖励
+        base_score = self.基础得分()
+        exploration_score = self.鼓励走出去的得分(road_agent)
+        turning_score = self.转弯角度得分(road_agent)
+        building_penalty = self.与建筑相交的得分()
+        region_penalty = self.与区域相交的得分()
+        node_penalty = self.与路口相交的得分()
+        parent_road_penalty = self.与出生道路相交的得分()
+        away_from_start_score = self.远离出生道路的得分()
+
+
         # 计算每一步的reward
         reward = self.基础得分() + self.鼓励走出去的得分(road_agent) + self.转弯角度得分(road_agent) + self.与建筑相交的得分() + self.与区域相交的得分() + self.与路口相交的得分() + self.与出生道路相交的得分() + self.远离出生道路的得分()
 
@@ -116,7 +131,33 @@ class RewardSystem:
         if done:
             reward += self.完成原因赋予的得分(reason)
 
+        # 记录详细奖励信息
+        reward_detail = {
+            "base_score": base_score,
+            "exploration_score": exploration_score,
+            "turning_score": turning_score,
+            "building_penalty": building_penalty,
+            "region_penalty": region_penalty,
+            "node_penalty": node_penalty,
+            "parent_road_penalty": parent_road_penalty,
+            "away_from_start_score": away_from_start_score,
+            "final_reward": reward,
+            "done": done,
+            "reason": reason.name
+        }
+        self.reward_details.append(reward_detail)
+
         return reward
+
+    def print_reward_details(self):
+        """
+        打印所有步骤的奖励详细信息
+        """
+        for idx, detail in enumerate(self.reward_details, start=1):
+            print(f"Step {idx}:")
+            for key, value in detail.items():
+                print(f"  {key}: {value}")
+            print("-" * 20)  # 分隔符
 
     def _update_observers(self, road_agent):
         # update buffer
@@ -237,8 +278,8 @@ class MyEnv(gym.Env):
                  building_collection=None,
                  region_collection=None,
                  max_episode_step: int = 50,
-                 observation_img_size: tuple[int, int] = (128, 128),  # width, height
-                 observation_view_size: tuple[float, float] = (400, 400),
+                 observation_img_size: tuple[int, int] = (256,256),  # width, height
+                 observation_view_size: tuple[float, float] = (256,256),
                  action_step_max: float = 40,
                  ):
         """
@@ -257,10 +298,26 @@ class MyEnv(gym.Env):
         self.observation_img_size = observation_img_size
         self.observation_view_size = observation_view_size
         self.action_step_max = action_step_max
+        self.action_step_range=[5.5,16.5]
+        # # action space and observation space
+        # self.action_space = gym.spaces.Box(-1, 1, (2,), dtype=np.float32)
 
-        # action space and observation space
-        self.action_space = gym.spaces.Box(-1, 1, (2,), dtype=np.float32)
+        # change action
+        self.action_space = gym.spaces.Discrete(8)  # 定义 8 个离散动作
+        self.discrete_actions = np.array([
+            [1, 0],  # 0°  向右
+            [np.sqrt(2) / 2, np.sqrt(2) / 2],  # 45° 右上
+            [0, 1],  # 90° 向上
+            [-np.sqrt(2) / 2, np.sqrt(2) / 2],  # 135° 左上
+            [-1, 0],  # 180° 向左
+            [-np.sqrt(2) / 2, -np.sqrt(2) / 2],  # 225° 左下
+            [0, -1],  # 270° 向下
+            [np.sqrt(2) / 2, -np.sqrt(2) / 2]  # 315° 右下
+        ])
+
         self.observation_space = gym.spaces.Box(0, 255, (4, observation_img_size[1], observation_img_size[0]), dtype=np.uint8)  # C, H, W
+        # 4代表目前的observation是一个通道RGBA的
+
 
         # create geometries
         self.Road: RoadCollection = RoadCollection()
@@ -268,17 +325,20 @@ class MyEnv(gym.Env):
         if building_collection is None:
             self.Building: BuildingCollection = BuildingCollection()
             self.Building.data_to_buildings(data)
+            # print(f"建筑数据数量: {len(self.Building._BuildingCollection__building_gdf)}")  # 确保建筑数据非空
         else:
             self.Building = building_collection
         if region_collection is None:
             self.Region: RegionCollection = RegionCollection()
             self.Region.data_to_regions(data)
+            # print(f"区域数据数量: {len(self.Region._RegionCollection__region_gdf)}")  # 确保建筑数据非空
         else:
             self.Region = region_collection
 
         bbox_min, bbox_max = self.Road.get_bbox()
-        bbox_min -= np.array([20, 20])
-        bbox_max += np.array([20, 20])
+        # 扩大bound
+        # bbox_min -= np.array([20, 20])
+        # bbox_max += np.array([20, 20])
         self.road_bbox = (bbox_min, bbox_max)
 
         self.Road.cache()  # 保存当前路网状态，以备复原
@@ -298,12 +358,15 @@ class MyEnv(gym.Env):
         self.bound_observer = graphic_module.RegionObserver('bound_obs', W, H, view_size, self.Region.create_region_by_min_max(*self.road_bbox), StyleManager.I.env.region_simple_style_factory)
         self.node_observer = graphic_module.NodeObserver('node_obs', W, H, view_size, self.Road.get_all_nodes(), road_collection=self.Road)
         self.blend_observer = graphic_module.ObsBlender('blend_obs', W, H)  # 合成渲染器
+        # print(f"Blend Observer Resolution: W={W}, H={H}")
+        # print(f"Blend Observer Initialized: {self.blend_observer is not None}")
+
         # (init reward)
         self.reward_system = RewardSystem(env=self)
         # others
         self.STRTree_key = self.Road.build_STRTree(self.raw_roads)
         self.render_mode = "rgb_array"
-        self.chessboard = self._generate_chessboard(H, W, 5)  # 创建一个棋盘格背景作为render画面的背景
+        self.chessboard = self._generate_chessboard(H, W, 1)  # 创建一个棋盘格背景作为render画面的背景
 
     def reset(self, *, seed: int | None = None, options: dict[str, Any] | None = None, ) -> tuple[ObsType, dict[str, Any]]:
         self.Road.restore()  # 恢复原样
@@ -315,7 +378,7 @@ class MyEnv(gym.Env):
         info = {}
         return observation, info
 
-    def _generate_chessboard(self, height, width, grid_size=16):
+    def _generate_chessboard(self, height, width, grid_size):
         _ = self
         # 生成棋盘格图像
         chessboard = np.zeros((height, width, 4), dtype=np.uint8)
@@ -326,6 +389,7 @@ class MyEnv(gym.Env):
         # 根据行列索引生成棋盘格
         chessboard[:, :, :3] = np.where((rows + cols) % 2 == 0, 200, 100)[:, :, np.newaxis]  # RGB通道
         chessboard[:, :, 3] = 255  # 设置透明度通道为不透明
+
         return chessboard
 
     def _clear_and_spawn_agents(self):
@@ -334,7 +398,8 @@ class MyEnv(gym.Env):
         random.shuffle(candidate_roads)
         while len(candidate_roads) > 0:
             random_road = candidate_roads.pop(0)
-            spawn_point = self.Road.interpolate_road_by_random_position(random_road)
+            # spawn_point = self.Road.interpolate_road_by_random_position(random_road)
+            spawn_point = self.Road.interpolate_road_by_fixed_interval(random_road, interval=10) # 按照10个像素值进行插值
             if spawn_point is None:
                 continue  # 如果找不到符合路网间距规范的点，则重新选一条路
             spawn_point = spawn_point.reshape(-1, 2)
@@ -364,8 +429,13 @@ class MyEnv(gym.Env):
 
     def _move_road_agent(self, action):
         # action: numpy.array, shape=[2, ], value from -1 to 1, float32
-        vec = action * self.action_step_max  # [-1.0 - 1.0] -> [-action_step_max, action_step_max]
-        vec = vec.reshape(1, 2)  # shape: [2, ] -> [1, 2]
+        # vec = action * self.action_step_max  # [-1.0 - 1.0] -> [-action_step_max, action_step_max]
+        # vec = vec.reshape(1, 2)  # shape: [2, ] -> [1, 2]
+        # action:
+        step_length = np.random.uniform(self.action_step_range[0], self.action_step_range[1])
+        vec = self.discrete_actions[action]* step_length # 从离散动作集合中选择向量
+        vec = vec.reshape(1, 2)  # 确保形状正确
+
         lst_pt = self.Road.get_road_last_point(self.road_agent)  # shape: [1, 2]
         self.road_agent = self.Road.add_point_to_road(self.road_agent, point=lst_pt + vec)
 
@@ -383,12 +453,17 @@ class MyEnv(gym.Env):
         self.node_observer.update_observation_center(lst_pt)
 
         # render image
-        self.raw_roads_observer.render()
-        self.new_road_observer.render()
-        self.building_observer.render()
-        self.region_observer.render()
-        self.bound_observer.render()
-        self.node_observer.render()
+        # 渲染每个观察者
+        # print("Rendering each observer...")
+        self.raw_roads_observer.render(background_color=(0, 0, 0, 0))
+        self.new_road_observer.render(background_color=(0, 0, 0, 0))
+        self.building_observer.render(background_color=(0, 0, 0, 0))
+        self.region_observer.render(background_color=(0, 0, 0, 0))
+        self.bound_observer.render(background_color=(0, 0, 0, 0))
+        self.node_observer.render(background_color=(0, 0, 0, 0))
+
+        # # 显示每层
+        self.show_observer_layers()
 
         self.blend_observer.render(
             [self.bound_observer.texture,
@@ -399,12 +474,46 @@ class MyEnv(gym.Env):
              self.node_observer.texture]  # 这里的顺序需要和shader中的texture的顺序对应
         )
 
-    def _get_observation(self, fmt="CHW") -> np.ndarray:
+    # 显示每个观察者的渲染结果
+    def show_observer_layers(self):
+        observers = {
+            "Bound Observer": self.bound_observer,
+            "Region Observer": self.region_observer,
+            "Building Observer": self.building_observer,
+            "Raw Roads Observer": self.raw_roads_observer,
+            "New Roads Observer": self.new_road_observer,
+            "Node Observer": self.node_observer,
+        }
+        layers = []
+
+        for name, observer in observers.items():
+            layer = observer.get_render_img()[:, :, :3]  # 仅保留RGB通道
+            layers.append(layer)
+
+            # 计算拼接方式
+        if len(layers) > 1:
+            # 水平拼接（如果单行过长，可以改成垂直拼接 cv2.vconcat）
+            combined = cv2.hconcat(layers)
+        else:
+            combined = layers[0]  # 如果只有一个图层，则不需要拼接
+        # 处理最终的融合层
+        blend_result = self.blend_observer.get_render_img()[:, :, :3]
+        # 显示所有观察者层 + 融合层
+        cv2.imshow("Observer Layers and Blend Result", combined)
+
+        # # 显示最终的混合图层
+        # blend_result = self.blend_observer.get_render_img()
+        # cv2.imshow("Blend Observer Result", blend_result[:, :, :3])
+
+        cv2.waitKey(0)  # 按任意键关闭所有窗口
+
+    def _get_observation(self, fmt="CHW") -> np.ndarray: # 获取环境观察数据
         # 这里和原先的get observation image有所不同
         # 其更新buffer和prog的操作被移至了_update_observers
         # 这里默认observers已经被更新过了
         assert fmt == "CHW" or fmt == "HWC"
         observation = self.blend_observer.get_render_img()  # H, W, C
+        # 使用 OpenCV 显示渲染结果
         if fmt == "CHW":
             observation = np.transpose(observation, (2, 0, 1))  # C, H, W
         return observation
@@ -438,6 +547,12 @@ class MyEnv(gym.Env):
         alpha = obs[:, :, 3] / 255.0
         for c in range(3):
             result[:, :, c] = self.chessboard[:, :, c] * (1 - alpha) + obs[:, :, c] * alpha
+
+        # 使用 OpenCV 显示当前渲染的 Observation
+        cv2.imshow("Observation", result[:, :, :3])
+        cv2.waitKey(10)  # 短暂停留，避免窗口冻结
+
+
         return result[:, :, :3]
 
     def close(self):
@@ -454,12 +569,14 @@ class MyGLContext(headless_utils.GLContext):
         super().__init__(**kwargs)
 
     def main(self):
-        data_path = "../data/VirtualEnv/0414.bin"
-
+        data_path = "../data/VirtualEnv/try2.bin"
         data = io_utils.load_data(data_path)
         env = MyEnv(data)
+
         state, info = env.reset()
         done = False
+        frames = []  # 用于存储所有渲染结果
+
         while not done:
             action = env.action_space.sample()
             next_state, reward, done, truncated, info = env.step(action)
@@ -467,16 +584,35 @@ class MyGLContext(headless_utils.GLContext):
             state = next_state
             img = env.render()
             result = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-            cv2.imshow("render", result)
-            key = cv2.waitKey(0)  # 设置帧率为 30fps
+            frames.append(result)  # 将帧添加到列表中
 
-            if key == ord('q'):
+            if len(frames) >= 10:  # 假设最多渲染 10 帧
                 break
+
+        # 打印奖励详细信息
+        print("Reward Details:")
+        env.reward_system.print_reward_details()
+
+        # 将图像排列成 3x3 网格
+        rows, cols = 3, 3  # 网格行列数
+        h, w, c = frames[0].shape  # 每个图像的高度、宽度、通道数
+        grid_image = np.zeros((h * rows, w * cols, c), dtype=np.uint8)
+
+        # 将每个图像逐一放入网格中
+        for idx, frame in enumerate(frames):
+            row = idx // cols  # 当前图像的行
+            col = idx % cols  # 当前图像的列
+            grid_image[row * h: (row + 1) * h, col * w: (col + 1) * w, :] = frame
+
+        # 显示拼接后的图像
+        cv2.imshow("Combined Render", grid_image)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
         env.close()
 
 
 if __name__ == '__main__':
     MyGLContext.run()
-    # cv2.imshow("Chessboard", generate_chessboard(512, 10))
+    # cv2.imshow("Chessboard", _generate_chessboard(512, 10))
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
