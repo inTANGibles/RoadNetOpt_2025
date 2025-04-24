@@ -81,9 +81,9 @@ class Agent:
         # —— 准备数据 ——
         S  = torch.tensor(transition['states'],      dtype=torch.float32, device=self.device) / 255.0  # (B,N,C,H,W)
         A  = torch.tensor(transition['actions'],     dtype=torch.float32, device=self.device)       # (B,N,act_dim)
-        R  = torch.tensor(transition['rewards'][:,agent_idx], dtype=torch.float32, device=self.device).unsqueeze(1)  # (B,1)
+        R  = torch.tensor(transition['rewards'][:,agent_idx], dtype=torch.float32, device=self.device)  # (B,1)
         S2 = torch.tensor(transition['next_states'], dtype=torch.float32, device=self.device) / 255.0
-        D  = torch.tensor(transition['dones'][:,agent_idx],   dtype=torch.float32, device=self.device).unsqueeze(1)  # (B,1)
+        D  = torch.tensor(transition['dones'][:,agent_idx],   dtype=torch.float32, device=self.device)  # (B,1)
 
         B, N, *_ = S.shape
 
@@ -100,8 +100,9 @@ class Agent:
 
         q_target = R + self.gamma * q_next * (1 - D)
         q_val    = self.critic(S, A)               # (B,1)
-
+        q_target = q_target.view(q_val.shape)
         critic_loss = F.mse_loss(q_val, q_target)
+        # assert q_val.shape == q_target.shape, f"Shape mismatch: q_val {q_val.shape}, q_target {q_target.shape}"
 
         self.critic_opt.zero_grad()
         critic_loss.backward()
