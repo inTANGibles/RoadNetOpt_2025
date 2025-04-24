@@ -201,7 +201,7 @@ class RoadEnv:
         self.raw_roads = Road.get_all_roads()
         self.episode_step = 0  # 重置步数
         self.clear_and_spawn_agents()  # 生成智能体
-        return self.get_image_observation().transpose((2, 0, 1))
+        return self.get_image_observation()
 
     def clear_and_spawn_agents(self):
         """
@@ -287,52 +287,89 @@ class RoadEnv:
                 self.agent_parent[uid] = None
 
     def get_image_observation(self) -> np.ndarray:
-        """返回状态，为 图像 格式"""
+        """
+        返回所有 agent 的状态，为图像格式（N, C, H, W）
+        """
         if self.render_backend == RenderBackend.MATPLOTLIB:
             raise Exception('使用MATPLOTLIB获取observation image已不受支持，请使用OPENGL渲染后端')
         # OPENGL backend
         last_points = self._get_last_points()
-        if len(last_points) > 2 and not self.still_mode:
-            logging.warning('当前模式为跟随模式，当前神经网络的state数据暂不支持多个智能体的观察空间，'
-                            '而检测到环境的智能体数量大于1， 默认取第一个智能体的观察空间作为state，'
-                            '要支持多个智能体，请将still mode设为True')
-        last_point = last_points[0]  # 对于多个agent，目前只支持第一个
+
+        # if len(last_points) > 2 and not self.still_mode:
+        #     logging.warning('当前模式为跟随模式，当前神经网络的state数据暂不支持多个智能体的观察空间，'
+        #                     '而检测到环境的智能体数量大于1， 默认取第一个智能体的观察空间作为state，'
+        #                     '要支持多个智能体，请将still mode设为True')
+        # last_point = last_points[0]  # 对于多个agent，目前只支持第一个
         with MyTimer('observation_get_road_gdf', level=5):
             # TODO: 通过Road.get_roads_by_attr_and_value筛选正在优化的道路的操作仍是耗时操作，后期可以优化
             road_gdf = Road.get_roads_by_attr_and_value('state', RoadState.OPTIMIZING)
         with MyTimer('observation_update_buffer', level=5):
             self.new_roads_observer.update_buffer(road_gdf)
-        if not self.still_mode:
-            # 如果为跟随模式，则更新摄像机位置
-            self.raw_roads_observer.update_observation_center(last_point)
-            self.new_roads_observer.update_observation_center(last_point)
-            self.building_observer.update_observation_center(last_point)
-            self.region_observer.update_observation_center(last_point)
-            self.bound_observer.update_observation_center(last_point)
-            self.node_observer.update_observation_center(last_point)
-        with MyTimer('observation_render', level=5):
+
+
+        images=[]
+        for i in range(self.num_road_agents):
             if not self.still_mode:
-                # 如果为跟随模式，则重新渲染原有道路、建筑和区域
-                # 如果是静止模式，则直接使用init时渲染好的texture即可
+                center = last_points[i]
+                self.raw_roads_observer.update_observation_center(center)
+                self.new_roads_observer.update_observation_center(center)
+                self.building_observer.update_observation_center(center)
+                self.region_observer.update_observation_center(center)
+                self.bound_observer.update_observation_center(center)
+                self.node_observer.update_observation_center(center)
+
                 self.raw_roads_observer.render()
                 self.building_observer.render()
                 self.region_observer.render()
                 self.bound_observer.render()
                 self.node_observer.render()
-            # 无论是跟随模式还是静止模式，都需要渲染new roads和混合图层
+
             self.new_roads_observer.render()
-            self.blend_observer.render(
-                [self.bound_observer.texture,
-                 self.region_observer.texture,
-                 self.building_observer.texture,
-                 self.raw_roads_observer.texture,
-                 self.new_roads_observer.texture,
-                 self.node_observer.texture]  # 这里的顺序需要和shader中的texture的顺序对应
-            )
-        with MyTimer('observation_read_fbo', level=5):
-            # 从显存读取图片数据为numpy array
-            image_data = self.blend_observer.get_render_img()
-        return image_data
+            self.blend_observer.render([
+                self.bound_observer.texture,
+                self.region_observer.texture,
+                self.building_observer.texture,
+                self.raw_roads_observer.texture,
+                self.new_roads_observer.texture,
+                self.node_observer.texture,
+            ])
+
+            with MyTimer('observation_read_fbo', level=5):
+                image_data = self.blend_observer.get_render_img()
+                images.append(image_data.transpose((2, 0, 1)))  # to (C, H, W)
+        # if not self.still_mode:
+        #     # 如果为跟随模式，则更新摄像机位置
+        #     self.raw_roads_observer.update_observation_center(last_point)
+        #     self.new_roads_observer.update_observation_center(last_point)
+        #     self.building_observer.update_observation_center(last_point)
+        #     self.region_observer.update_observation_center(last_point)
+        #     self.bound_observer.update_observation_center(last_point)
+        #     self.node_observer.update_observation_center(last_point)
+        # with MyTimer('observation_render', level=5):
+        #     if not self.still_mode:
+        #         # 如果为跟随模式，则重新渲染原有道路、建筑和区域
+        #         # 如果是静止模式，则直接使用init时渲染好的texture即可
+        #         self.raw_roads_observer.render()
+        #         self.building_observer.render()
+        #         self.region_observer.render()
+        #         self.bound_observer.render()
+        #         self.node_observer.render()
+        #     # 无论是跟随模式还是静止模式，都需要渲染new roads和混合图层
+        #     self.new_roads_observer.render()
+        #     self.blend_observer.render(
+        #         [self.bound_observer.texture,
+        #          self.region_observer.texture,
+        #          self.building_observer.texture,
+        #          self.raw_roads_observer.texture,
+        #          self.new_roads_observer.texture,
+        #          self.node_observer.texture]  # 这里的顺序需要和shader中的texture的顺序对应
+        #     )
+        # with MyTimer('observation_read_fbo', level=5):
+        #     # 从显存读取图片数据为numpy array
+        #     image_data = self.blend_observer.get_render_img()
+        # return image_data
+
+        return np.stack(images)  # shape: (N, C, H, W)
 
     def get_org_image_observation(self):
         pass
@@ -376,8 +413,8 @@ class RoadEnv:
         done = self.done_in_ndarray_format  # 转换为numpy格式
         all_done = self._all_done()  # 是否所有都结束了
         self.episode_step += 1  # 更新当前的步数
-        return new_observation_img.transpose((2, 0, 1)), reward, done, all_done
-
+        # return new_observation_img.transpose((2, 0, 1)), reward, done, all_done
+        return new_observation_img, reward, done, all_done
     def calculate_reward(self):
         """在这里计算每一步的reward"""
         reward_all = self.reward_agent.get_rewards(

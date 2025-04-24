@@ -154,6 +154,7 @@ def train(env_args=DEFAULT_ENV_ARGS,
         reward_info_buffer: deque = deque(maxlen=train_args.buffer_capacity)
 
         agent: Agent = Agent(nb_actions=train_args.nb_actions,
+                             num_agents=env.num_road_agents,
                              action_space_bound=action_space_bound,
                              action_space_boundMove=action_space_boundMove,
                              actor_lr=train_args.actor_lr,
@@ -394,29 +395,55 @@ def agent_update(env, agent, replay_buffer, train_args):
             'Dones': D,
         }
         for i in range(0, env.num_road_agents):
-            critic_loss, actor_loss = agent.update(i, transition_dict)
+            critic_loss, actor_loss = agent.update(transition_dict,i)
     # end update
     return critic_loss, actor_loss
 
 
 # 该部分action具有噪声逻辑，action通过angle和step size显示
-
-
 def agent_take_action(env, done, agent, state, train_args):
+    """
+    为了适配单智能体的 take_action(state_i) 接口，
+    这里把整个 state: (N, C, H, W) 拆成 N 份分别给 agent。
+    """
     action_list = []
     for i in range(env.num_road_agents):
         if done[i]:
-            action = np.zeros((1, 2))
+            # 如果 done，就给一个全零动作 (dim = nb_actions,)
+            action_i = np.zeros((train_args.nb_actions,))
         else:
-            action = agent.take_action(state)
-            noise = np.random.randn(train_args.nb_actions)  # 后面可能换成ou噪声，增加噪声强度逐渐衰减的功能
-            # alpha = random.uniform(0, _sigma)
-            action[0][0] = (action[0][0] + noise[0] * _sigma + 3) % 2.0 - 1  # -1:1 -> -2:2 -> 1:5 -> 0:2 -> -1:1
-            action[0][1] = (action[0][1] + noise[1] * _sigma + 3) % 2.0 - 1
-        action_list.append(action)
-    action = np.array(action_list).reshape(-1, 2)
-    _shared_data['action_0'] = action[0]
-    return action
+            # 只取第 i 个智能体的观测，shape=(C, H, W)
+            obs_i = state[i]
+            # take_action 返回 shape (1, nb_actions)，我们取 [0] 变成 (nb_actions,)
+            action_i = agent.take_action(obs_i)[0]
+
+            # 在动作上加噪声
+            noise = np.random.randn(train_args.nb_actions) * _sigma
+            action_i = np.clip(action_i + noise, -1.0, +1.0)
+
+        action_list.append(action_i)
+
+    # 最终返回 (N, nb_actions)
+    action_array = np.stack(action_list, axis=0)
+    _shared_data['action_0'] = action_array[0]
+    return action_array
+
+#singe-agent
+# def agent_take_action(env, done, agent, state, train_args):
+#     action_list = []
+#     for i in range(env.num_road_agents):
+#         if done[i]:
+#             action = np.zeros((1, 2))
+#         else:
+#             action = agent.take_action(state)
+#             noise = np.random.randn(train_args.nb_actions)  # 后面可能换成ou噪声，增加噪声强度逐渐衰减的功能
+#             # alpha = random.uniform(0, _sigma)
+#             action[0][0] = (action[0][0] + noise[0] * _sigma + 3) % 2.0 - 1  # -1:1 -> -2:2 -> 1:5 -> 0:2 -> -1:1
+#             action[0][1] = (action[0][1] + noise[1] * _sigma + 3) % 2.0 - 1
+#         action_list.append(action)
+#     action = np.array(action_list).reshape(-1, 2)
+#     _shared_data['action_0'] = action[0]
+#     return action
 
 
 def shift_reward(final_reward: np.ndarray,
