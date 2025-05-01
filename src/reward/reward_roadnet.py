@@ -6,7 +6,7 @@ import networkx as nx
 class AnalysisRoadNet:
     """整体路网的评估体系，分为长度、密度、连通性三大方面"""
 
-    def __init__(self,road_collection=None,map_collection=None,target_in_map=None):
+    def __init__(self,road_collection=None,map_collection=None):
         """
         target传入的是指定节点的'geometry'
         target_index:可选integration（优先）/choice/depth
@@ -17,7 +17,7 @@ class AnalysisRoadNet:
         self.NeighbourRoad = road_collection # 生成街区的路网,先基于这个做吧
         self.MapRoad = map_collection
         self.G = self.MapRoad.to_graph()
-        self.target = target_in_map # uid
+        # self.target = target_in_map # uid
 
     # 基本计算
     def roadnet_bound_area(self,roads):

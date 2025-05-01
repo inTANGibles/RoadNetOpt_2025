@@ -111,6 +111,7 @@ class RoadCollection:
         else:
             return None
 
+
     def _delete_node(self, uid):
         """直接删除node ，不考虑引用关系"""
         node = self.__node_gdf.loc[uid]
@@ -1077,13 +1078,17 @@ class RoadCollection:
         if self.__cached_graph is None and use_cache:
             use_cache = False
         # handle cache
-        if use_cache:
-            if self._flag_cached_graph_need_update:
-                logging.warning("You have operated on objects in the cache in previous operations without updating "
-                                "the cache. This is not allowed and may cause errors.")
-            G = self.__cached_graph  # use cached graph
-            edge_df = edge_df[~edge_df['cache']]  # filter non-cached edges
-            node_df = node_df[~node_df['cache']]  # filter non-cached nodes
+        # if use_cache:
+        #     if self._flag_cached_graph_need_update:
+        #         logging.warning("You have operated on objects in the cache in previous operations without updating "
+        #                         "the cache. This is not allowed and may cause errors.")
+        #     G = self.__cached_graph  # use cached graph
+        #     if 'cache' not in edge_df.columns:
+        #         edge_df['cache'] = False
+        #     if 'cache' not in node_df.columns:
+        #         node_df['cache'] = False
+        #     edge_df = edge_df[~edge_df['cache']]  # filter non-cached edges
+        #     node_df = node_df[~node_df['cache']]  # filter non-cached nodes
         else:
             G = nx.Graph()
         # add nodes first
@@ -1211,6 +1216,18 @@ class RoadCollection:
         print(f"cached edge gdf: {self.__cached_edge_gdf is not None}")
         print(f"cached node gdf: {self.__cached_node_gdf is not None}")
         print(f"==================================================")
+
+    def copy(self):
+        new = RoadCollection()
+        new.__node_gdf = self.__node_gdf.copy(deep=True)
+        new.__edge_gdf = self.__edge_gdf.copy(deep=True)
+        new.__coord_to_node_uid = self.__coord_to_node_uid.copy()
+        new.__cached_graph = copy.deepcopy(self.__cached_graph)
+        new.__cached_node_gdf = self.__cached_node_gdf.copy(deep=True) if self.__cached_node_gdf is not None else None
+        new.__cached_edge_gdf = self.__cached_edge_gdf.copy(deep=True) if self.__cached_edge_gdf is not None else None
+        new._flag_cached_graph_need_update = self._flag_cached_graph_need_update
+        new.__uid = uuid.uuid4()  # 或者你可以保留旧 UID，看你语义需求
+        return new
 
     def cache(self, roads=None):
         if roads is None:

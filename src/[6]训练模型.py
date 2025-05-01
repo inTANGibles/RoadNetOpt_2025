@@ -229,7 +229,7 @@ class MyGLContext(headless_utils.GLContext):
         super().__init__(**kwargs)
 
     def main(self):
-        DATA_PATH = "../data/VirtualEnv/try2.bin"
+        DATA_PATH = "../data/VirtualEnv/0412data.bin"
         ENV_NAME = "MyTestingEnv-v1"
 
         data = io_utils.load_data(DATA_PATH)
@@ -358,7 +358,7 @@ class MyGLContext(headless_utils.GLContext):
             device="cuda",
         )
         # endregion
-        print(model.policy)
+        # print(model.policy)
 
         # 回调函数,用于定期评估训练过程中的模型的表现
         folder_path = os.path.join("./logs", datetime.now().strftime("%Y%m%d_%H%M%S"))
@@ -383,7 +383,7 @@ class MyGLContext(headless_utils.GLContext):
         callback = CallbackList([custom_callback, eval_callback])
 
         print("start learning")
-        model.learn(200, callback=callback)
+        model.learn(50, callback=callback)
         print("ending learning")
 
         print("evaluating policy")

@@ -17,6 +17,18 @@ from lib.accelerator import cAccelerator
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+def compute_area_in_km2(region_min, region_max) -> float:
+    """
+    根据边界点计算二维区域面积，单位为 km²。
+    :param region_min: 区域左下角坐标 (x_min, y_min)
+    :param region_max: 区域右上角坐标 (x_max, y_max)
+    :return: 区域面积，单位为平方公里 km²
+    """
+    width = region_max[0] - region_min[0]
+    height = region_max[1] - region_min[1]
+    area_m2 = width * height
+    area_km2 = area_m2 / 1e6
+    return area_km2
 
 def _plot_gdf_func(**kwargs):
     assert 'gdf' in kwargs

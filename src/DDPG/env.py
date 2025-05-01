@@ -4,11 +4,11 @@ import traceback
 import uuid
 from enum import Enum
 from typing import Union, Optional
-
+from reward.reward_agent import RewardAgent, RewardRoadNet
 import geopandas as gpd
 import numpy as np
 import pandas as pd
-
+from geo.road import  RoadCollection
 import graphic_module
 from DDPG.utils.my_timer import MyTimer
 from geo import Road, Building, Region
@@ -17,6 +17,7 @@ from gui import global_var as g
 from style_module import StyleManager
 from utils import RoadState, RoadLevel
 from utils import point_utils, io_utils
+import copy
 
 print('env2 loaded')
 
@@ -70,6 +71,8 @@ class RoadEnv:
         :param road_level: 生成智能体的道路等级
         """
         # [parameters 参数]
+        print("WHAT IS ROAD:",Road)
+
         self.num_road_agents: int = num_road_agents
         self.max_episode_step: int = max_episode_step
         if region_min is None or region_max is None:
@@ -181,11 +184,13 @@ class RoadEnv:
         """
         初始化reward系统
         """
-        from reward.reward_agent import RewardAgent
+
         self.reward_agent = RewardAgent(region_min=self.region_min,
                                         region_max=self.region_max,
                                         headless=self.headless)
 
+        # self.reward_roadnet = RewardRoadNet(origin_road_collection=self.original_road_collection,
+        #                                     new_road_collection=self.new_road_collection) #TODO:是不是这样赋值啊！
     @property
     def done_in_ndarray_format(self) -> np.ndarray:
         """
@@ -198,6 +203,8 @@ class RoadEnv:
     def reset(self) -> np.ndarray:
         """初始化新的道路，分随机初始化、选定道路初始化(TODO)"""
         Road.restore()  # 复原路网
+        self.original_road_collection=Road.copy()
+        print("road_len" ,len(self.original_road_collection.get_all_roads()))
         self.raw_roads = Road.get_all_roads()
         self.episode_step = 0  # 重置步数
         self.clear_and_spawn_agents()  # 生成智能体
@@ -417,6 +424,7 @@ class RoadEnv:
         return new_observation_img, reward, done, all_done
     def calculate_reward(self):
         """在这里计算每一步的reward"""
+
         reward_all = self.reward_agent.get_rewards(
             dones=self.done_in_ndarray_format,
             positions=self._get_last_points(),
@@ -428,17 +436,56 @@ class RoadEnv:
 
     def calculate_final_reward(self):
         """在这里计算最终的reward"""
+
+        self.new_road_collection = Road
+
         if self.render_backend == RenderBackend.MATPLOTLIB:
             raise NotImplemented('尚未支持MATPLOTLIB的final reward的计算')
         else:
-            return self.reward_agent.get_final_rewards(self.road_agents, self.agent_intersect_with_road, self.agents_acute_count, debug_dict=self.shared_data['final_reward_info'])
+            agent_reward = self.reward_agent.get_final_rewards(
+                self.road_agents,
+                self.agent_intersect_with_road,
+                self.agents_acute_count,
+                debug_dict=self.shared_data['final_reward_info']
+            )
+            # print("is this two roads different?", self._print_road_collections_diff())
+            roadnet_reward= RewardRoadNet(
+                origin_road_collection=self.original_road_collection,
+                new_road_collection=self.new_road_collection
+            )
+            roadnet_reward_vaule=roadnet_reward.get_roadnet_rewards()
 
+            print("agent_reward:",agent_reward)
+            print('roadnet_reward:',roadnet_reward_vaule)
+
+            agent_reward += roadnet_reward_vaule
+            print("agent_reward:", agent_reward)
+            return agent_reward
+
+    def _print_road_collections_diff(self):
+        print("[RoadNet Comparison]")
+        print("- Original Road Collection:")
+        print(f"  Type: {type(self.original_road_collection)}")
+        print(f"  Total Roads: {len(self.original_road_collection.get_all_roads())}")
+        print(f"  Sample: {self.original_road_collection.get_all_roads().head(1)}\n")
+
+        print("- New Road Collection:")
+        print(f"  Type: {type(self.new_road_collection)}")
+        print(f"  Total Roads: {len(self.new_road_collection.get_all_roads())}")
+        print(f"  Sample: {self.new_road_collection.get_all_roads().head(1)}\n")
+
+        if self.original_road_collection.get_all_roads().equals(self.new_road_collection.get_all_roads()):
+            print("=> These two road collections are IDENTICAL.")
+        else:
+            print("=> These two road collections are DIFFERENT.")
     def _get_last_points(self) -> np.ndarray:
         """获取所有agent道路的最后一个点，返回[n, 2]形状的np array"""
         last_points = []
         for i, road in enumerate(self.road_agents.values()):
             last_points.append(Road.get_road_last_point(road))
         return np.vstack(last_points)
+
+
 
     def _is_in_region(self, uid) -> bool:
         """判断uid编号的道路的是否在区域内。该函数仅对最后一个点有效，因此需要每步调用"""
@@ -488,6 +535,11 @@ mRewardSum = 0
 mTargetOptimizedAgentNum = 0  # 仅限顺序模式
 mCurrentOptimizedAgentNum = 0  # 仅限顺序模式
 
+
+def from_gdf(edge_gdf: gpd.GeoDataFrame) -> RoadCollection:
+    rc = RoadCollection()
+    rc.add_roads(edge_gdf)
+    return rc
 
 def synchronous_mode_init(num_agents):
     """同步模式，若干agent同时跑"""

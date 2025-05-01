@@ -398,8 +398,9 @@ def agent_update(env, agent, replay_buffer, train_args):
     actor_losses = []
     for i in range(env.num_road_agents):
         critic_loss, actor_loss = agent.update(transition_dict, i)
-        critic_losses.append(critic_loss.item())
-        actor_losses.append(actor_loss.item())
+        print(critic_loss,actor_loss)
+        critic_losses.append(critic_loss)
+        actor_losses.append(actor_loss)
 
     # 返回平均损失值
     return np.mean(critic_losses), np.mean(actor_losses)

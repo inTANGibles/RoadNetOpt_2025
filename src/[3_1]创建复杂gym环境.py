@@ -499,7 +499,7 @@ class MyEnv(gym.Env):
         # 处理最终的融合层
         blend_result = self.blend_observer.get_render_img()[:, :, :3]
         # 显示所有观察者层 + 融合层
-        cv2.imshow("Observer Layers and Blend Result", combined)
+        # cv2.imshow("Observer Layers and Blend Result", combined)
 
         # # 显示最终的混合图层
         # blend_result = self.blend_observer.get_render_img()
@@ -549,7 +549,7 @@ class MyEnv(gym.Env):
             result[:, :, c] = self.chessboard[:, :, c] * (1 - alpha) + obs[:, :, c] * alpha
 
         # 使用 OpenCV 显示当前渲染的 Observation
-        cv2.imshow("Observation", result[:, :, :3])
+        # cv2.imshow("Observation", result[:, :, :3])
         cv2.waitKey(10)  # 短暂停留，避免窗口冻结
 
 
@@ -569,7 +569,7 @@ class MyGLContext(headless_utils.GLContext):
         super().__init__(**kwargs)
 
     def main(self):
-        data_path = "../data/VirtualEnv/try2.bin"
+        data_path = "../data/VirtualEnv/0412data.bin"
         data = io_utils.load_data(data_path)
         env = MyEnv(data)
 
@@ -605,7 +605,7 @@ class MyGLContext(headless_utils.GLContext):
             grid_image[row * h: (row + 1) * h, col * w: (col + 1) * w, :] = frame
 
         # 显示拼接后的图像
-        cv2.imshow("Combined Render", grid_image)
+        # cv2.imshow("Combined Render", grid_image)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
         env.close()

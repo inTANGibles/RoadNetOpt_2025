@@ -1,18 +1,16 @@
 import uuid
-from enum import Enum
 from typing import Optional
-import sys
-import numpy as np
+import osmnx as ox
+import networkx as nx
 import pandas as pd
-
+import numpy as np
+from scipy.stats import circstd
 import graphic_module as gm
 from geo import Road, Building, Region
 from graphic_module import GraphicManager
 from style_module import StyleManager as sm
 from utils import RoadState
-from collections import namedtuple
 from DDPG.utils.reward_utils import *
-
 
 class RewardAgent:
     """reward值计算的Opengl实现版本"""
@@ -26,6 +24,9 @@ class RewardAgent:
         self.region_min = np.array(region_min)
         self.region_max = np.array(region_max)
 
+        self.orgin_road_collection = None
+        self.analysis_net = None
+        self.reward_net = None
         # observers
         self.observers: dict[str:gm.Observer] = {
             'raw_road_observer': gm.RoadObserver(
@@ -292,6 +293,8 @@ class RewardAgent:
         # start_dot_poduct = point_utils.vector_dot(start_vec1, start_vec2)
         pass
 
+
+
     def reset(self, parent_roads):
         """每一轮需要刷新的内容"""
         pass
@@ -364,17 +367,21 @@ class RewardAgent:
                           road_agents: dict[uuid.UUID, pd.Series],
                           intersect_with_road_dict: dict[uuid.UUID, bool],
                           acute_angle_count_dict: dict[uuid.UUID, int],
-                          debug_dict: Optional[dict] = None):
+                          debug_dict: Optional[dict] = None,
+                          ):
+        # 原始路网 vs 当前优化后的路网
+
+
         """
         :param road_agents:
         :param intersect_with_road_dict:
         :param debug_dict: 用于输出debug信息，可以留空。格式为{i: {} for i in range(len(road_agents))}
         :return:
         """
-        # 先更新buffer
         self.observers['new_road_observer'].update_buffer(
             self.Road.get_roads_by_attr_and_value('state', RoadState.OPTIMIZING))
         result = np.zeros(len(road_agents), dtype=np.float32)
+        # 计算 reward
         i = 0
         for uid in road_agents.keys():
             intersect_with_road = intersect_with_road_dict[uid]
@@ -399,7 +406,105 @@ class RewardAgent:
             # reward = np.prod(list(final_reward_dict.values()))
             result[i] = reward
 
+
             if debug_dict:
                 debug_dict[i] = final_reward_dict
+                print(f"[Final Reward] Agent {i}:")
+                for k, v in final_reward_dict.items():
+                    print(f"  {k:>25}: {v:.3f}")
             i += 1
         return result.reshape((-1, 1))
+
+
+class RewardRoadNet:
+    def __init__(self, origin_road_collection, new_road_collection):
+        self.origin_road_collection = origin_road_collection
+        self.new_road_collection = new_road_collection
+
+        self.G_origin = origin_road_collection.to_graph()
+        self.G_new = new_road_collection.to_graph()
+
+        self.origin_efficiency = self.street_efficiency_reward(self.origin_road_collection )
+        self.origin_density = self.network_density_reward(self.origin_road_collection )
+        self.origin_continuity = self.street_continuity_reward(self.origin_road_collection )
+        self.origin_bearing = self.street_bearing_reward(self.origin_road_collection )
+
+    def street_efficiency_reward(self, road_collection):
+        """平均出行效率（近似定义为道路连接距离/节点数）"""
+        edge_gdf = road_collection.get_all_roads()
+        node_gdf = road_collection.get_all_nodes()
+        if len(node_gdf) == 0:
+            return 0.0
+        total_length = edge_gdf.geometry.length.sum() * 0.001  # 转换为km
+        return total_length / len(node_gdf)
+
+    def network_density_reward(self, road_collection):
+        """单位面积的道路密度"""
+        area = roadnet_bound_area(road_collection)  # 单位: 平方米
+        edge_gdf = road_collection.get_all_roads()
+        return len(edge_gdf) / area if area > 0 else 0.0
+
+
+    def street_continuity_reward(self, road_collection):
+        """平均道路长度"""
+        edge_gdf = road_collection.get_all_roads()
+        if len(edge_gdf) == 0:
+            return 0.0
+        lengths = edge_gdf.geometry.length
+        return lengths.mean()
+
+    def street_bearing_reward(self, road_collection):
+        """方向有序性，计算所有道路线段的方向标准差"""
+        from math import atan2, degrees
+        from scipy.stats import circstd
+        edge_gdf = road_collection.get_all_roads()
+        bearings = []
+
+        for line in edge_gdf.geometry:
+            if line.length == 0 or len(line.coords) < 2:
+                continue
+            x1, y1 = line.coords[0]
+            x2, y2 = line.coords[-1]
+            dx = x2 - x1
+            dy = y2 - y1
+            angle = (degrees(atan2(dy, dx)) + 360) % 180  # 归一到 [0, 180)
+            bearings.append(angle)
+
+        if not bearings:
+            return 0.0
+
+        # 使用 circular std 计算方向离散度
+        bearing_std = circstd(np.radians(bearings), high=np.pi, low=0)
+        return 180 - np.degrees(bearing_std)  # 越高表示越有序
+
+    def get_roadnet_rewards(self):
+        new_efficiency = self.street_efficiency_reward(self.new_road_collection)
+        new_density = self.network_density_reward(self.new_road_collection)
+        new_continuity = self.street_continuity_reward(self.new_road_collection)
+        new_bearing = self.street_bearing_reward(self.new_road_collection)
+        print("origin_efficiency",self.origin_efficiency,"new_efficiency",new_efficiency)
+        print("origin_density", self.origin_density, "new_density", new_density)
+        print("origin_continuity", self.origin_continuity, "new_continuity", new_continuity)
+        print("origin_bearing",self.origin_bearing,"new_bearing",new_bearing)
+
+        # 比值形式
+        reward_eff = ((new_efficiency - self.origin_efficiency) / self.origin_efficiency) * 10
+        reward_density = ((new_density - self.origin_density) / self.origin_density) * 10
+        reward_continuity = ((new_continuity - self.origin_continuity) / self.origin_continuity) * 10
+        reward_bearing = ((self.origin_bearing - new_bearing) / self.origin_bearing) * 10  # 越小越好
+        print("G REWARD:",reward_eff,reward_density,reward_continuity,reward_bearing)
+        total_reward = (
+            0.3 * reward_eff +
+            0.3 * reward_density +
+            0.2 * reward_continuity +
+            0.2 * reward_bearing
+        )
+        return total_reward*100
+
+def roadnet_bound_area(roads):
+    """roads:roadcollection()"""
+    region_min, region_max = roads.get_bbox()
+    x1,y1 = region_min
+    x2,y2 = region_max
+    area = np.abs(x2 - x1) * np.abs(y2 - y1)
+    return area
