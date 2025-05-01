@@ -346,6 +346,8 @@ def agent_play(epoch, env, mode, agent, done, state, train_args, replay_buffer, 
     out_reward_info_list.clear()
     critic_loss = 0
     actor_loss = 0
+    all_critic_losses = []
+    all_actor_losses = []
     while True:
         # region [agent step]
         # take action
@@ -366,7 +368,8 @@ def agent_play(epoch, env, mode, agent, done, state, train_args, replay_buffer, 
         if mode == TrainMode.TRAIN:
             # update agent
             critic_loss, actor_loss = agent_update(env, agent, replay_buffer, train_args)  # 随机采样batch size个数据喂给agent学习
-
+            all_critic_losses.append(critic_loss)
+            all_actor_losses.append(actor_loss)
         if Done: break
 
         with MyTimer('yield_time', level=3):
@@ -374,10 +377,11 @@ def agent_play(epoch, env, mode, agent, done, state, train_args, replay_buffer, 
                 yield None
 
         # endregion
-    _critic_loss_queue.append(critic_loss)
-    _actor_loss_queue.append(actor_loss)
-    _mean_critic_loss_arr[epoch] = sum(_critic_loss_queue) / len(_critic_loss_queue)
-    _mean_actor_loss_arr[epoch] = sum(_actor_loss_queue) / len(_actor_loss_queue)
+    if all_critic_losses:
+        _critic_loss_queue.append(np.mean(all_critic_losses))
+        _actor_loss_queue.append(np.mean(all_actor_losses))
+        _mean_critic_loss_arr[epoch] = sum(_critic_loss_queue) / len(_critic_loss_queue)
+        _mean_actor_loss_arr[epoch] = sum(_actor_loss_queue) / len(_actor_loss_queue)
 
 
 def agent_update(env, agent, replay_buffer, train_args):

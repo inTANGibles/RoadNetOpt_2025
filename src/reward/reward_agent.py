@@ -152,7 +152,7 @@ class RewardAgent:
         self.step_count = 5 #超过多少步，才启用dist奖励
         self.ratio_range = [1,3] #在该范围内的比值可以得到奖励
         # final reward中的acute_angle规则参数
-        self.acute_count = 25 #锐角低于这个数目，才可以得到奖励
+        self.acute_count = 5 #锐角低于这个数目，才可以得到奖励
         # utils
         self.headless = headless
 
@@ -205,10 +205,16 @@ class RewardAgent:
         height, width = bound_renderer.height, bound_renderer.width
         blurred_img = bound_renderer.get_render_img()
         pixel_value = blurred_img[int(height / 2), int(width / 2), 0]
-        min1 = 0
-        max1 = 255  # int(torch.max(blurred_img))
-        reward = -1 + (1 / np.log(max1 - min1 + 1) * np.log(np.abs(pixel_value - min1 + 1)))  # 非线性变化
-        return reward
+        if pixel_value < 10:  # 你可以设一个阈值，如 30
+            return -100.0  # 越界强惩罚
+        else:
+            min1 = 0
+            max1 = 255
+            return -1 + (1 / np.log(max1 - min1 + 1) * np.log(np.abs(pixel_value - min1 + 1)))
+        # min1 = 0
+        # max1 = 255  # int(torch.max(blurred_img))
+        # reward = -1 + (1 / np.log(max1 - min1 + 1) * np.log(np.abs(pixel_value - min1 + 1)))  # 非线性变化
+        # return reward
 
     def crossnode_reward(self):
         """过程中将交叉路口视为障碍物"""
@@ -406,12 +412,12 @@ class RewardAgent:
             # reward = np.prod(list(final_reward_dict.values()))
             result[i] = reward
 
-
-            if debug_dict:
-                debug_dict[i] = final_reward_dict
-                print(f"[Final Reward] Agent {i}:")
-                for k, v in final_reward_dict.items():
-                    print(f"  {k:>25}: {v:.3f}")
+            #
+            # if debug_dict:
+            #     debug_dict[i] = final_reward_dict
+            #     print(f"[Final Reward] Agent {i}:")
+            #     for k, v in final_reward_dict.items():
+            #         print(f"  {k:>25}: {v:.3f}")
             i += 1
         return result.reshape((-1, 1))
 
@@ -482,17 +488,15 @@ class RewardRoadNet:
         new_density = self.network_density_reward(self.new_road_collection)
         new_continuity = self.street_continuity_reward(self.new_road_collection)
         new_bearing = self.street_bearing_reward(self.new_road_collection)
-        print("origin_efficiency",self.origin_efficiency,"new_efficiency",new_efficiency)
-        print("origin_density", self.origin_density, "new_density", new_density)
-        print("origin_continuity", self.origin_continuity, "new_continuity", new_continuity)
-        print("origin_bearing",self.origin_bearing,"new_bearing",new_bearing)
-
+        # print("origin_efficiency",self.origin_efficiency,"new_efficiency",new_efficiency)
+        # print("origin_density", self.origin_density, "new_density", new_density)
+        # print("origin_continuity", self.origin_continuity, "new_continuity", new_continuity)
+        # print("origin_bearing",self.origin_bearing,"new_bearing",new_bearing)
         # 比值形式
         reward_eff = ((new_efficiency - self.origin_efficiency) / self.origin_efficiency) * 10
         reward_density = ((new_density - self.origin_density) / self.origin_density) * 10
         reward_continuity = ((new_continuity - self.origin_continuity) / self.origin_continuity) * 10
         reward_bearing = ((self.origin_bearing - new_bearing) / self.origin_bearing) * 10  # 越小越好
-        print("G REWARD:",reward_eff,reward_density,reward_continuity,reward_bearing)
         total_reward = (
             0.3 * reward_eff +
             0.3 * reward_density +

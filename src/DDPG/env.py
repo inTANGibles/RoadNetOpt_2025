@@ -425,6 +425,7 @@ class RoadEnv:
     def calculate_reward(self):
         """在这里计算每一步的reward"""
 
+
         reward_all = self.reward_agent.get_rewards(
             dones=self.done_in_ndarray_format,
             positions=self._get_last_points(),
@@ -455,11 +456,9 @@ class RoadEnv:
             )
             roadnet_reward_vaule=roadnet_reward.get_roadnet_rewards()
 
-            print("agent_reward:",agent_reward)
-            print('roadnet_reward:',roadnet_reward_vaule)
-
+            # print("agent_reward:",agent_reward)
+            # print('roadnet_reward:',roadnet_reward_vaule)
             agent_reward += roadnet_reward_vaule
-            print("agent_reward:", agent_reward)
             return agent_reward
 
     def _print_road_collections_diff(self):
