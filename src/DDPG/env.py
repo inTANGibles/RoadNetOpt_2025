@@ -245,7 +245,8 @@ class RoadEnv:
             self.agents_done[uid] = False
             self.agents_forwards[uid] = True
             self.agents_acute_count[uid] = 0
-            self.agent_parent[uid] = Road.get_roads_by_node(node)  # 记录源头道路（可选）
+            self.agent_parent[uid] = Road.get_roads_by_node(node).iloc[0]  # 记录源头道路（可选）
+            print(self.agent_parent[uid])
 
         print(f"[RESET] {len(self.road_agents)} agents spawned from dead-ends.")
 
@@ -546,22 +547,37 @@ class RoadEnv:
         """判断uid编号的道路是否与原始路网相交。该函数仅对最后一段线段有效，因此需要每步调用"""
         road = self.road_agents[uid]
         coords = list(self.road_agents[uid]['geometry'].coords)
-        if len(coords) < 2:
-            return False  # 如果线段数小于1， 即点数小于2，则不做判断
+        if len(coords) < 3:
+            return False  # 如果线段数小于2， 即点数小于3，则不做判断
         last_element = Road.get_road_last_element(road).buffer(1e-5)
         intersects = self.raw_roads['geometry'].intersects(last_element)
         return intersects.sum() > 0  # 由于判断的是最后一段线段，因此只要大于0就是相交，无需考虑起点和原始路径的相交问题
 
+    # def _is_agent_done(self, uid) -> bool:
+    #     """判断uid的道路是否完成"""
+    #     if self.agents_done[uid]: return True  # 如果在agents_done中已经标记为完成，则直接返回完成
+    #     if self.episode_step >= self.max_episode_step: return True  # 如果达到最大步数，则返回完成
+    #     done = False
+    #     done |= not self._is_in_region(uid)
+    #     # # done |= not self._is_way_forward(uid)
+    #     done |= self._is_intersect_with_raw_roads(uid)
+    #     return done
+
     def _is_agent_done(self, uid) -> bool:
         """判断uid的道路是否完成"""
-        if self.agents_done[uid]: return True  # 如果在agents_done中已经标记为完成，则直接返回完成
-        if self.episode_step >= self.max_episode_step: return True  # 如果达到最大步数，则返回完成
-        done = False
-        done |= not self._is_in_region(uid)
-        # # done |= not self._is_way_forward(uid)
-        done |= self._is_intersect_with_raw_roads(uid)
-        return done
-
+        if self.agents_done[uid]:
+            print(f"[DEBUG] Agent {uid} is already marked as done.")
+            return True
+        if self.episode_step >= self.max_episode_step:
+            print(f"[DEBUG] Agent {uid} reached max episode step.")
+            return True
+        if not self._is_in_region(uid):
+            print(f"[DEBUG] Agent {uid} is out of region.")
+            return True
+        if self._is_intersect_with_raw_roads(uid):
+            print(f"[DEBUG] Agent {uid} intersects with raw road.")
+            return True
+        return False
     def _all_done(self):
         """是否所有的agent都完成了"""
         return all(self.agents_done.values())
@@ -672,7 +688,7 @@ def sequential_mode_step(_) -> bool:
     mRoadNet.render()
 
     if all_done:  # 这里一个单智能体的完成就会all done ，但不代表整体完成
-        mRoadNet.clear_and_spawn_agents()
+        mRoadNet.clear_and_spawn_agents_deadroad()
         mCurrentOptimizedAgentNum += 1
 
     return False

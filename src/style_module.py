@@ -274,6 +274,17 @@ class StyleScheme:
         width = np.full(num, self.NODE_SIZE['DEFAULT'])
         return colors, width
 
+    def dead_node_style_factory(self,nodes, road_collection=None):
+        num = len(nodes)
+        color = np.tile([1.0, 0.0, 0.0, 1.0], (num, 1))  # 红色 + 不透明
+        width = np.full(num, 6.0)
+        return color, width
+
+    def cross_node_style_factory(self, nodes, road_collection=None):
+        num = len(nodes)
+        color = np.tile([0.0, 1.0, 0.0, 1.0], (num, 1))  # 绿色 + 不透明
+        width = np.full(num, 4.0)
+        return color, width
     def node_highlight_style_factory(self, nodes, road_collection=None):
         _ = self
         if nodes is None: return

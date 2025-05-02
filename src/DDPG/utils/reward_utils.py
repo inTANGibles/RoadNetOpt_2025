@@ -1,24 +1,35 @@
+# reward_consts.py
 
-BUILDING_REGION_REWARD = 0b0000  # 0
-ROAD_REWARD = 0b0001  # 1
-TERRAIN_REWARD = 0b0010  # 2
-BOUND_REWARD = 0b0011  # 3
-STEP_PENALTY = 0b0100  # 4
-BACKWARD_PENALTY = 0b0101  # 5
-CROSS_NODE_PENALTY = 0b0110  # 6
-REWARD_SUM = 0b0111  # 7  //特殊值
+# -------------------------------
+# Step-level reward constants
+# -------------------------------
+BUILDING_REGION_REWARD = 0b00000  # 0
+ROAD_REWARD = 0b00001  # 1
+TERRAIN_REWARD = 0b00010  # 2
+BOUND_REWARD = 0b00011  # 3
+STEP_PENALTY = 0b00100  # 4
+BACKWARD_PENALTY = 0b00101  # 5
+DEAD_NODE_PENALTY = 0b00110  # 6
+CROSS_NODE_PENALTY = 0b00111  # 7
+REWARD_SUM = 0b01111  # 特殊汇总项
 
-FINAL_DEFAULT = 0b1000  # 8
-FINAL_ENDNODE_REWARD = 0b1001  # 9
-FINAL_DISTANCE_REWARD = 0b1101
-FINAL_ANGLE_REWARD = 0b1110
-FINAL_REWARD_SHIFT = 0b1011  # 10  //特殊值
-FINAL_REWARD_WEIGHT = 0b1100  # 11  //特殊值
+# -------------------------------
+# Final-level reward constants
+# -------------------------------
+FINAL_DEFAULT = 0b01000  # 8
+FINAL_ENDNODE_REWARD = 0b01001  # 9
+FINAL_DISTANCE_REWARD = 0b01010  # 10
+FINAL_ANGLE_REWARD = 0b01011  # 11
+FINAL_REWARD_SHIFT = 0b01100  # 12
+FINAL_REWARD_WEIGHT = 0b01101  # 13
 
-FINAL_EFFICIENCY_REWARD   = 0b11000  # 24
-FINAL_DENSITY_REWARD      = 0b11001  # 25
-FINAL_CONTINUITY_REWARD   = 0b11010  # 26
-FINAL_BEARING_REWARD      = 0b11011  # 27
+# -------------------------------
+# Global roadnet reward constants
+# -------------------------------
+FINAL_EFFICIENCY_REWARD = 0b11000  # 24
+FINAL_DENSITY_REWARD = 0b11001  # 25
+FINAL_CONTINUITY_REWARD = 0b11010  # 26
+FINAL_BEARING_REWARD = 0b11011  # 27
 
 REWARD_KEYS = {
     BUILDING_REGION_REWARD,
@@ -27,6 +38,7 @@ REWARD_KEYS = {
     BOUND_REWARD,
     STEP_PENALTY,
     BACKWARD_PENALTY,
+    DEAD_NODE_PENALTY,
     CROSS_NODE_PENALTY,
 }
 
@@ -48,6 +60,7 @@ REWARD_DISPLAY_NAMES = {
     BOUND_REWARD: 'bound_reward',
     STEP_PENALTY: 'step_penalty',
     BACKWARD_PENALTY: 'backward_penalty',
+    DEAD_NODE_PENALTY: 'dead_node_penalty',
     CROSS_NODE_PENALTY: 'cross_node_penalty',
     REWARD_SUM: 'sum',
 
@@ -55,9 +68,9 @@ REWARD_DISPLAY_NAMES = {
     FINAL_ENDNODE_REWARD: 'final_endnode_reward',
     FINAL_DISTANCE_REWARD: 'final_distance_ratio_reward',
     FINAL_ANGLE_REWARD: 'final_acute_angle_reward',
-    FINAL_EFFICIENCY_REWARD:'final_efficiency_reward',
-    FINAL_DENSITY_REWARD:'final_density_reward',
-    FINAL_CONTINUITY_REWARD:'final_continuity_reward',
-    FINAL_BEARING_REWARD:'final_bearing_reward',
+    FINAL_EFFICIENCY_REWARD: 'final_efficiency_reward',
+    FINAL_DENSITY_REWARD: 'final_density_reward',
+    FINAL_CONTINUITY_REWARD: 'final_continuity_reward',
+    FINAL_BEARING_REWARD: 'final_bearing_reward',
     FINAL_REWARD_SHIFT: 'final_reward_shift',
 }

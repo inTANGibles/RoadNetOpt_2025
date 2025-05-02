@@ -1,10 +1,9 @@
 import uuid
 from typing import Optional
-import osmnx as ox
-import networkx as nx
+
 import pandas as pd
 import numpy as np
-from scipy.stats import circstd
+
 import graphic_module as gm
 from geo import Road, Building, Region
 from graphic_module import GraphicManager
@@ -77,12 +76,30 @@ class RewardAgent:
                 sf=sm.I.env.region_simple_style_factory,  # colored white
                 bg_color=(0, 0, 0, 1)
             ),
-            'node_observer': gm.NodeObserver(
-                name='reward_node',
+            # 'node_observer': gm.NodeObserver(
+            #     name='reward_node',
+            #     width=64, height=64,
+            #     observation_size=(100.0, 100.0),
+            #     initial_gdf=self.Road.get_all_nodes(),
+            #     sf=sm.I.env.node_radius_penalty_factory,  # colored white
+            #     bg_color=(0, 0, 0, 1),
+            #     road_collection=self.Road
+            # ),
+            'dead_node_observer': gm.NodeObserver(
+                name='reward_dead_nodes',
                 width=64, height=64,
                 observation_size=(100.0, 100.0),
-                initial_gdf=self.Road.get_all_nodes(),
-                sf=sm.I.env.node_radius_penalty_factory,  # colored white
+                initial_gdf=self.Road.get_dead_nodes(),  # 你可以写一个 get_dead_nodes() 返回 dead_nodes_gdf
+                sf=sm.I.env.dead_node_style_factory,  # 你新写的 style factory
+                bg_color=(0, 0, 0, 1),
+                road_collection=self.Road
+            ),
+            'cross_node_observer': gm.NodeObserver(
+                name='reward_cross_nodes',
+                width=64, height=64,
+                observation_size=(100.0, 100.0),
+                initial_gdf=self.Road.get_cross_nodes(),  # 返回所有 degree>1 的交叉口
+                sf=sm.I.env.cross_node_style_factory,
                 bg_color=(0, 0, 0, 1),
                 road_collection=self.Road
             ),
@@ -120,11 +137,21 @@ class RewardAgent:
                 self.observers['bound_observer'],
                 radius=2
             ),
-            'node_blur': gm.RewardBlurPostProcessing(
-                'reward_node_blur',
-                self.observers['node_observer'],
+            # 'node_blur': gm.RewardBlurPostProcessing(
+            #     'reward_node_blur',
+            #     self.observers['node_observer'],
+            #     radius=10
+            # ),
+            'dead_node_blur': gm.RewardBlurPostProcessing(
+                'reward_dead_node_blur',
+                self.observers['dead_node_observer'],
                 radius=10
             ),
+            'cross_node_blur': gm.RewardBlurPostProcessing(
+                'reward_cross_node_blur',
+                self.observers['cross_node_observer'],
+                radius=10
+            )
         }
         for post_processing in self.post_processings.values():
             GraphicManager.I.register_reward_observer(post_processing)
@@ -216,9 +243,20 @@ class RewardAgent:
         # reward = -1 + (1 / np.log(max1 - min1 + 1) * np.log(np.abs(pixel_value - min1 + 1)))  # 非线性变化
         # return reward
 
+    def deadnode_reward(self):
+        """越靠近断头路，奖励越高"""
+        node_renderer = self.observers['dead_node_observer']
+        height, width = node_renderer.height, node_renderer.width
+        img = node_renderer.get_render_img()
+        pixel_value = img[int(height / 2), int(width / 2), 0]
+        min1 = 0
+        max1 = 255
+        reward = (1 / np.log(max1 - min1 + 1)) * np.log(np.abs(pixel_value - min1 + 1))  # 非线性靠近断头点奖励
+        return reward
+
     def crossnode_reward(self):
         """过程中将交叉路口视为障碍物"""
-        node_renderer = self.observers['node_observer']
+        node_renderer = self.observers['cross_node_observer']
         height, width = node_renderer.height, node_renderer.width
         img = node_renderer.get_render_img()
         pixel_value = img[int(height / 2), int(width / 2), 0]
@@ -250,20 +288,29 @@ class RewardAgent:
         """判断生成的新路口位置，不过于靠近出生路;且终点不在出生道路上
         使用node、parent_road_blur图像，与reward_new_roads图像overlap的关系来判断,没有overlap则得到附加奖励
         """
-        render1 = self.observers['node_observer']
+        render1 = self.observers['cross_node_observer']
         render2 = self.post_processings['parent_road_blur']
         render3 = self.observers['new_road_observer']
+        render4 = self.observers['dead_node_observer']
         assert render1.width == render2.width == render3.width
         assert render1.height == render2.height == render3.height
         node_arr = render1.get_render_img()[:, :, 0].astype(np.float32) / 255.0
         parent_road_arr = render2.get_render_img()[:, :, 0].astype(np.float32) / 255.0
         new_road_arr = render3.get_render_img()[:, :, 0].astype(np.float32) / 255.0
-
+        dead_arr = render4.get_render_img()[:, :, 0].astype(np.float32) / 255.0
+        # 惩罚终点重叠交叉点或原始出生路
         blurred_arr = np.clip((node_arr + parent_road_arr), 0.0, 1.0)
         overlap_arr = new_road_arr * blurred_arr * 255
         overlap_arr = overlap_arr.astype(np.uint8)
         pixel_value = np.max(overlap_arr)
-        reward = 1 if pixel_value == 0 else 0
+        penalty = 1 if pixel_value == 0 else 0
+
+        # 奖励终点靠近 dead_node
+        proximity_arr = new_road_arr * dead_arr * 255
+        proximity_arr = proximity_arr.astype(np.uint8)
+        reward_dead = 10 if np.max(proximity_arr) > 0 else 0
+
+        reward = penalty + reward_dead
         return reward
 
     def distance_final_reward(self, road_agent):
@@ -358,6 +405,7 @@ class RewardAgent:
                 BOUND_REWARD: self.bound_reward() * self.bound_weight,
                 STEP_PENALTY: self.step_penalty() * self.step_weight,
                 BACKWARD_PENALTY: self.backward_penalty(is_forward) * self.back_weight,
+                DEAD_NODE_PENALTY: self.deadnode_reward() * self.node_weight,
                 CROSS_NODE_PENALTY: self.crossnode_reward() * self.node_weight
             }
 

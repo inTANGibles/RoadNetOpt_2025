@@ -523,6 +523,24 @@ class RoadCollection:
         pt2 = coords[1]
         return LineString([pt1, pt2])
 
+    def get_dead_nodes(self) -> gpd.GeoDataFrame:
+        """返回所有非边界上的死节点（只连接一条路的节点）"""
+        dead_nodes_gdf, _ = self.get_dead_ends()
+        return dead_nodes_gdf if dead_nodes_gdf is not None else gpd.GeoDataFrame(columns=self.__node_gdf.columns)
+
+    def get_cross_nodes(self) -> gpd.GeoDataFrame:
+        """返回所有连接多条道路的交叉节点"""
+        self.clear_unused_nodes()
+        cross_nodes = []
+        for node_uid, node in self.__node_gdf.iterrows():
+            roads = self.get_roads_by_node(node)
+            if len(roads) > 1:
+                cross_nodes.append(node)
+        if cross_nodes:
+            return gpd.GeoDataFrame(cross_nodes, columns=self.__node_gdf.columns)
+        else:
+            return gpd.GeoDataFrame(columns=self.__node_gdf.columns)
+
     def get_dead_ends(self):
         self.clear_unused_nodes()
         min_coords, max_coords = self.get_bbox()
