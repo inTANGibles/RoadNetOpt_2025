@@ -246,9 +246,9 @@ class RoadEnv:
             self.agents_forwards[uid] = True
             self.agents_acute_count[uid] = 0
             self.agent_parent[uid] = Road.get_roads_by_node(node).iloc[0]  # 记录源头道路（可选）
-            print(self.agent_parent[uid])
+            # print(self.agent_parent[uid])
 
-        print(f"[RESET] {len(self.road_agents)} agents spawned from dead-ends.")
+        # print(f"[RESET] {len(self.road_agents)} agents spawned from dead-ends.")
 
     def clear_and_spawn_agents(self):
         """

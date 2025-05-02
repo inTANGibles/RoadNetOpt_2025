@@ -37,8 +37,8 @@ class Agent:
                                       self.cnn).to(device)
 
         # 3) 中心化 critic
-        self.critic = CriticNet(nb_actions, num_agents, self.cnn).to(device)
-        self.target_critic = CriticNet(nb_actions, num_agents, self.cnn).to(device)
+        self.critic = CriticNet(nb_actions, self.cnn).to(device)
+        self.target_critic = CriticNet(nb_actions, self.cnn).to(device)
 
         # 同步参数
         self.target_actor .load_state_dict(self.actor.state_dict())
