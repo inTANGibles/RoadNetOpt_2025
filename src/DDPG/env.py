@@ -17,7 +17,6 @@ from gui import global_var as g
 from style_module import StyleManager
 from utils import RoadState, RoadLevel
 from utils import point_utils, io_utils
-import copy
 
 print('env2 loaded')
 
@@ -204,11 +203,51 @@ class RoadEnv:
         """初始化新的道路，分随机初始化、选定道路初始化(TODO)"""
         Road.restore()  # 复原路网
         self.original_road_collection=Road.copy()
-        print("road_len" ,len(self.original_road_collection.get_all_roads()))
         self.raw_roads = Road.get_all_roads()
         self.episode_step = 0  # 重置步数
-        self.clear_and_spawn_agents()  # 生成智能体
+        self.clear_and_spawn_agents_deadroad()  # 生成智能体
         return self.get_image_observation()
+
+    def clear_and_spawn_agents_deadroad(self):
+        """
+        清除原来的roads，并且以断头路节点为起点生成新的 agent。
+
+        更新 self.road_agents 和 self.agents_done 等。
+        """
+        self.road_agents = {}
+        self.agents_done = {}
+        self.agents_forwards = {}
+        self.agents_acute_count = {}
+        self.agent_parent = {}
+        self.agent_out_of_region = {}
+        self.agent_intersect_with_road = {}
+
+        # 第一步：获取断头路节点
+        dead_nodes_gdf, dead_roads_gdf = Road.get_dead_ends()
+        if dead_nodes_gdf is None or len(dead_nodes_gdf) == 0:
+            logging.warning("No dead-end nodes found. Agent spawn skipped.")
+            return
+        self.road_levels = [RoadLevel.SECONDARY] * len(dead_nodes_gdf)
+
+        # 限制最大 agent 数
+        # dead_nodes_gdf = dead_nodes_gdf.sample(n=min(self.num_road_agents, len(dead_nodes_gdf)))
+        self.num_road_agents = len(dead_nodes_gdf)
+
+        for i, (node_uid, node) in enumerate(dead_nodes_gdf.iterrows()):
+            coord = np.array(node['coord']).reshape(-1, 2)
+            road_level = self.road_levels[i]
+            road_state = RoadState.OPTIMIZING
+            uid = Road.add_road_by_coords(coord, road_level, road_state)
+
+            new_road = Road.get_road_by_uid(uid)
+
+            self.road_agents[uid] = new_road
+            self.agents_done[uid] = False
+            self.agents_forwards[uid] = True
+            self.agents_acute_count[uid] = 0
+            self.agent_parent[uid] = Road.get_roads_by_node(node)  # 记录源头道路（可选）
+
+        print(f"[RESET] {len(self.road_agents)} agents spawned from dead-ends.")
 
     def clear_and_spawn_agents(self):
         """

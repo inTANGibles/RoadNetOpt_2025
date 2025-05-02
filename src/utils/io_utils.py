@@ -145,6 +145,7 @@ def dxf_to_data(_doc):
                     'region_type': region_type_mapper[_entity.dxf.layer],
                 }
                 _data['regions'].append(_region_data)
+
     print('complete.')
     return _data
 

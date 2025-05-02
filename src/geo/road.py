@@ -3,6 +3,7 @@ import logging
 import random
 import time
 import uuid
+import math
 from collections import defaultdict
 from typing import Union, Optional
 
@@ -12,6 +13,7 @@ import numpy as np
 import pandas as pd
 from shapely.geometry import LineString, Point
 from sklearn.cluster import DBSCAN
+from shapely.geometry import Polygon
 
 from gui import global_var as g
 from lib.accelerator import cAccelerator, cRoadAccelerator, arrs_addr_len
@@ -523,19 +525,21 @@ class RoadCollection:
 
     def get_dead_ends(self):
         self.clear_unused_nodes()
-        dead_roads_gdf = None
-        dead_nodes_gdf = None
+        min_coords, max_coords = self.get_bbox()
+        dead_nodes_gdf, dead_roads_gdf = None, None
+
         for node_uid, node in self.__node_gdf.iterrows():
-            roads: gpd.GeoDataFrame = self.get_roads_by_node(node)
-            if len(roads) == 1:
-                if dead_nodes_gdf is None:
-                    dead_nodes_gdf = node.to_frame().T
-                else:
-                    dead_nodes_gdf = gpd.pd.concat([dead_nodes_gdf, node.to_frame().T], ignore_index=False)
-                if dead_roads_gdf is None:
-                    dead_roads_gdf = roads
-                else:
-                    dead_roads_gdf = gpd.pd.concat([dead_roads_gdf, roads], ignore_index=False)
+            roads = self.get_roads_by_node(node)
+            if len(roads) != 1:
+                continue
+            x, y = node['coord']
+            if math.isclose(x, min_coords[0], abs_tol=10) or math.isclose(x, max_coords[0], abs_tol=10) or \
+                    math.isclose(y, min_coords[1], abs_tol=10) or math.isclose(y, max_coords[1], abs_tol=10):
+                continue
+            dead_nodes_gdf = node.to_frame().T if dead_nodes_gdf is None else \
+                gpd.pd.concat([dead_nodes_gdf, node.to_frame().T], ignore_index=False)
+            dead_roads_gdf = roads if dead_roads_gdf is None else \
+                gpd.pd.concat([dead_roads_gdf, roads], ignore_index=False)
         return dead_nodes_gdf, dead_roads_gdf
 
     def get_bbox(self, roads=None):
@@ -550,7 +554,6 @@ class RoadCollection:
         min_coords = np.amin(all_coords, axis=0)
         max_coords = np.amax(all_coords, axis=0)
         return min_coords, max_coords
-
     # endregion
 
     # region 编辑修改
