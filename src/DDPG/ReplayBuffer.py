@@ -21,10 +21,15 @@ class ReplayBuffer:
     # 在队列中随机取样batch_size组数据
     def sample(self, batch_size):
         transitions = random.sample(self.buffer, batch_size)
-        # 将数据集拆分开来
         state, action, reward, next_state, done, Done = zip(*transitions)
-        return np.array(state), np.array(action), np.array(reward), np.array(next_state), \
-            np.array(done), Done
+        return (
+            np.array(state),  # (B, C, H, W)
+            np.array(action),  # (B, A)
+            np.array(reward),  # (B,)
+            np.array(next_state),  # (B, C, H, W)
+            np.array(done),  # (B,)
+            Done  # list of length B (can be ignored)
+        )
 
     # 测量当前时刻的队列长度
     def size(self):

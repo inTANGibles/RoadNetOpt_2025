@@ -566,16 +566,16 @@ class RoadEnv:
     def _is_agent_done(self, uid) -> bool:
         """判断uid的道路是否完成"""
         if self.agents_done[uid]:
-            print(f"[DEBUG] Agent {uid} is already marked as done.")
+            # print(f"[DEBUG] Agent {uid} is already marked as done.")
             return True
         if self.episode_step >= self.max_episode_step:
-            print(f"[DEBUG] Agent {uid} reached max episode step.")
+            # print(f"[DEBUG] Agent {uid} reached max episode step.")
             return True
         if not self._is_in_region(uid):
-            print(f"[DEBUG] Agent {uid} is out of region.")
+            # print(f"[DEBUG] Agent {uid} is out of region.")
             return True
         if self._is_intersect_with_raw_roads(uid):
-            print(f"[DEBUG] Agent {uid} intersects with raw road.")
+            # print(f"[DEBUG] Agent {uid} intersects with raw road.")
             return True
         return False
     def _all_done(self):

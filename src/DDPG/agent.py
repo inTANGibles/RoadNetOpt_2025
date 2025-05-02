@@ -3,7 +3,7 @@ import torch
 import torch.nn.functional as F
 from DDPG.CNN import CNN
 # from DDPG.DDPGNet import PolicyNet, CriticNet
-from DDPG.MADDPG import PolicyNet, CriticNet
+from DDPG.DDPGNet import PolicyNet, CriticNet
 class Agent:
     def __init__(self,
                  nb_actions: int,
@@ -65,6 +65,40 @@ class Agent:
         for p, tp in zip(net.parameters(), target_net.parameters()):
             tp.data.copy_( self.tau * p.data + (1-self.tau)*tp.data )
 
+    def multi_agent_update(self, transition):
+        # —— 数据准备 ——
+        S = torch.tensor(transition['states'], dtype=torch.float32, device=self.device) / 255.0  # (B, C, H, W)
+        A = torch.tensor(transition['actions'], dtype=torch.float32, device=self.device)  # (B, act_dim)
+        R = torch.tensor(transition['rewards'], dtype=torch.float32, device=self.device).unsqueeze(1)  # (B, 1)
+        S2 = torch.tensor(transition['next_states'], dtype=torch.float32, device=self.device) / 255.0  # (B, C, H, W)
+        D = torch.tensor(transition['dones'], dtype=torch.float32, device=self.device).unsqueeze(1)  # (B, 1)
+
+        # —— Critic 更新 ——
+        with torch.no_grad():
+            a_next = self.target_actor(S2)  # (B, act_dim)
+            q_next = self.target_critic(S2, a_next)  # (B, 1)
+            q_target = R + self.gamma * q_next * (1 - D)
+
+        q_val = self.critic(S, A)  # (B, 1)
+        critic_loss = F.mse_loss(q_val, q_target)
+
+        self.critic_opt.zero_grad()
+        critic_loss.backward()
+        self.critic_opt.step()
+
+        # —— Actor 更新 ——
+        a_pred = self.actor(S)  # (B, act_dim)
+        actor_loss = -self.critic(S, a_pred).mean()
+
+        self.actor_opt.zero_grad()
+        actor_loss.backward()
+        self.actor_opt.step()
+
+        # —— 软更新 target 网络 ——
+        self.soft_update(self.actor, self.target_actor)
+        self.soft_update(self.critic, self.target_critic)
+
+        return critic_loss.item(), actor_loss.item()
 
     def update(self,
                transition: dict,

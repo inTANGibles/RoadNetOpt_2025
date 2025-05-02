@@ -59,7 +59,8 @@ DEFAULT_TRAIN_ARGS = Namespace(
     buffer_capacity=10000,  # 经验空间最大容量
     save_interval=10000,  # 保存间隔
     log_folder='',  # 保存pth的文件夹， 留空则将在logs文件夹自动生成一个当前时间的文件夹用于保存
-    save_warmup_buffer=False  # 在warmup完成后保存replay buffer
+    save_warmup_buffer=False,  # 在warmup完成后保存replay buffer
+    update_interval=5
 )
 
 DEFAULT_GUI_ARGS = Namespace(
@@ -344,8 +345,7 @@ def agent_play(epoch, env, mode, agent, done, state, train_args, replay_buffer, 
                out_reward_info_list: list[dict[int:dict[str:float]]]):
     out_data_list.clear()
     out_reward_info_list.clear()
-    critic_loss = 0
-    actor_loss = 0
+    update_interval=train_args.update_interval
     all_critic_losses = []
     all_actor_losses = []
     while True:
@@ -356,7 +356,7 @@ def agent_play(epoch, env, mode, agent, done, state, train_args, replay_buffer, 
         # env step
         with MyTimer('env_step_time', level=3):
             next_state, reward, done, Done = env.step(action)
-        # add to replay buffer  (out_data_buffer)
+        # add to buffer list  (out_data_buffer)
         out_data_list.append([state, action, reward, next_state, done, Done])
         reward_info: dict[int:dict[str:float]] = _shared_data['reward_info']  # agent_idx: reward_name : reward_value
         out_reward_info_list.append(copy.copy(reward_info))  # 这里一定要注意用copy，不然加入的会是dict的地址，会随着dict的改变而改变
@@ -365,9 +365,8 @@ def agent_play(epoch, env, mode, agent, done, state, train_args, replay_buffer, 
         # agent_update(mode, env, agent, replay_buffer, train_args)
         _shared_data['episode_step'] = env.episode_step
 
-        if mode == TrainMode.TRAIN:
-            # update agent
-            critic_loss, actor_loss = agent_update(env, agent, replay_buffer, train_args)  # 随机采样batch size个数据喂给agent学习
+        if mode == TrainMode.TRAIN and env.episode_step % update_interval == 0:
+            critic_loss, actor_loss = agent_update(env, agent, replay_buffer, train_args)
             all_critic_losses.append(critic_loss)
             all_actor_losses.append(actor_loss)
         if Done: break
@@ -398,16 +397,11 @@ def agent_update(env, agent, replay_buffer, train_args):
             'dones': d,
             'Dones': D,
         }
-    critic_losses = []
-    actor_losses = []
-    for i in range(env.num_road_agents):
-        critic_loss, actor_loss = agent.update(transition_dict, i)
-        print(critic_loss,actor_loss)
-        critic_losses.append(critic_loss)
-        actor_losses.append(actor_loss)
+
+    critic_loss, actor_loss = agent.multi_agent_update(transition_dict)
 
     # 返回平均损失值
-    return np.mean(critic_losses), np.mean(actor_losses)
+    return critic_loss, actor_loss
     #     for i in range(0, env.num_road_agents):
     #         critic_loss, actor_loss = agent.update(transition_dict,i)
     # # end update
@@ -530,10 +524,28 @@ def calculate_episode_return(data_buffer):
     return np.sum(rewards_arr)
 
 
-def add_to_replay_buffer(buffer_list: list[list], replay_buffer: ReplayBuffer):
-    for item in buffer_list:
-        replay_buffer.add(*item)
+# def add_to_replay_buffer(buffer_list: list[list], replay_buffer: ReplayBuffer):
+#     for item in buffer_list:
+#         replay_buffer.add(*item)
 
+def add_to_replay_buffer(buffer_list, replay_buffer):
+    """
+    buffer_list 是 step-level 的 list，每个元素形如：
+    [state(N,C,H,W), action(N,A), reward(N,), next_state(N,C,H,W), done(N,), Done]
+
+    铺平：展开成 agent-level 的 list，写入 replay_buffer
+    """
+    for step in buffer_list:
+        states, actions, rewards, next_states, dones, Done = step
+        N = len(rewards)  # 智能体数量
+        for i in range(N):
+            state_i      = states[i]       # (C, H, W)
+            action_i     = actions[i]      # (A,)
+            reward_i     = rewards[i]      # scalar
+            next_state_i = next_states[i]  # (C, H, W)
+            done_i       = dones[i]        # bool
+
+            replay_buffer.add(state_i, action_i, reward_i, next_state_i, done_i, Done)
 
 def add_to_reward_info_buffer(reward_info_list, reward_info_buffer):
     for item in reward_info_list:

@@ -48,7 +48,8 @@ DEFAULT_TRAIN_ARGS = Namespace(
     buffer_capacity=10000,  # 经验空间最大容量
     save_interval=10000,  # 保存间隔
     log_folder='',  # 保存pth的文件夹， 留空则将在logs文件夹自动生成一个当前时间的文件夹用于保存
-    save_warmup_buffer=False  # 在warmup完成后保存replay buffer
+    save_warmup_buffer=False,  # 在warmup完成后保存replay buffer
+    update_interval=5
 )
 
 DEFAULT_GUI_ARGS = Namespace(

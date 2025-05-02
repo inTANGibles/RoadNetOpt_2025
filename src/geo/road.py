@@ -551,8 +551,8 @@ class RoadCollection:
             if len(roads) != 1:
                 continue
             x, y = node['coord']
-            if math.isclose(x, min_coords[0], abs_tol=10) or math.isclose(x, max_coords[0], abs_tol=10) or \
-                    math.isclose(y, min_coords[1], abs_tol=10) or math.isclose(y, max_coords[1], abs_tol=10):
+            if math.isclose(x, min_coords[0], abs_tol=50) or math.isclose(x, max_coords[0], abs_tol=50) or \
+                    math.isclose(y, min_coords[1], abs_tol=50) or math.isclose(y, max_coords[1], abs_tol=50):
                 continue
             dead_nodes_gdf = node.to_frame().T if dead_nodes_gdf is None else \
                 gpd.pd.concat([dead_nodes_gdf, node.to_frame().T], ignore_index=False)
