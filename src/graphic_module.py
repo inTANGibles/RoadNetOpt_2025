@@ -72,7 +72,7 @@ class FrameBufferTexture:
         self.ctx = g.mCtx
         # 新建一个frame buffer object， 在上面进行渲染绘图
         self.fbo = self.ctx.framebuffer(color_attachments=self.ctx.texture((width, height), 4))  # frame buffer object
-        # self.fbo.color_attachments[0].filter = (moderngl.NEAREST, moderngl.NEAREST)
+        self.fbo.color_attachments[0].filter = (moderngl.NEAREST, moderngl.NEAREST)
         if g.mModernglWindowRenderer is not None:
             g.mModernglWindowRenderer.register_texture(self.fbo.color_attachments[0])
 
@@ -90,7 +90,7 @@ class FrameBufferTexture:
         self.width, self.height = width, height
 
         self.fbo = self.ctx.framebuffer(color_attachments=self.ctx.texture((width, height), 4))
-        # self.fbo.color_attachments[0].filter = (moderngl.NEAREST, moderngl.NEAREST)
+        self.fbo.color_attachments[0].filter = (moderngl.NEAREST, moderngl.NEAREST)
         if g.mModernglWindowRenderer is not None:
             g.mModernglWindowRenderer.register_texture(self.fbo.color_attachments[0])
         logging.debug(f'texture size updated to {self.width, self.height}, id = {self.fbo.color_attachments[0].glo}')
@@ -1007,7 +1007,11 @@ class GraphicManager:
         self.data_queue = {}
 
         if not headless:
-            width, height = g.mWindowSize  # 这里不能设置为mImageSize 因为此时这个变量还没获取
+            # width, height = g.mWindowSize  # 这里不能设置为mImageSize 因为此时这个变量还没获取
+            width, height = g.mWindowSize
+            if width <= 0 or height <= 0:
+                # print("[Warning] Invalid window size, using fallback (1024x1024)")
+                width, height = 1024, 1024  # fallback 分辨率
             self.MainTexture: MainFrameBufferTexture = MainFrameBufferTexture('main', width, height)
             self.ImguiBlurLayer = ImguiWindowBlurLayer('imgui_blur', width, height)
 

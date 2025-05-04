@@ -133,6 +133,7 @@ def show():
                 # 显示image
                 imgui.image(texture_id, graphic_texture.width * g.TEXTURE_SCALE,
                             graphic_texture.height * g.TEXTURE_SCALE)
+                # imgui.text(f"Displaying texture at: {graphic_texture.width}x{graphic_texture.height}")
                 GraphicManager.I.MainTexture.render_draw_list()
 
             else:

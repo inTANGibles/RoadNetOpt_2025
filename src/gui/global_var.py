@@ -57,10 +57,10 @@ except Exception as e:
     _FONT_SIZE = 16
     _LEFT_WINDOW_WIDTH = 400
     _BOTTOM_WINDOW_HEIGHT = 32
-    DEFAULT_DATA_PATH = '../data/和县/data.bin'
+    DEFAULT_DATA_PATH = '../data/VirtualEnv/BIGMAP.bin'
 
     # 主渲染窗口
-    TEXTURE_SCALE = 1.0
+    TEXTURE_SCALE = 0.5
     LINE_WIDTH_SCALE = 2.0
     MAIN_FRAME_BUFFER_TEXTURE_BACKGROUND_COLOR = (0.0, 0.0, 0.0, 1.0)
     ENABLE_RENDER_ROADS = True

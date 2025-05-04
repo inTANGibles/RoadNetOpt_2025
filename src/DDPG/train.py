@@ -30,7 +30,7 @@ logging.basicConfig(level=logging.INFO)
 '''
 DEFAULT_ENV_ARGS = Namespace(
     data_path=r'../data/VirtualEnv/BIGMAP.bin',  # 地图数据文件， bin格式。如果留空，则使用已经加载的数据
-    num_agents=18,  # 智能体数量
+    num_agents=71,  # 智能体数量
     region_min=None,  # None表示自动计算范围
     region_max=None,
     observation_img_size=(256, 256),
