@@ -1,15 +1,21 @@
 import torch.nn as nn
 import torch
+import numpy as np
 
 class PolicyNet(nn.Module):
-    def __init__(self, nb_actions, action_space_bound, action_space_boundMove, CNN):
+    def __init__(self, nb_actions, action_space_bound, action_space_boundMove, CNN,input_shape=(4, 256, 256)):
         super(PolicyNet, self).__init__()
         self.CNN = CNN
         self.action_space_bound = action_space_bound
         self.action_space_boundMove = action_space_boundMove
 
+        with torch.no_grad():
+            dummy_input = torch.zeros(1, *input_shape)
+            cnn_out = self.CNN(dummy_input)
+            self.cnn_output_dim = int(np.prod(cnn_out.shape[1:]))
+
         self.model = nn.Sequential(
-            nn.Linear(5*5*128, 1024),
+            nn.Linear(self.cnn_output_dim, 1024),
             nn.ReLU(inplace=True),
             nn.Linear(1024, 512),
             nn.ReLU(inplace=True),
@@ -24,13 +30,23 @@ class PolicyNet(nn.Module):
         # action = status * self.action_space_bound + self.action_space_boundMove
         return status
 
-
+def compute_cnn_output_dim(cnn_module, input_shape):
+    with torch.no_grad():
+        dummy_input = torch.zeros(1, *input_shape)
+        out = cnn_module(dummy_input)
+        return int(np.prod(out.size()))
 class CriticNet(nn.Module):
-    def __init__(self, nb_actions, CNN):
+    def __init__(self, nb_actions, CNN, input_shape=(4, 256, 256)):
         super(CriticNet, self).__init__()
         self.CNN = CNN
+
+        with torch.no_grad():
+            dummy_input = torch.zeros(1, *input_shape)
+            cnn_out = self.CNN(dummy_input)
+            self.cnn_output_dim = int(np.prod(cnn_out.shape[1:]))
+
         self.model = nn.Sequential(
-            nn.Linear(5*5*128 + nb_actions, 1024),
+            nn.Linear(self.cnn_output_dim + nb_actions, 1024),
             nn.ReLU(inplace=True),
             nn.Linear(1024, 1024),
             nn.ReLU(inplace=True),

@@ -33,7 +33,7 @@ class RewardAgent:
             'raw_road_observer': gm.RoadObserver(
                 name='reward_raw_roads',
                 width=64, height=64,
-                observation_size=(100.0, 100.0),
+                observation_size=(256.0, 256.0),
                 initial_gdf=self.Road.get_all_roads(),
                 sf=sm.I.env.road_simple_style_factory_by_level,  # color white and width by level
                 bg_color=(0, 0, 0, 1)
@@ -41,7 +41,7 @@ class RewardAgent:
             'new_road_observer': gm.RoadObserver(
                 name='reward_new_roads',
                 width=64, height=64,
-                observation_size=(100.0, 100.0),
+                observation_size=(256.0, 256.0),
                 initial_gdf=None,
                 sf=sm.I.env.road_simple_style_factory_by_level,  # color white and width by level
                 bg_color=(0, 0, 0, 1)
@@ -49,7 +49,7 @@ class RewardAgent:
             'parent_road_observer': gm.RoadObserver(
                 name='reward_parent_road',
                 width=64, height=64,
-                observation_size=(100.0, 100.0),
+                observation_size=(256.0, 256.0),
                 initial_gdf=None,
                 sf=sm.I.env.road_simple_style_factory_by_level,  # color white and width by level
                 bg_color=(0, 0, 0, 1)
@@ -57,7 +57,7 @@ class RewardAgent:
             'building_observer': gm.BuildingObserver(
                 name='reward_building',
                 width=64, height=64,
-                observation_size=(100.0, 100.0),
+                observation_size=(256.0, 256.0),
                 initial_gdf=Building.get_all_buildings(),  # 后面可以筛选出需要计算碰撞的building
                 sf=sm.I.env.building_simple_style_factory,  # all colored white
                 bg_color=(0, 0, 0, 1)
@@ -65,7 +65,7 @@ class RewardAgent:
             'region_observer': gm.RegionObserver(
                 name='reward_region',
                 width=64, height=64,
-                observation_size=(100.0, 100.0),
+                observation_size=(256.0, 256.0),
                 initial_gdf=Region.get_all_regions(),  # 后面可以筛选出需要计算碰撞的region
                 sf=sm.I.env.region_simple_style_factory,  # all colored white
                 bg_color=(0, 0, 0, 1)
@@ -73,7 +73,7 @@ class RewardAgent:
             'bound_observer': gm.RegionObserver(
                 name='reward_bound',
                 width=64, height=64,
-                observation_size=(100.0, 100.0),
+                observation_size=(256.0, 256.0),
                 initial_gdf=Region.create_region_by_min_max(self.region_min, self.region_max),
                 sf=sm.I.env.region_simple_style_factory,  # colored white
                 bg_color=(0, 0, 0, 1)
@@ -90,7 +90,7 @@ class RewardAgent:
             'dead_node_observer': gm.NodeObserver(
                 name='reward_dead_nodes',
                 width=64, height=64,
-                observation_size=(100.0, 100.0),
+                observation_size=(256.0, 256.0),
                 initial_gdf=self.Road.get_dead_nodes(),
                 sf=sm.I.env.node_radius_penalty_factory,
                 bg_color=(0, 0, 0, 1),
@@ -99,7 +99,7 @@ class RewardAgent:
             'connectable_node_observer': gm.NodeObserver(
                 name='reward_connectable_nodes',
                 width=64, height=64,
-                observation_size=(100.0, 100.0),
+                observation_size=(256.0, 256.0),
                 initial_gdf=self.Road.get_connectable_nodes(),
                 sf=sm.I.env.node_radius_penalty_factory,
                 bg_color=(0, 0, 0, 1),
@@ -108,7 +108,7 @@ class RewardAgent:
             'cross_node_observer': gm.NodeObserver(
                 name='reward_cross_nodes',
                 width=64, height=64,
-                observation_size=(100.0, 100.0),
+                observation_size=(256.0, 256.0),
                 initial_gdf=self.Road.get_cross_nodes(),
                 sf=sm.I.env.node_radius_penalty_factory,
                 bg_color=(0, 0, 0, 1),
@@ -121,32 +121,33 @@ class RewardAgent:
         self.post_processings = {
             'raw_road_blur': gm.RewardBlurPostProcessing(
                 'reward_raw_road_blur',
-                self.observers['raw_road_observer']
+                self.observers['raw_road_observer'],
+                radius=5
             ),
             'new_road_blur': gm.RewardBlurPostProcessing(
                 'reward_new_road_blur',
                 self.observers['new_road_observer'],
-                radius=2
+                radius=5
             ),
             'parent_road_blur': gm.RewardBlurPostProcessing(
                 'reward_parent_road_blur',
                 self.observers['parent_road_observer'],
-                radius=16
+                radius=20
             ),
             'building_blur': gm.RewardBlurPostProcessing(
                 'reward_building_blur',
                 self.observers['building_observer'],
-                radius=2
+                radius=5
             ),
             'region_blur': gm.RewardBlurPostProcessing(
                 'reward_region_blur',
                 self.observers['region_observer'],
-                radius=2
+                radius=10
             ),
             'bound_blur': gm.RewardBlurPostProcessing(
                 'reward_bound_blur',
                 self.observers['bound_observer'],
-                radius=2
+                radius=10
             ),
             # 'node_blur': gm.RewardBlurPostProcessing(
             #     'reward_node_blur',
@@ -161,7 +162,7 @@ class RewardAgent:
             'connectable_node_blur': gm.RewardBlurPostProcessing(
                 'reward_node_blur',
                 self.observers['connectable_node_observer'],
-                radius=10
+                radius=20
             ),
             'cross_node_blur': gm.RewardBlurPostProcessing(
                 'reward_node_blur',
