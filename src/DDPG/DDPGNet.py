@@ -10,7 +10,8 @@ class PolicyNet(nn.Module):
         self.action_space_boundMove = action_space_boundMove
 
         with torch.no_grad():
-            dummy_input = torch.zeros(1, *input_shape)
+            device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+            dummy_input = torch.zeros(1, *input_shape).to(device)
             cnn_out = self.CNN(dummy_input)
             self.cnn_output_dim = int(np.prod(cnn_out.shape[1:]))
 
@@ -33,7 +34,8 @@ class PolicyNet(nn.Module):
 
 def compute_cnn_output_dim(cnn_module, input_shape):
     with torch.no_grad():
-        dummy_input = torch.zeros(1, *input_shape)
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        dummy_input = torch.zeros(1, *input_shape).to(device)
         out = cnn_module(dummy_input)
         return int(np.prod(out.size()))
 class CriticNet(nn.Module):
@@ -42,7 +44,8 @@ class CriticNet(nn.Module):
         self.CNN = CNN
 
         with torch.no_grad():
-            dummy_input = torch.zeros(1, *input_shape)
+            device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+            dummy_input = torch.zeros(1, *input_shape).to(device)
             cnn_out = self.CNN(dummy_input)
             self.cnn_output_dim = int(np.prod(cnn_out.shape[1:]))
 
