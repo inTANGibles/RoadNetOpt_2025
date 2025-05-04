@@ -37,8 +37,8 @@ DEFAULT_ENV_ARGS = Namespace(
     observation_view_size=(256.0, 256.0),
     observation_center=(128.0, 128.0),  # 摄像机视角的中心点坐标
     still_mode=False,  # 是否固定摄像机视角
-    action_step_range=(30, 150),#(20,60)
-    max_episode_step=10,  # 每个智能体最多走多少步
+    action_step_range=(30, 100),#(20,60)
+    max_episode_step=15,  # 每个智能体最多走多少步
 )
 
 DEFAULT_TRAIN_ARGS = Namespace(
@@ -47,20 +47,20 @@ DEFAULT_TRAIN_ARGS = Namespace(
     path_cnn='',  # 缓存的cnn的pth文件
     path_buffer='',  # 缓存的buffer文件
     nb_actions=2,  # action的维度
-    warmup_epochs=299,  # 预热轮次
-    train_epochs=300,  # 训练轮次
-    sigma=0.500,  # 自由探索初始值
+    warmup_epochs=200,  # 预热轮次
+    train_epochs=500,  # 训练轮次
+    sigma=0.800,  # 自由探索初始值
     sigma_decay=0.9995,  # 自由探索的衰减值
     actor_lr=1e-4,  #
-    critic_lr=1e-3,  #
-    tau=0.001,  #
+    critic_lr=5e-4,  #
+    tau=0.005,  #
     gamma=0.9,  #
     batch_size=64,  #
     buffer_capacity=10000,  # 经验空间最大容量
     save_interval=10000,  # 保存间隔
     log_folder='',  # 保存pth的文件夹， 留空则将在logs文件夹自动生成一个当前时间的文件夹用于保存
     save_warmup_buffer=False,  # 在warmup完成后保存replay buffer
-    update_interval=5
+    update_interval=10
 )
 
 DEFAULT_GUI_ARGS = Namespace(

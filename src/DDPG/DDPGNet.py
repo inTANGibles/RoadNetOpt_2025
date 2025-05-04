@@ -23,6 +23,7 @@ class PolicyNet(nn.Module):
         )
 
     def forward(self, status):
+        status = status.to(next(self.parameters()).device)
         status = self.CNN(status)
         status = status.view(status.size(0), -1).to(torch.float32)
         status = self.model(status)
@@ -54,6 +55,7 @@ class CriticNet(nn.Module):
         )
 
     def forward(self, status, action):
+        status = status.to(next(self.parameters()).device)
         status = self.CNN(status)
         status = status.view(status.size(0), -1)
         status = torch.cat([status, action], dim=1).to(torch.float32)
