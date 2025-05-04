@@ -6,7 +6,7 @@ from DDPG.agent import Agent
 
 
 def test():
-    data = io_utils.load_data(r"../data/VirtualEnv/try2.bin")
+    data = io_utils.load_data(r"../data/VirtualEnv/0502.bin")
     env = RoadNet(data)
 
     nb_actions = 2

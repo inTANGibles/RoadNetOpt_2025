@@ -26,6 +26,8 @@ class RewardAgent:
         self.orgin_road_collection = None
         self.analysis_net = None
         self.reward_net = None
+
+
         # observers
         self.observers: dict[str:gm.Observer] = {
             'raw_road_observer': gm.RoadObserver(
@@ -89,8 +91,17 @@ class RewardAgent:
                 name='reward_dead_nodes',
                 width=64, height=64,
                 observation_size=(100.0, 100.0),
-                initial_gdf=self.Road.get_dead_nodes(),  # 你可以写一个 get_dead_nodes() 返回 dead_nodes_gdf
-                sf=sm.I.env.dead_node_style_factory,  # 你新写的 style factory
+                initial_gdf=self.Road.get_dead_nodes(),
+                sf=sm.I.env.node_radius_penalty_factory,
+                bg_color=(0, 0, 0, 1),
+                road_collection=self.Road
+            ),
+            'connectable_node_observer': gm.NodeObserver(
+                name='reward_connectable_nodes',
+                width=64, height=64,
+                observation_size=(100.0, 100.0),
+                initial_gdf=self.Road.get_connectable_nodes(),
+                sf=sm.I.env.node_radius_penalty_factory,
                 bg_color=(0, 0, 0, 1),
                 road_collection=self.Road
             ),
@@ -98,8 +109,8 @@ class RewardAgent:
                 name='reward_cross_nodes',
                 width=64, height=64,
                 observation_size=(100.0, 100.0),
-                initial_gdf=self.Road.get_cross_nodes(),  # 返回所有 degree>1 的交叉口
-                sf=sm.I.env.cross_node_style_factory,
+                initial_gdf=self.Road.get_cross_nodes(),
+                sf=sm.I.env.node_radius_penalty_factory,
                 bg_color=(0, 0, 0, 1),
                 road_collection=self.Road
             ),
@@ -143,34 +154,39 @@ class RewardAgent:
             #     radius=10
             # ),
             'dead_node_blur': gm.RewardBlurPostProcessing(
-                'reward_dead_node_blur',
+                'reward_node_blur',
                 self.observers['dead_node_observer'],
                 radius=10
             ),
+            'connectable_node_blur': gm.RewardBlurPostProcessing(
+                'reward_node_blur',
+                self.observers['connectable_node_observer'],
+                radius=10
+            ),
             'cross_node_blur': gm.RewardBlurPostProcessing(
-                'reward_cross_node_blur',
+                'reward_node_blur',
                 self.observers['cross_node_observer'],
                 radius=10
             )
         }
         for post_processing in self.post_processings.values():
             GraphicManager.I.register_reward_observer(post_processing)
-        # TODO 后续补充其他评价来源
 
-        # step weights 得分区间统一为[-1,0]，规则计数为累加
-        self.building_region_weight = 30
-        self.road_weight = 30
-        self.terrain_weight = 1
-        self.bound_weight = 70
-        self.step_weight = 5
-        self.back_weight = 3
-        self.node_weight = 10
+
+        # step weights 得分区间统一为[-1,0]，规则计数为累加 现有总和为 250
+        self.building_region_weight = 30 # -
+        self.road_weight = 20 # -
+        self.bound_weight = 80 # -
+        self.back_weight = 10 # -
+        self.dead_node_weight = 50 # +
+        self.cross_node_weight = 40 # -
+        self.exploration_weight = 20 # +
+
 
         # 结束后的基础得分为1 * final_weight，附加得分为final weights * 1，得分区间统一为[0,1]，规则计数为相加
         self.final_weight = 0
         self.node_final_weight = 100 # 75 if 相乘 10
-        self.graph_weight = 1
-        self.dist_weight = 150 # 100 if 相乘 15
+        self.dist_weight = 30 # 100 if 相乘 15
         self.angle_weight = 70
         # TODO 后续补充调整其他评价的权重关系
 
@@ -183,12 +199,15 @@ class RewardAgent:
         # utils
         self.headless = headless
 
+    # STEP-LEVEL
+    # 惩罚项
+
     def building_region_reward(self):
         """限制不能进入的区域,传入当前建筑图像与智能体位置
-        返回规则: 得分区间[-1,0],越靠近建筑越接近于-1"""
+        返回规则: 得分区间[0，1],越靠近建筑越接近于0"""
         render1 = self.post_processings['building_blur']
         render2 = self.post_processings['region_blur']
-        render3 = self.observers['new_road_observer']
+        render3 = self.post_processings['new_road_blur']
         assert render1.width == render2.width == render3.width
         assert render1.height == render2.height == render3.height
         building_arr = render1.get_render_img()[:, :, 0].astype(np.float32) / 255.0
@@ -208,96 +227,120 @@ class RewardAgent:
         pixel_value = np.max(overlap_arr)
         min1 = 0
         max1 = 255
-        reward = - (1 / np.log(max1 - min1 + 1) * np.log(np.abs(pixel_value - min1 + 1)))  # 非线性变化
+        reward = 1 - (1 / np.log(max1 - min1 + 1) * np.log(np.abs(pixel_value - min1 + 1)))  # 非线性变化
         return reward
+
 
     def road_reward(self):
         """限制智能体靠近出生道路,传入当前出生道路与智能体位置
-                返回规则: 得分区间[-1,0],越靠近路越接近于-1"""
+                返回规则: 得分区间[0,-1],越靠近路越接近于0"""
         parent_road_renderer = self.post_processings['parent_road_blur']
         height, width = parent_road_renderer.height, parent_road_renderer.width
         blurred_img = parent_road_renderer.get_render_img()
         pixel_value = blurred_img[int(height / 2), int(width / 2), 0]
         min1 = 0  # 126
         max1 = 255  # int(torch.max(blurred_img))
-        reward = - (1 / np.log(max1 - min1 + 1) * np.log(np.abs(pixel_value - min1 + 1)))  # 非线性变化
+        reward =1 - (1 / np.log(max1 - min1 + 1) * np.log(np.abs(pixel_value - min1 + 1)))  # 非线性变化
         return reward
 
-    def terrain_reward(self):
-        # todo: 后期如何涉及水体等自然区域
-        return 0
 
     def bound_reward(self):
         bound_renderer = self.post_processings['bound_blur']
         height, width = bound_renderer.height, bound_renderer.width
         blurred_img = bound_renderer.get_render_img()
         pixel_value = blurred_img[int(height / 2), int(width / 2), 0]
-        if pixel_value < 10:  # 你可以设一个阈值，如 30
-            return -100.0  # 越界强惩罚
+        if pixel_value < 30:  # 你可以设一个阈值，如 30
+            return 0.0
         else:
             min1 = 0
             max1 = 255
-            return -1 + (1 / np.log(max1 - min1 + 1) * np.log(np.abs(pixel_value - min1 + 1)))
-        # min1 = 0
-        # max1 = 255  # int(torch.max(blurred_img))
-        # reward = -1 + (1 / np.log(max1 - min1 + 1) * np.log(np.abs(pixel_value - min1 + 1)))  # 非线性变化
-        # return reward
+            return (1 / np.log(max1 - min1 + 1) * np.log(np.abs(pixel_value - min1 + 1)))
 
-    def deadnode_reward(self):
-        """越靠近断头路，奖励越高"""
-        node_renderer = self.observers['dead_node_observer']
-        height, width = node_renderer.height, node_renderer.width
-        img = node_renderer.get_render_img()
-        pixel_value = img[int(height / 2), int(width / 2), 0]
-        min1 = 0
-        max1 = 255
-        reward = (1 / np.log(max1 - min1 + 1)) * np.log(np.abs(pixel_value - min1 + 1))  # 非线性靠近断头点奖励
-        return reward
 
     def crossnode_reward(self):
         """过程中将交叉路口视为障碍物"""
-        node_renderer = self.observers['cross_node_observer']
+        node_renderer = self.post_processings['cross_node_blur']
         height, width = node_renderer.height, node_renderer.width
         img = node_renderer.get_render_img()
         pixel_value = img[int(height / 2), int(width / 2), 0]
         min1 = 0
         max1 = 255  # int(torch.max(blurred_img))
-        reward = - (1 / np.log(max1 - min1 + 1) * np.log(np.abs(pixel_value - min1 + 1)))  # 非线性变化
+        reward = 1 - (1 / np.log(max1 - min1 + 1) * np.log(np.abs(pixel_value - min1 + 1)))  # 非线性变化
         return reward
 
-    @staticmethod
-    def step_penalty():
-        """每走一步，累计一个负分"""
-        return -1
-
-    @staticmethod
-    def backward_penalty(_is_forward):
-        # todo: 好好查看什么是“回头路”
-        """如果回头，则扣分"""
+    def backward_penalty(self,_is_forward):
         if _is_forward:
-            return 0
+            return 1
         else:
-            return -1
+            return 0
 
-    def graph_reward(self):
-        #todo:什么意思
-        _ = self
-        return 0
+
+    # 奖励项
+
+    def deadnode_reward(self):
+        """
+        越靠近断头路或 connectable 节点（degree 为 2 或 3），奖励越高。
+        """
+        # 获取图像渲染器
+        # dead_renderer = self.post_processings['dead_node_blur']
+        connect_renderer = self.post_processings['connectable_node_blur']
+        h, w = connect_renderer.height, connect_renderer.width
+
+        # 提取中心像素值
+        connect_val = connect_renderer.get_render_img()[h // 2, w // 2, 0]
+
+        # 叠加像素值，归一化到 [0, 1]
+        combined_val = np.clip(connect_val, 0, 255)
+        reward = (1 / np.log(256)) * np.log(combined_val + 1)  # 非线性归一化
+
+        return reward
+
+
+    def exploration_reward(self):
+        """
+        若 agent 所处位置的观测区域中 没有其他 new_road，给予奖励
+        """
+        obs = self.observers['new_road_observer']
+        img = obs.get_render_img()[:, :, 0].astype(np.float32) / 255.0
+        h, w = img.shape
+        # 以中心区域为核心，提取 3x3 或 5x5 区域的均值
+        center = img[h // 2 - 2:h // 2 + 3, w // 2 - 2:w // 2 + 3]
+        avg_val = np.mean(center)
+
+        # 如果该区域 brightness 低于阈值，表示比较“干净”
+        if avg_val < 0.05:
+            return 1.0  # 强奖励
+        else:
+            return 0.0
+
+    # @staticmethod
+    # def step_penalty():
+    #     """每走一步，累计一个负分"""
+    #     return -1
+    #
+    # @staticmethod
+
 
     def endnode_final_reward(self):
         """判断生成的新路口位置，不过于靠近出生路;且终点不在出生道路上
         使用node、parent_road_blur图像，与reward_new_roads图像overlap的关系来判断,没有overlap则得到附加奖励
         """
-        render1 = self.observers['cross_node_observer']
+        render1 = self.post_processings['cross_node_blur']
         render2 = self.post_processings['parent_road_blur']
-        render3 = self.observers['new_road_observer']
-        render4 = self.observers['dead_node_observer']
+        render3 = self.post_processings['new_road_blur']
+        render4 = self.post_processings['dead_node_blur']
+        render5 = self.post_processings['connectable_node_blur']
+
         assert render1.width == render2.width == render3.width
         assert render1.height == render2.height == render3.height
+
         node_arr = render1.get_render_img()[:, :, 0].astype(np.float32) / 255.0
         parent_road_arr = render2.get_render_img()[:, :, 0].astype(np.float32) / 255.0
         new_road_arr = render3.get_render_img()[:, :, 0].astype(np.float32) / 255.0
         dead_arr = render4.get_render_img()[:, :, 0].astype(np.float32) / 255.0
+        connect_arr = render5.get_render_img()[:, :, 0].astype(np.float32) / 255.0
+
+
         # 惩罚终点重叠交叉点或原始出生路
         blurred_arr = np.clip((node_arr + parent_road_arr), 0.0, 1.0)
         overlap_arr = new_road_arr * blurred_arr * 255
@@ -309,8 +352,11 @@ class RewardAgent:
         proximity_arr = new_road_arr * dead_arr * 255
         proximity_arr = proximity_arr.astype(np.uint8)
         reward_dead = 10 if np.max(proximity_arr) > 0 else 0
+        # 奖励靠近connectable
+        reward_connectable = 1.0 if np.max((new_road_arr * connect_arr * 255).astype(np.uint8)) > 0 else 0.0
 
-        reward = penalty + reward_dead
+        reward = (penalty + reward_dead + reward_connectable) / 3.0
+
         return reward
 
     def distance_final_reward(self, road_agent):
@@ -337,14 +383,13 @@ class RewardAgent:
             reward = 1 - (1 / np.log(max1 - min1 + 1) * np.log(np.abs(acute_count - min1 + 1)))  # 非线性变化
             return reward
 
-    #TODO 待确认
-    def intersect_angle(self,road_agent,intersect:bool):
-        """预计添加起点和终点线段与路网相加的夹角，保持在（45，90之间），[0,1]"""
-        end = self.Road.get_road_last_element(road_agent)
-        start = self.Road.get_road_first_element(road_agent)
-        # end_dot_poduct = point_utils.vector_dot(start_vec1, start_vec2)
-        # start_dot_poduct = point_utils.vector_dot(start_vec1, start_vec2)
-        pass
+    # def intersect_angle(self,road_agent,intersect:bool):
+    #     """预计添加起点和终点线段与路网相加的夹角，保持在（45，90之间），[0,1]"""
+    #     end = self.Road.get_road_last_element(road_agent)
+    #     start = self.Road.get_road_first_element(road_agent)
+    #     # end_dot_poduct = point_utils.vector_dot(start_vec1, start_vec2)
+    #     # start_dot_poduct = point_utils.vector_dot(start_vec1, start_vec2)
+    #     pass
 
 
 
@@ -382,8 +427,8 @@ class RewardAgent:
             # get values
             position = positions[i]
             parent_road = parent_roads[i]
+            # print("is_forwards",is_forwards)
             is_forward = is_forwards[i]
-
             self.observers['parent_road_observer'].update_buffer(
                 pd.DataFrame(parent_road).T  # pd.Series转成pd.Dataframe
             )
@@ -401,15 +446,17 @@ class RewardAgent:
             reward_dict = {
                 BUILDING_REGION_REWARD: self.building_region_reward() * self.building_region_weight,
                 ROAD_REWARD: self.road_reward() * self.road_weight,
-                TERRAIN_REWARD: self.terrain_reward() * self.terrain_weight,
                 BOUND_REWARD: self.bound_reward() * self.bound_weight,
-                STEP_PENALTY: self.step_penalty() * self.step_weight,
                 BACKWARD_PENALTY: self.backward_penalty(is_forward) * self.back_weight,
-                DEAD_NODE_PENALTY: self.deadnode_reward() * self.node_weight,
-                CROSS_NODE_PENALTY: self.crossnode_reward() * self.node_weight
+                DEAD_NODE_PENALTY: self.deadnode_reward() * self.dead_node_weight,
+                CROSS_NODE_PENALTY: self.crossnode_reward() * self.cross_node_weight,
+                EXPLORATION_REWARD: self.exploration_reward() * self.exploration_weight,
             }
 
             reward: float = sum(list(reward_dict.values()))
+            reward = np.clip(reward, 0, 250)
+            reward = reward / 250.0  # 归一化到 [0, 1]
+
             reward_dict[REWARD_SUM] = reward  # 添加sum项至reward_dict
             out_rewards_list[i] = reward
             if debug_dict:
@@ -456,18 +503,12 @@ class RewardAgent:
                     FINAL_DISTANCE_REWARD: 0,
                     FINAL_ANGLE_REWARD: 0,
                 }
-            reward = sum(list(final_reward_dict.values()))
+            reward = sum(list(final_reward_dict.values())) /200
             # reward = np.prod(list(final_reward_dict.values()))
             result[i] = reward
-
-            #
-            # if debug_dict:
-            #     debug_dict[i] = final_reward_dict
-            #     print(f"[Final Reward] Agent {i}:")
-            #     for k, v in final_reward_dict.items():
-            #         print(f"  {k:>25}: {v:.3f}")
             i += 1
-        return result.reshape((-1, 1))
+        print("get_final_reward:",result)
+        return result # 这返回的应该是一个列表把..
 
 
 class RewardRoadNet:
@@ -475,8 +516,8 @@ class RewardRoadNet:
         self.origin_road_collection = origin_road_collection
         self.new_road_collection = new_road_collection
 
-        self.G_origin = origin_road_collection.to_graph()
-        self.G_new = new_road_collection.to_graph()
+        # self.G_origin = origin_road_collection.to_graph()
+        # self.G_new = new_road_collection.to_graph()
 
         self.origin_efficiency = self.street_efficiency_reward(self.origin_road_collection )
         self.origin_density = self.network_density_reward(self.origin_road_collection )
@@ -541,17 +582,26 @@ class RewardRoadNet:
         # print("origin_continuity", self.origin_continuity, "new_continuity", new_continuity)
         # print("origin_bearing",self.origin_bearing,"new_bearing",new_bearing)
         # 比值形式
-        reward_eff = ((new_efficiency - self.origin_efficiency) / self.origin_efficiency) * 10
-        reward_density = ((new_density - self.origin_density) / self.origin_density) * 10
-        reward_continuity = ((new_continuity - self.origin_continuity) / self.origin_continuity) * 10
-        reward_bearing = ((self.origin_bearing - new_bearing) / self.origin_bearing) * 10  # 越小越好
+        # 相对改进值
+        diff_eff = (new_efficiency - self.origin_efficiency) / (self.origin_efficiency + 1e-6)
+        diff_density = (new_density - self.origin_density) / (self.origin_density + 1e-6)
+        diff_continuity = (new_continuity - self.origin_continuity) / (self.origin_continuity + 1e-6)
+        diff_bearing = (self.origin_bearing - new_bearing) / (self.origin_bearing + 1e-6)  # 越小越好
+
+        # 归一化（缩放到 [0,1]）
+        reward_eff = (np.tanh(diff_eff) + 1) / 2
+        reward_density = (np.tanh(diff_density) + 1) / 2
+        reward_continuity = (np.tanh(diff_continuity) + 1) / 2
+        reward_bearing = (np.tanh(diff_bearing) + 1) / 2
+
+        # 加权总和（总分仍在 [0,1] 范围）
         total_reward = (
-            0.3 * reward_eff +
-            0.3 * reward_density +
-            0.2 * reward_continuity +
-            0.2 * reward_bearing
+                0.3 * reward_eff +
+                0.3 * reward_density +
+                0.2 * reward_continuity +
+                0.2 * reward_bearing
         )
-        return total_reward*100
+        return total_reward
 
 def roadnet_bound_area(roads):
     """roads:roadcollection()"""

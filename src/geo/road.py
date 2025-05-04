@@ -534,10 +534,23 @@ class RoadCollection:
         cross_nodes = []
         for node_uid, node in self.__node_gdf.iterrows():
             roads = self.get_roads_by_node(node)
-            if len(roads) > 1:
+            if len(roads) > 3:
                 cross_nodes.append(node)
         if cross_nodes:
             return gpd.GeoDataFrame(cross_nodes, columns=self.__node_gdf.columns)
+        else:
+            return gpd.GeoDataFrame(columns=self.__node_gdf.columns)
+
+    def get_connectable_nodes(self) -> gpd.GeoDataFrame:
+        """返回所有连接 2 或 3 条道路的可连接节点"""
+        self.clear_unused_nodes()
+        connectable_nodes = []
+        for node_uid, node in self.__node_gdf.iterrows():
+            roads = self.get_roads_by_node(node)
+            if len(roads) in [2, 3]:
+                connectable_nodes.append(node)
+        if connectable_nodes:
+            return gpd.GeoDataFrame(connectable_nodes, columns=self.__node_gdf.columns)
         else:
             return gpd.GeoDataFrame(columns=self.__node_gdf.columns)
 
@@ -1243,7 +1256,7 @@ class RoadCollection:
         new.__node_gdf = self.__node_gdf.copy(deep=True)
         new.__edge_gdf = self.__edge_gdf.copy(deep=True)
         new.__coord_to_node_uid = self.__coord_to_node_uid.copy()
-        new.__cached_graph = copy.deepcopy(self.__cached_graph)
+        # new.__cached_graph = copy.deepcopy(self.__cached_graph)
         new.__cached_node_gdf = self.__cached_node_gdf.copy(deep=True) if self.__cached_node_gdf is not None else None
         new.__cached_edge_gdf = self.__cached_edge_gdf.copy(deep=True) if self.__cached_edge_gdf is not None else None
         new._flag_cached_graph_need_update = self._flag_cached_graph_need_update
@@ -1257,7 +1270,7 @@ class RoadCollection:
         else:
             nodes = self._get_nodes_by_roads(roads)
         self.clear_cache()
-        self.__cached_graph = self.to_graph(edge_df=roads, node_df=nodes, use_cache=False)
+        # self.__cached_graph = self.to_graph(edge_df=roads, node_df=nodes, use_cache=False)
         self.__cached_node_gdf = gpd.GeoDataFrame(columns=self.__node_gdf.columns,
                                                   data=copy.deepcopy(self.__node_gdf.values),
                                                   index=self.__node_gdf.index)  # deep copy
@@ -1274,7 +1287,7 @@ class RoadCollection:
         self.__edge_gdf['cache'] = False
         self.__node_gdf['cache'] = False
 
-        self.__cached_graph = None
+        # self.__cached_graph = None
         self.__cached_edge_gdf = None
         self.__cached_node_gdf = None
 

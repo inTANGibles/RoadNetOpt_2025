@@ -450,6 +450,7 @@ def imgui_tab_item_road_ops_content():
     clicked |= mAnyChangeOnRoad
     if clicked and mShowingDeadNodes:
         dead_nodes_gdf, dead_roads_gdf = Road.get_dead_ends()
+        print("断头路数量为：",len(dead_nodes_gdf))
         for i in range(len(dead_nodes_gdf)):
             dead_node = dead_nodes_gdf.iloc[i]
             coord = dead_node['coord']

@@ -499,7 +499,7 @@ class RoadEnv:
             # print("agent_reward:",agent_reward)
             # print('roadnet_reward:',roadnet_reward_vaule)
             agent_reward += roadnet_reward_vaule
-            return agent_reward
+            return agent_reward / 2
 
     def _print_road_collections_diff(self):
         print("[RoadNet Comparison]")
@@ -598,7 +598,7 @@ def from_gdf(edge_gdf: gpd.GeoDataFrame) -> RoadCollection:
 def synchronous_mode_init(num_agents):
     """同步模式，若干agent同时跑"""
     global mRoadNet
-    _ = io_utils.load_data('../data/VirtualEnv/0312_ty.bin')
+    _ = io_utils.load_data('../data/VirtualEnv/0502.bin')
     Building.data_to_buildings(_)
     Region.data_to_regions(_)
     Road.data_to_roads(_)
@@ -647,7 +647,7 @@ def synchronous_mode_step(_) -> bool:
 def sequential_mode_init(num_agents):
     """顺序模式， agent一个一个跑"""
     global mRoadNet, mTargetOptimizedAgentNum
-    _ = io_utils.load_data('../data/VirtualEnv/0312_ty.bin')
+    _ = io_utils.load_data('../data/VirtualEnv/0502.bin')
     Building.data_to_buildings(_)
     Region.data_to_regions(_)
     Road.data_to_roads(_)
