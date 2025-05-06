@@ -156,6 +156,7 @@ class RoadEnv:
         self.blend_observer = graphic_module.ObsBlender(
             'blend_obs', width, height
         )  # blend_observer是一个特殊的后处理渲染器，用于将其余渲染器的图像数据合并，因此不需要设置观察范围和位置
+# blend_observer是一个特殊的后处理渲染器，用于将其余渲染器的图像数据合并，因此不需要设置观察范围和位置
         if self.still_mode:
             # 如果是静止模式，则在一开始分配好观察摄像机位置
             self.raw_roads_observer.update_observation_center(self.observation_center)

@@ -164,11 +164,11 @@ class RewardAgent:
                 self.observers['connectable_node_observer'],
                 radius=20
             ),
-            # 'cross_node_blur': gm.RewardBlurPostProcessing(
-            #     'reward_node_blur',
-            #     self.observers['cross_node_observer'],
-            #     radius=10
-            # )
+            'cross_node_blur': gm.RewardBlurPostProcessing(
+                'reward_node_blur',
+                self.observers['cross_node_observer'],
+                radius=10
+            )
         }
         for post_processing in self.post_processings.values():
             GraphicManager.I.register_reward_observer(post_processing)
