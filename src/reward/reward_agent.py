@@ -155,20 +155,20 @@ class RewardAgent:
             #     radius=10
             # ),
             'dead_node_blur': gm.RewardBlurPostProcessing(
-                'reward_node_blur',
+                'reward_dead_node_blur',
                 self.observers['dead_node_observer'],
                 radius=10
             ),
             'connectable_node_blur': gm.RewardBlurPostProcessing(
-                'reward_node_blur',
+                'reward_connectable_node_blur',
                 self.observers['connectable_node_observer'],
                 radius=20
             ),
-            'cross_node_blur': gm.RewardBlurPostProcessing(
-                'reward_node_blur',
-                self.observers['cross_node_observer'],
-                radius=10
-            )
+            # 'cross_node_blur': gm.RewardBlurPostProcessing(
+            #     'reward_node_blur',
+            #     self.observers['cross_node_observer'],
+            #     radius=10
+            # )
         }
         for post_processing in self.post_processings.values():
             GraphicManager.I.register_reward_observer(post_processing)
@@ -178,10 +178,10 @@ class RewardAgent:
         self.building_region_weight = 30 # -
         self.road_weight = 20 # -
         self.bound_weight = 80 # -
-        self.back_weight = 10 # -
-        self.dead_node_weight = 50 # +
+        self.back_weight = 5 # -
+        self.dead_node_weight = 70 # +
         self.cross_node_weight = 40 # -
-        self.exploration_weight = 20 # +
+        self.exploration_weight = 5 # +
 
 
         # 结束后的基础得分为1 * final_weight，附加得分为final weights * 1，得分区间统一为[0,1]，规则计数为相加

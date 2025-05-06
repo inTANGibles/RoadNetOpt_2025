@@ -808,7 +808,8 @@ class ObsBlender(PostProcessing):
         self.renderer.prog['building_texture'].value = 2
         self.renderer.prog['raw_roads_texture'].value = 3
         self.renderer.prog['new_roads_texture'].value = 4
-        self.renderer.prog['node_texture'].value = 5
+        self.renderer.prog['dead_node_texture'].value = 5
+        self.renderer.prog['cross_node_texture'].value = 6
         #一个着色器程序（obs_blender.glsl），里面定义了6个输入的纹理通道（textures）
 
 

@@ -30,16 +30,16 @@ logging.basicConfig(level=logging.INFO)
  - 以下args给定的默认数值，如果是float的话一定要写成float的形式，例如0.0，不要写成0，否则会被gui解析为int
 '''
 DEFAULT_ENV_ARGS = Namespace(
-    data_path=r'../data/VirtualEnv/BIGMAP.bin',  # 地图数据文件， bin格式。如果留空，则使用已经加载的数据
-    num_agents=71,  # 智能体数量
+    data_path=r'../data/VirtualEnv/0502.bin',  # 地图数据文件， bin格式。如果留空，则使用已经加载的数据
+    num_agents=4,  # 智能体数量
     region_min=None,  # None表示自动计算范围
     region_max=None,
     observation_img_size=(512,512),
     observation_view_size=(512.0, 512.0),
     observation_center=(256.0, 256.0),  # 摄像机视角的中心点坐标
     still_mode=False,  # 是否固定摄像机视角
-    action_step_range=(30, 90),#(20,60)
-    max_episode_step=10,  # 每个智能体最多走多少步
+    action_step_range=(50,100),#(20,60)
+    max_episode_step=3,  # 每个智能体最多走多少步
 )
 
 DEFAULT_TRAIN_ARGS = Namespace(
@@ -48,20 +48,20 @@ DEFAULT_TRAIN_ARGS = Namespace(
     path_cnn='',  # 缓存的cnn的pth文件
     path_buffer='',  # 缓存的buffer文件
     nb_actions=2,  # action的维度
-    warmup_epochs=200,  # 预热轮次
+    warmup_epochs=300,  # 预热轮次
     train_epochs=500,  # 训练轮次
-    sigma=0.800,  # 自由探索初始值
-    sigma_decay=0.9995,  # 自由探索的衰减值
+    sigma=1.000,  # 自由探索初始值
+    sigma_decay=0.9999,  # 自由探索的衰减值
     actor_lr=1e-4,  #
-    critic_lr=5e-4,  #
-    tau=0.005,  #
-    gamma=0.9,  #
+    critic_lr=5e-5,  #
+    tau=0.001,  #
+    gamma=0.97,  #
     batch_size=64,  #
     buffer_capacity=10000,  # 经验空间最大容量
     save_interval=10000,  # 保存间隔
     log_folder='',  # 保存pth的文件夹， 留空则将在logs文件夹自动生成一个当前时间的文件夹用于保存
     save_warmup_buffer=False,  # 在warmup完成后保存replay buffer
-    update_interval=10
+    # update_interval=10
 )
 
 DEFAULT_GUI_ARGS = Namespace(
@@ -349,7 +349,7 @@ def agent_play(epoch, env, mode, agent, done, state, train_args, replay_buffer, 
                out_reward_info_list: list[dict[int:dict[str:float]]]):
     out_data_list.clear()
     out_reward_info_list.clear()
-    update_interval=train_args.update_interval
+    # update_interval=train_args.update_interval
     all_critic_losses = []
     all_actor_losses = []
     while True:
@@ -360,6 +360,8 @@ def agent_play(epoch, env, mode, agent, done, state, train_args, replay_buffer, 
         # env step
         with MyTimer('env_step_time', level=3):
             next_state, reward, done, Done = env.step(action)
+            # —— 新增：保存 Done=True 时的图像 ——
+
         # add to buffer list  (out_data_buffer)
         out_data_list.append([state, action, reward, next_state, done, Done])
         reward_info: dict[int:dict[str:float]] = _shared_data['reward_info']  # agent_idx: reward_name : reward_value
@@ -369,7 +371,7 @@ def agent_play(epoch, env, mode, agent, done, state, train_args, replay_buffer, 
         # agent_update(mode, env, agent, replay_buffer, train_args)
         _shared_data['episode_step'] = env.episode_step
 
-        if mode == TrainMode.TRAIN and env.episode_step % update_interval == 0:
+        if mode == TrainMode.TRAIN:
             critic_loss, actor_loss = agent_update(env, agent, replay_buffer, train_args)
             all_critic_losses.append(critic_loss)
             all_actor_losses.append(actor_loss)
@@ -378,12 +380,13 @@ def agent_play(epoch, env, mode, agent, done, state, train_args, replay_buffer, 
         with MyTimer('yield_time', level=3):
             for i in range(_shared_data['slow_ratio']):
                 yield None
-
-    if epoch % 50 == 0:
+        # endregion
+    if epoch % 10 == 0:
+        # 1. 手动触发一次渲染更新（确保 MainTexture 是最新的）
+        GraphicManager.I.MainTexture.render_draw_list()
+        # 2. 保存当前帧图像
         graphic_texture = GraphicManager.I.MainTexture
         io_utils.save_main_texture_image(epoch, graphic_texture)
-
-        # endregion
     if all_critic_losses:
         _critic_loss_queue.append(np.mean(all_critic_losses))
         _actor_loss_queue.append(np.mean(all_actor_losses))
