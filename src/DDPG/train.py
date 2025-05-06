@@ -20,6 +20,7 @@ from DDPG.utils.my_timer import MyTimer
 from DDPG.utils.reward_utils import *
 from geo import Road, Building, Region
 from utils import io_utils
+from graphic_module import GraphicManager
 
 __version__ = 312
 logging.basicConfig(level=logging.INFO)
@@ -33,12 +34,12 @@ DEFAULT_ENV_ARGS = Namespace(
     num_agents=71,  # 智能体数量
     region_min=None,  # None表示自动计算范围
     region_max=None,
-    observation_img_size=(256, 256),
-    observation_view_size=(256.0, 256.0),
-    observation_center=(128.0, 128.0),  # 摄像机视角的中心点坐标
+    observation_img_size=(512,512),
+    observation_view_size=(512.0, 512.0),
+    observation_center=(256.0, 256.0),  # 摄像机视角的中心点坐标
     still_mode=False,  # 是否固定摄像机视角
-    action_step_range=(30, 100),#(20,60)
-    max_episode_step=15,  # 每个智能体最多走多少步
+    action_step_range=(30, 90),#(20,60)
+    max_episode_step=10,  # 每个智能体最多走多少步
 )
 
 DEFAULT_TRAIN_ARGS = Namespace(
@@ -316,6 +317,7 @@ def epoch_generator(epoch: int, mode: TrainMode, env: RoadEnv, agent: Agent, tra
         _return_queue.append(calculate_episode_return(buffer_list))  # 将这一轮的reward和添加到return_list
         _mean_return_arr[epoch] = sum(_return_queue) / len(_return_queue)
         n = epoch + 1
+
         if n < 100:
             _shared_data['mean_return_list'] = _mean_return_arr[:n]
             _shared_data['mean_critic_loss'] = _mean_critic_loss_arr[:n]
@@ -338,6 +340,8 @@ def epoch_generator(epoch: int, mode: TrainMode, env: RoadEnv, agent: Agent, tra
     with MyTimer('yield_time', level=2):
         for i in range(_shared_data['slow_ratio']):
             yield None
+
+
     # endregion
 
 
@@ -374,6 +378,10 @@ def agent_play(epoch, env, mode, agent, done, state, train_args, replay_buffer, 
         with MyTimer('yield_time', level=3):
             for i in range(_shared_data['slow_ratio']):
                 yield None
+
+    if epoch % 50 == 0:
+        graphic_texture = GraphicManager.I.MainTexture
+        io_utils.save_main_texture_image(epoch, graphic_texture)
 
         # endregion
     if all_critic_losses:

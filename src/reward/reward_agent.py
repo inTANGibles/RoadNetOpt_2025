@@ -508,7 +508,7 @@ class RewardAgent:
             # reward = np.prod(list(final_reward_dict.values()))
             result[i] = reward
             i += 1
-        print("get_final_reward:",result)
+        # print("get_final_reward:",result)
         return result # 这返回的应该是一个列表把..
 
 

@@ -2,8 +2,9 @@ import math
 import os.path
 import pickle
 import ezdxf
-import numpy as np
 import shapely
+from PIL import Image
+import numpy as np
 
 from geo import Road, Building, Region
 from utils import INFO_VERSION
@@ -202,6 +203,22 @@ def save_file_window(**kwargs):
     print(file_path.name)
     return file_path.name
 
+def save_texture_image(graphic_texture, save_path):
+    buffer = graphic_texture.texture.read()
+    img_arr = np.frombuffer(buffer, dtype=np.uint8).reshape(
+        (graphic_texture.height, graphic_texture.width, graphic_texture.channel))
+    image = Image.fromarray(img_arr)
+    image.save(save_path)
+
+def save_main_texture_image(epoch: int, graphic_texture, save_dir='logs/frames'):
+    """保存 MainTexture 的图像帧到本地"""
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+    buffer = graphic_texture.texture.read()
+    img_arr = np.frombuffer(buffer, dtype=np.uint8).reshape(
+        (graphic_texture.height, graphic_texture.width, graphic_texture.channel))
+    image = Image.fromarray(img_arr)
+    image.save(os.path.join(save_dir, f'frame_epoch_{epoch:04d}.png'))
 
 if __name__ == "__main__":
     dxf_path = "../../data/和县/excluded/现状条件.dxf"

@@ -69,15 +69,16 @@ class Agent:
         # —— 数据准备 ——
         S = torch.tensor(transition['states'], dtype=torch.float32, device=self.device) / 255.0  # (B, C, H, W)
         A = torch.tensor(transition['actions'], dtype=torch.float32, device=self.device)  # (B, act_dim)
-        R = torch.tensor(transition['rewards'], dtype=torch.float32, device=self.device).unsqueeze(1)  # (B, 1)
+        R = torch.tensor(transition['rewards'], dtype=torch.float32, device=self.device)  # (B, 1)
         S2 = torch.tensor(transition['next_states'], dtype=torch.float32, device=self.device) / 255.0  # (B, C, H, W)
-        D = torch.tensor(transition['dones'], dtype=torch.float32, device=self.device).unsqueeze(1)  # (B, 1)
+        D = torch.tensor(transition['dones'], dtype=torch.float32, device=self.device)  # (B, 1)
 
         # —— Critic 更新 ——
         with torch.no_grad():
             a_next = self.target_actor(S2)  # (B, act_dim)
             q_next = self.target_critic(S2, a_next)  # (B, 1)
             q_target = R + self.gamma * q_next * (1 - D)
+            # print("R", R.shape, "q_next", q_next.shape, "D", D.shape, "q_target", q_target.shape)
 
         q_val = self.critic(S, A)  # (B, 1)
         critic_loss = F.mse_loss(q_val, q_target)

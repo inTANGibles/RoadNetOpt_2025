@@ -3,7 +3,7 @@ import torch
 import numpy as np
 
 class PolicyNet(nn.Module):
-    def __init__(self, nb_actions, action_space_bound, action_space_boundMove, CNN,input_shape=(4, 256, 256)):
+    def __init__(self, nb_actions, action_space_bound, action_space_boundMove, CNN,input_shape=(4, 512,512)):
         super(PolicyNet, self).__init__()
         self.CNN = CNN
         self.action_space_bound = action_space_bound
@@ -39,7 +39,7 @@ def compute_cnn_output_dim(cnn_module, input_shape):
         out = cnn_module(dummy_input)
         return int(np.prod(out.size()))
 class CriticNet(nn.Module):
-    def __init__(self, nb_actions, CNN, input_shape=(4, 256, 256)):
+    def __init__(self, nb_actions, CNN, input_shape=(4, 512,512)):
         super(CriticNet, self).__init__()
         self.CNN = CNN
 
